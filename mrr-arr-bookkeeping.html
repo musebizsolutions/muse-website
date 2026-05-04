@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRR vs. ARR: What Your Bookkeeper Needs to Track | Muse Bookkeeping</title>
+<meta name="description" content="Monthly and annual recurring revenue are not just sales metrics. They drive how your books are structured, how deferred revenue is handled, and what your lender actually sees.">
+<meta name="keywords" content="MSP MRR bookkeeping, ARR accounting, recurring revenue IT business, deferred revenue MSP, managed service provider finance">
+<meta name="author" content="Megan Muse, Muse Bookkeeping">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a0a0f;--deep:#12101a;--surface:#1a1726;--raised:#221f30;--border:#3a3550;--text:#e8e4f0;--muted:#a8b0b8;--faint:#6b7280;--gold:#8b9aa3;--gold-light:#c4cdd6;--canary:#d4c97a;--canary-light:#ddd4a0;--purple-mid:#9d8ec7;--purple-dim:#4a3f6b;--purple-deep:#2a2245;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  nav{position:sticky;top:0;z-index:200;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.97);backdrop-filter:blur(8px);border-bottom:0.5px solid rgba(168,176,184,0.15)}
+  .logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:600;letter-spacing:0.15em;color:var(--gold)}
+  .logo span{color:var(--muted);font-weight:400;font-size:0.8rem;display:block;letter-spacing:0.25em;text-transform:uppercase;margin-top:2px}
+  .nav-back{font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.5rem;transition:color 0.2s}
+  .nav-back:hover{color:var(--canary)}
+  .nav-cta{background:transparent;border:0.5px solid var(--canary);color:var(--canary);padding:0.5rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.12em;text-transform:uppercase;transition:all 0.2s}
+  .nav-cta:hover{background:var(--canary);color:var(--ink)}
+  .article-hero{background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:6rem 2rem 4rem;border-bottom:0.5px solid var(--border)}
+  .article-hero .container,.article-body .container{max-width:800px;margin:0 auto}
+  .article-category{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);display:block;margin-bottom:1.25rem}
+  .article-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1.5rem}
+  .article-hero h1 em{font-style:italic;color:var(--purple-mid)}
+  .article-meta{display:flex;gap:2rem;font-size:0.82rem;color:var(--faint);letter-spacing:0.1em;flex-wrap:wrap}
+  .article-body{padding:5rem 2rem}
+  .article-body p{color:var(--muted);font-size:1.02rem;line-height:1.95;margin-bottom:1.75rem}
+  .article-body h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;color:var(--text);margin:3rem 0 1.25rem;line-height:1.3}
+  .article-body h3{font-family:'Jost',sans-serif;font-size:1rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--canary);margin:2.5rem 0 0.75rem}
+  .article-body ul{margin:0 0 1.75rem;padding:0;list-style:none}
+  .article-body ul li{color:var(--muted);font-size:1.02rem;line-height:1.8;padding:0.35rem 0 0.35rem 1.5rem;position:relative}
+  .article-body ul li::before{content:'';position:absolute;left:0;top:0.85rem;width:5px;height:5px;border:0.5px solid var(--purple-mid);transform:rotate(45deg)}
+  .article-body strong{color:var(--text);font-weight:500}
+  .article-body .divider{width:40px;height:0.5px;background:var(--gold);margin:3rem 0;opacity:0.5}
+  .callout{background:var(--surface);border:0.5px solid var(--border);border-left:2px solid var(--canary);padding:1.75rem 2rem;margin:2.5rem 0}
+  .callout p{margin-bottom:0}
+  .callout strong{color:var(--canary)}
+  .cta-block{background:var(--raised);border:0.5px solid var(--border);padding:3rem 2.5rem;margin:4rem 0 0;text-align:center}
+  .cta-block h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;margin-bottom:0.75rem}
+  .cta-block p{color:var(--muted);margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto}
+  .btn-primary{background:var(--canary);color:var(--ink);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;transition:all 0.2s;text-decoration:none;display:inline-block}
+  .btn-primary:hover{background:var(--canary-light)}
+  .related{background:var(--deep);padding:5rem 2rem;border-top:0.5px solid var(--border)}
+  .related .container{max-width:1100px;margin:0 auto}
+  .related h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--gold);margin-bottom:2rem}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+  .related-card{background:var(--surface);border:0.5px solid var(--border);padding:1.5rem;transition:all 0.3s;display:block}
+  .related-card:hover{border-color:var(--purple-dim);transform:translateY(-2px)}
+  .related-card .cat{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);margin-bottom:0.5rem;display:block}
+  .related-card h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;line-height:1.35;color:var(--text)}
+  footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 2rem;text-align:center}
+  footer .footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:1.5rem}
+  footer p{font-size:0.82rem;color:var(--faint);letter-spacing:0.08em}
+</style>
+<script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69e10e7c5eefd70021ef2c70"})},document.head.appendChild(o)}initApollo();</script>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Muse Bookkeeping <span>Muse Biz Solutions</span></a>
+  <a class="nav-back" href="index.html#resources">&#8592; Back to Resources</a>
+  <a class="nav-cta" href="index.html#contact">Work With Me</a>
+</nav>
+
+<header class="article-hero">
+  <div class="container">
+    <span class="article-category">Revenue Tracking</span>
+    <h1>MRR vs. ARR: What Your Bookkeeper <em>Needs to Track</em></h1>
+    <div class="article-meta">
+      <span>By Megan Muse</span>
+      <span>Muse Bookkeeping</span>
+      <span>7 min read</span>
+    </div>
+  </div>
+</header>
+
+<article class="article-body">
+  <div class="container">
+
+    <p>If you run a managed service business, you already know what MRR and ARR are. Your sales team tracks them. Your PSA probably calculates them. But there is a gap between what your sales tools report and what your accounting books actually reflect, and that gap causes real problems when you go to get a loan, bring on a partner, or try to understand your own profitability.</p>
+
+    <p>Your bookkeeper is not just a data entry person. If they are good, they understand how recurring revenue flows through your books and they set it up correctly. If they do not have MSP experience, they might be recording your MRR in a way that overstates revenue, understates liabilities, or makes your financials look different depending on which month you look at them.</p>
+
+    <div class="divider"></div>
+
+    <h2>The Basics: What MRR and ARR Actually Are</h2>
+
+    <p>Monthly Recurring Revenue is the predictable, normalized monthly revenue from all active contracts. If a client pays $3,000 per month for a managed services agreement, that is $3,000 of MRR. Annual Recurring Revenue is simply MRR multiplied by 12. It is used to express the annualized value of your recurring contracts and is the number most investors and acquirers care about.</p>
+
+    <p>The catch is that neither of those numbers is the same as what you invoice or what hits your bank account in a given month. And that difference is exactly where bookkeeping gets complicated for MSPs.</p>
+
+    <h3>Three billing scenarios and what they mean for your books</h3>
+
+    <ul>
+      <li><strong>Monthly billing in arrears:</strong> Client pays at the end of each month for services already delivered. Revenue is earned and recognized as invoiced. Clean and simple.</li>
+      <li><strong>Monthly billing in advance:</strong> Client pays on the first for the upcoming month. The payment is received before the service is delivered, which means it is technically a liability, not income, until the month is complete.</li>
+      <li><strong>Annual contracts paid upfront:</strong> Client pays $36,000 on January 1 for the full year. Only $3,000 of that is earned revenue in January. The other $33,000 sits in deferred revenue until earned month by month.</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>The deferred revenue problem:</strong> If your bookkeeper records a $36,000 annual payment as income in the month it hits your bank account, your January looks wildly profitable and the rest of the year looks like you lost clients. Your P&amp;L is meaningless. This is one of the most common MSP bookkeeping errors we see when cleaning up books.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>How Deferred Revenue Works in QuickBooks</h2>
+
+    <p>When a client pays annually in advance, the correct accounting treatment is to record the payment to a deferred revenue liability account, not directly to income. Each month, you recognize one-twelfth of that payment as earned revenue and reduce the liability accordingly.</p>
+
+    <p>In QuickBooks Online this requires a combination of invoicing, journal entries, and account mapping that most generic bookkeepers are not set up to handle correctly. If you have annual contracts and your bookkeeper does not know what deferred revenue is, you have a problem worth fixing right now before your next tax year closes.</p>
+
+    <h3>Why this matters beyond tax time</h3>
+
+    <ul>
+      <li>Lenders looking at your financials for a line of credit need to see normalized monthly revenue, not lumpy annual payments</li>
+      <li>If you are preparing for a sale or acquisition, buyers value businesses on ARR multiples and require accurate deferred revenue schedules</li>
+      <li>Your own cash flow planning is distorted if you treat annual payments as monthly income</li>
+      <li>Overstated revenue in one month means understated revenue in others, making trend analysis useless</li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <h2>Tracking MRR Movement in Your Books</h2>
+
+    <p>Beyond the recording mechanics, a good MSP bookkeeper helps you track MRR movement over time. The four components that change your MRR month to month are new MRR from new clients, expansion MRR when existing clients upgrade, contraction MRR when clients downgrade, and churned MRR when clients cancel.</p>
+
+    <p>Your PSA tool likely has a dashboard for this. But those numbers should reconcile to your books. If your PSA shows $42,000 in MRR but your books show $38,000 in recurring services revenue for the month, there is a gap to investigate. It might be timing, it might be a contract that was not invoiced, or it might be an error. Either way, you want to catch it monthly, not at year end.</p>
+
+    <div class="callout">
+      <p><strong>The reconciliation habit:</strong> Every month your bookkeeper should be able to produce a schedule showing starting MRR, changes during the month, and ending MRR, tied directly back to your general ledger. If that schedule does not exist, you are flying without instruments.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>What Your Lender Actually Sees</h2>
+
+    <p>When you apply for a business line of credit or an SBA loan, the bank is going to look at your last two to three years of financial statements. If your revenue is lumpy because annual payments are being recorded wrong, you look like a risky business even if your client base is rock solid and growing.</p>
+
+    <p>A properly structured set of books with normalized MRR, correctly classified deferred revenue, and clean month-over-month revenue trends tells a completely different story. It shows a predictable, contract-based business with reliable cash flow. That is the story that gets loans approved at better rates.</p>
+
+    <div class="cta-block">
+      <h3>Is Your MRR Being Recorded Correctly?</h3>
+      <p>If you have annual contracts, prepaid agreements, or mixed billing schedules, let us take a look at how your revenue is flowing through your books. A one-hour cleanup assessment can tell you a lot.</p>
+      <a class="btn-primary" href="index.html#contact">Get a Free Assessment</a>
+    </div>
+
+  </div>
+</article>
+
+<section class="related">
+  <div class="container">
+    <h2>Keep Reading</h2>
+    <div class="related-grid">
+      <a class="related-card" href="msp-chart-of-accounts.html">
+        <span class="cat">Accounting Setup</span>
+        <h4>Why MSPs Need a Separate Chart of Accounts</h4>
+      </a>
+      <a class="related-card" href="read-msp-profit-loss.html">
+        <span class="cat">Financial Literacy</span>
+        <h4>How to Read Your MSP Profit and Loss Like a Service Leadership Pro</h4>
+      </a>
+      <a class="related-card" href="cash-vs-accrual-it-business.html">
+        <span class="cat">Accounting Basics</span>
+        <h4>Cash vs. Accrual Accounting: Which Is Right for Your IT Business?</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT FORM FOOTER -->
+<section style="background:var(--ink);padding:5rem 2rem;border-top:0.5px solid var(--border)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start">
+      <div>
+        <span class="section-label">Get In Touch</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;line-height:1.3;margin-bottom:1.25rem">We respond <em>the same day.</em></h2>
+        <p style="color:var(--muted);line-height:1.9;margin-bottom:2rem">Free consultation. No obligation. Whether your books are current or years behind, tell us what is going on and we will tell you what we can do.</p>
+        <div style="margin-bottom:1rem">
+          <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint)">Email</div>
+          <div style="color:var(--text);margin-top:0.2rem">megan@musebizsolutions.com</div>
+        </div>
+        <div style="margin-bottom:1rem">
+          <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint)">Service Area</div>
+          <div style="color:var(--text);margin-top:0.2rem">Nationwide, 100% remote</div>
+        </div>
+        <div style="background:var(--surface);border:0.5px solid var(--border);border-left:2px solid var(--canary);padding:1.25rem;margin-top:2rem">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--text);line-height:1.7">No question is too basic. No mess is too big. We have seen it all.</p>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem">
+        <form action="https://formspree.io/f/meepwawk" method="POST" class="page-contact-form">
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Full Name</label><input type="text" name="name" placeholder="Your name" required style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Email Address</label><input type="email" name="email" placeholder="your@email.com" required style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Business Name</label><input type="text" name="business" placeholder="Your business" style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">What Do You Need?</label><select name="service" style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;cursor:pointer;-webkit-appearance:none"><option value="">Select a service</option><option>Monthly Bookkeeping</option><option>Payroll Services</option><option>Catch-Up / Cleanup</option><option>CPA Tax Services</option><option>Audit / Compilation</option><option>Not sure yet</option></select></div>
+          <div style="margin-bottom:1.5rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Tell Me About Your Books</label><textarea name="message" rows="4" placeholder="Current software, how far behind you are, what is driving you crazy. Whatever is relevant." style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;resize:vertical;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></textarea></div>
+          <button type="submit" style="width:100%;background:var(--canary);color:var(--ink);border:none;padding:1rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='var(--canary-light)'" onmouseout="this.style.background='var(--canary)'">Send Message</button>
+        </form>
+        <div class="page-contact-success" style="display:none;text-align:center;padding:2rem">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold)">Message received.</p>
+          <p style="color:var(--muted);margin-top:0.5rem">We will be in touch the same business day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var forms=document.querySelectorAll('.page-contact-form');
+  forms.forEach(function(form){
+    form.addEventListener('submit',async function(e){
+      e.preventDefault();
+      var data=new FormData(this);
+      var res=await fetch(this.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
+      if(res.ok){
+        this.style.display='none';
+        this.nextElementSibling.style.display='block';
+      }
+    });
+  });
+})();
+</script>
+
+<footer>
+  <div class="footer-logo">Muse Bookkeeping</div>
+  <p>&copy; 2026 Muse Bookkeeping &amp; Muse Biz Solutions. All rights reserved.</p>
+  <p style="margin-top:0.5rem">Remote bookkeeping services for MSPs and IT businesses, nationwide.</p>
+</footer>
+
+</body>
+</html>

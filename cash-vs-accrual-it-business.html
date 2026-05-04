@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cash vs. Accrual Accounting: Which Is Right for Your IT Business? | Muse Bookkeeping</title>
+<meta name="description" content="Most small MSPs start on cash basis accounting. But as you scale past $750K in revenue, the IRS and your lender may require a switch. Here is what to expect and when to make the move.">
+<meta name="keywords" content="cash vs accrual accounting MSP, IT business accounting method, accrual accounting managed service provider, QuickBooks cash accrual switch">
+<meta name="author" content="Megan Muse, Muse Bookkeeping">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a0a0f;--deep:#12101a;--surface:#1a1726;--raised:#221f30;--border:#3a3550;--text:#e8e4f0;--muted:#a8b0b8;--faint:#6b7280;--gold:#8b9aa3;--canary:#d4c97a;--canary-light:#ddd4a0;--purple-mid:#9d8ec7;--purple-dim:#4a3f6b;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  nav{position:sticky;top:0;z-index:200;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.97);backdrop-filter:blur(8px);border-bottom:0.5px solid rgba(168,176,184,0.15)}
+  .logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:600;letter-spacing:0.15em;color:var(--gold)}
+  .logo span{color:var(--muted);font-weight:400;font-size:0.8rem;display:block;letter-spacing:0.25em;text-transform:uppercase;margin-top:2px}
+  .nav-back{font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);transition:color 0.2s}
+  .nav-back:hover{color:var(--canary)}
+  .nav-cta{background:transparent;border:0.5px solid var(--canary);color:var(--canary);padding:0.5rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.12em;text-transform:uppercase;transition:all 0.2s}
+  .nav-cta:hover{background:var(--canary);color:var(--ink)}
+  .article-hero{background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:6rem 2rem 4rem;border-bottom:0.5px solid var(--border)}
+  .article-hero .container,.article-body .container{max-width:800px;margin:0 auto}
+  .article-category{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);display:block;margin-bottom:1.25rem}
+  .article-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1.5rem}
+  .article-hero h1 em{font-style:italic;color:var(--purple-mid)}
+  .article-meta{display:flex;gap:2rem;font-size:0.82rem;color:var(--faint);flex-wrap:wrap}
+  .article-body{padding:5rem 2rem}
+  .article-body p{color:var(--muted);font-size:1.02rem;line-height:1.95;margin-bottom:1.75rem}
+  .article-body h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;color:var(--text);margin:3rem 0 1.25rem;line-height:1.3}
+  .article-body h3{font-family:'Jost',sans-serif;font-size:1rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--canary);margin:2.5rem 0 0.75rem}
+  .article-body ul{margin:0 0 1.75rem;padding:0;list-style:none}
+  .article-body ul li{color:var(--muted);font-size:1.02rem;line-height:1.8;padding:0.35rem 0 0.35rem 1.5rem;position:relative}
+  .article-body ul li::before{content:'';position:absolute;left:0;top:0.85rem;width:5px;height:5px;border:0.5px solid var(--purple-mid);transform:rotate(45deg)}
+  .article-body strong{color:var(--text);font-weight:500}
+  .article-body .divider{width:40px;height:0.5px;background:var(--gold);margin:3rem 0;opacity:0.5}
+  .callout{background:var(--surface);border:0.5px solid var(--border);border-left:2px solid var(--canary);padding:1.75rem 2rem;margin:2.5rem 0}
+  .callout p{margin-bottom:0}
+  .callout strong{color:var(--canary)}
+  .compare-table{width:100%;border-collapse:collapse;margin:2rem 0}
+  .compare-table th{background:var(--raised);color:var(--canary);font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;padding:1rem 1.25rem;text-align:left;font-weight:500;border-bottom:0.5px solid var(--border)}
+  .compare-table td{padding:0.85rem 1.25rem;font-size:0.9rem;color:var(--muted);border-bottom:0.5px solid var(--border);vertical-align:top;line-height:1.7}
+  .compare-table tr:last-child td{border-bottom:none}
+  .compare-table td:first-child{color:var(--text);font-weight:400}
+  .cta-block{background:var(--raised);border:0.5px solid var(--border);padding:3rem 2.5rem;margin:4rem 0 0;text-align:center}
+  .cta-block h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;margin-bottom:0.75rem}
+  .cta-block p{color:var(--muted);margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto}
+  .btn-primary{background:var(--canary);color:var(--ink);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;transition:all 0.2s;text-decoration:none;display:inline-block}
+  .btn-primary:hover{background:var(--canary-light)}
+  .related{background:var(--deep);padding:5rem 2rem;border-top:0.5px solid var(--border)}
+  .related .container{max-width:1100px;margin:0 auto}
+  .related h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--gold);margin-bottom:2rem}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+  .related-card{background:var(--surface);border:0.5px solid var(--border);padding:1.5rem;transition:all 0.3s;display:block}
+  .related-card:hover{border-color:var(--purple-dim);transform:translateY(-2px)}
+  .related-card .cat{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);margin-bottom:0.5rem;display:block}
+  .related-card h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;line-height:1.35;color:var(--text)}
+  footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 2rem;text-align:center}
+  footer .footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:1.5rem}
+  footer p{font-size:0.82rem;color:var(--faint)}
+</style>
+<script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69e10e7c5eefd70021ef2c70"})},document.head.appendChild(o)}initApollo();</script>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Muse Bookkeeping <span>Muse Biz Solutions</span></a>
+  <a class="nav-back" href="index.html#resources">&#8592; Back to Resources</a>
+  <a class="nav-cta" href="index.html#contact">Work With Me</a>
+</nav>
+
+<header class="article-hero">
+  <div class="container">
+    <span class="article-category">Accounting Basics</span>
+    <h1>Cash vs. Accrual Accounting: Which Is Right <em>for Your IT Business?</em></h1>
+    <div class="article-meta">
+      <span>By Megan Muse</span>
+      <span>Muse Bookkeeping</span>
+      <span>8 min read</span>
+    </div>
+  </div>
+</header>
+
+<article class="article-body">
+  <div class="container">
+
+    <p>When you set up QuickBooks for your IT business, one of the first choices it asks you to make is whether you want to use cash or accrual accounting. Most people click cash because it sounds simpler and move on. For a solo tech or a brand new MSP, that is usually fine. But as your business grows, the choice of accounting method has real consequences for your taxes, your financial reporting, and your relationship with lenders.</p>
+
+    <p>This is not a complicated topic once you understand what each method actually does. Let me walk you through it the way I would explain it to a new MSP client.</p>
+
+    <div class="divider"></div>
+
+    <h2>The Core Difference</h2>
+
+    <p>Cash basis accounting records income when you receive payment and records expenses when you pay them. It follows your bank account. If a client pays their managed services invoice on the 3rd of the month, that revenue shows up on the 3rd. If you pay your PSA vendor on the 15th, that expense shows up on the 15th. Simple.</p>
+
+    <p>Accrual basis accounting records income when it is earned and expenses when they are incurred, regardless of when cash changes hands. If you do a network migration in March but the client pays in April, the revenue belongs in March on an accrual basis. If you receive an annual software license bill in December that covers the next year, the expense gets spread across the months it covers.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Cash Basis</th>
+          <th>Accrual Basis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Complexity</td>
+          <td>Simple, follows bank activity</td>
+          <td>More complex, requires adjusting entries</td>
+        </tr>
+        <tr>
+          <td>Accuracy</td>
+          <td>Can be misleading with timing differences</td>
+          <td>More accurately reflects business performance</td>
+        </tr>
+        <tr>
+          <td>Lender requirement</td>
+          <td>Often accepted under $750K revenue</td>
+          <td>Usually required for SBA loans and larger credit lines</td>
+        </tr>
+        <tr>
+          <td>IRS requirement</td>
+          <td>Allowed if average gross receipts under $30M</td>
+          <td>Required for C-corps and some inventory businesses</td>
+        </tr>
+        <tr>
+          <td>Deferred revenue</td>
+          <td>Not tracked separately</td>
+          <td>Properly recorded as a liability until earned</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>Small MSPs under $750K, solo operators</td>
+          <td>Growing MSPs, those seeking financing or preparing for sale</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="divider"></div>
+
+    <h2>Why Cash Basis Can Mislead You</h2>
+
+    <p>Cash basis looks simple, and it is. But simple is not always accurate. Here is a scenario that plays out regularly at growing MSPs.</p>
+
+    <p>You land a large client in November and do a substantial onboarding project. You invoice $15,000 and collect $7,500 upfront, with the remainder due in January. On a cash basis, your November P&amp;L shows $7,500 in revenue from that project. January shows $7,500. Your November looks weirdly profitable and January looks flat even though the work happened in November.</p>
+
+    <p>Now add three or four annual contracts that clients pay in January. Suddenly January looks like your best month every year, not because the business is better in January, but because that is when the checks arrive. You are making decisions based on timing, not business performance.</p>
+
+    <div class="callout">
+      <p><strong>The scenario that surprises MSP owners:</strong> On cash basis, a month where you do a lot of project work but collect from the previous month's invoices can show almost no revenue. A month where you do almost nothing but collect a pile of outstanding invoices looks great. Your P&amp;L is telling you about your billing cycle, not your business.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>When Accrual Becomes Necessary</h2>
+
+    <p>There are a few common triggers that push MSPs toward accrual accounting.</p>
+
+    <h3>Seeking financing</h3>
+    <p>Most banks and SBA lenders want to see accrual-basis financial statements or will convert your cash basis statements themselves and make their decision on the converted numbers. If the conversion reveals timing distortions in your revenue, it can affect your loan terms. You are better off presenting accrual statements from the start.</p>
+
+    <h3>Preparing for a sale or acquisition</h3>
+    <p>Buyers of MSPs care deeply about ARR and they want to see it reflected accurately in your books. Accrual accounting, combined with proper deferred revenue tracking, gives acquirers the most reliable picture of your business value.</p>
+
+    <h3>Growing past $750K in annual revenue</h3>
+    <p>This is a soft trigger rather than a legal requirement for most service businesses, but it is around this revenue level that the timing distortions in cash basis reporting become significant enough to affect real decisions. It is also the point where lenders start asking for more rigorous financials.</p>
+
+    <div class="divider"></div>
+
+    <h2>How to Make the Switch</h2>
+
+    <p>Switching from cash to accrual is a bookkeeping project, not just a settings toggle. QuickBooks Online can generate reports in either basis from the same data, but that is not the same as maintaining your books on a true accrual basis. A genuine conversion requires you to:</p>
+
+    <ul>
+      <li>Set up accounts receivable and accounts payable properly if they were not being tracked</li>
+      <li>Establish a deferred revenue liability account and backfill it for any prepaid or annual contracts</li>
+      <li>Record accrued expenses for bills incurred but not yet paid at period end</li>
+      <li>File IRS Form 3115 to formally change your accounting method for tax purposes</li>
+      <li>Work with your CPA to handle the section 481(a) adjustment that comes with the change</li>
+    </ul>
+
+    <p>This is not something to do mid-year casually. Ideally it happens at the start of a new fiscal year with your CPA involved from the beginning. But if your books need it, waiting another year costs you the clarity you could have now.</p>
+
+    <div class="cta-block">
+      <h3>Not Sure Which Method You Are On?</h3>
+      <p>A lot of MSPs think they are on one method and are actually somewhere in between. We can review your current setup and tell you exactly where you stand and what a clean transition would look like.</p>
+      <a class="btn-primary" href="index.html#contact">Get a Free Assessment</a>
+    </div>
+
+  </div>
+</article>
+
+<section class="related">
+  <div class="container">
+    <h2>Keep Reading</h2>
+    <div class="related-grid">
+      <a class="related-card" href="mrr-arr-bookkeeping.html">
+        <span class="cat">Revenue Tracking</span>
+        <h4>MRR vs. ARR: What Your Bookkeeper Needs to Track</h4>
+      </a>
+      <a class="related-card" href="msp-chart-of-accounts.html">
+        <span class="cat">Accounting Setup</span>
+        <h4>Why MSPs Need a Separate Chart of Accounts</h4>
+      </a>
+      <a class="related-card" href="read-msp-profit-loss.html">
+        <span class="cat">Financial Literacy</span>
+        <h4>How to Read Your MSP Profit and Loss Like a Service Leadership Pro</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT FORM FOOTER -->
+<section style="background:var(--ink);padding:5rem 2rem;border-top:0.5px solid var(--border)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start">
+      <div>
+        <span class="section-label">Get In Touch</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;line-height:1.3;margin-bottom:1.25rem">We respond <em>the same day.</em></h2>
+        <p style="color:var(--muted);line-height:1.9;margin-bottom:2rem">Free consultation. No obligation. Whether your books are current or years behind, tell us what is going on and we will tell you what we can do.</p>
+        <div style="margin-bottom:1rem">
+          <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint)">Email</div>
+          <div style="color:var(--text);margin-top:0.2rem">megan@musebizsolutions.com</div>
+        </div>
+        <div style="margin-bottom:1rem">
+          <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint)">Service Area</div>
+          <div style="color:var(--text);margin-top:0.2rem">Nationwide, 100% remote</div>
+        </div>
+        <div style="background:var(--surface);border:0.5px solid var(--border);border-left:2px solid var(--canary);padding:1.25rem;margin-top:2rem">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--text);line-height:1.7">No question is too basic. No mess is too big. We have seen it all.</p>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem">
+        <form action="https://formspree.io/f/meepwawk" method="POST" class="page-contact-form">
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Full Name</label><input type="text" name="name" placeholder="Your name" required style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Email Address</label><input type="email" name="email" placeholder="your@email.com" required style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Business Name</label><input type="text" name="business" placeholder="Your business" style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
+          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">What Do You Need?</label><select name="service" style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;cursor:pointer;-webkit-appearance:none"><option value="">Select a service</option><option>Monthly Bookkeeping</option><option>Payroll Services</option><option>Catch-Up / Cleanup</option><option>CPA Tax Services</option><option>Audit / Compilation</option><option>Not sure yet</option></select></div>
+          <div style="margin-bottom:1.5rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Tell Me About Your Books</label><textarea name="message" rows="4" placeholder="Current software, how far behind you are, what is driving you crazy. Whatever is relevant." style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;resize:vertical;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></textarea></div>
+          <button type="submit" style="width:100%;background:var(--canary);color:var(--ink);border:none;padding:1rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='var(--canary-light)'" onmouseout="this.style.background='var(--canary)'">Send Message</button>
+        </form>
+        <div class="page-contact-success" style="display:none;text-align:center;padding:2rem">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold)">Message received.</p>
+          <p style="color:var(--muted);margin-top:0.5rem">We will be in touch the same business day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var forms=document.querySelectorAll('.page-contact-form');
+  forms.forEach(function(form){
+    form.addEventListener('submit',async function(e){
+      e.preventDefault();
+      var data=new FormData(this);
+      var res=await fetch(this.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
+      if(res.ok){
+        this.style.display='none';
+        this.nextElementSibling.style.display='block';
+      }
+    });
+  });
+})();
+</script>
+
+<footer>
+  <div class="footer-logo">Muse Bookkeeping</div>
+  <p>&copy; 2026 Muse Bookkeeping &amp; Muse Biz Solutions. All rights reserved.</p>
+  <p style="margin-top:0.5rem">Remote bookkeeping services for MSPs and IT businesses, nationwide.</p>
+</footer>
+
+</body>
+</html>

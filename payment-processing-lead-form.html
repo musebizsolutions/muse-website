@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Processing Rate Comparison — Muse Bookkeeping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap"></noscript>
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --surface: #111118;
+    --raised: #16161f;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(212,201,122,0.35);
+    --text: #e8e4d8;
+    --muted: #a8b0b8;
+    --faint: #5a6070;
+    --gold: #d4c97a;
+    --canary: #e8d84a;
+    --purple-mid: #7c4dff;
+    --purple-dim: rgba(124,77,255,0.25);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .logo-mark {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .logo-sep {
+    width: 1px;
+    height: 1.4rem;
+    background: var(--border);
+  }
+  .logo-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ── HERO BAND ── */
+  .form-hero {
+    background: linear-gradient(135deg, #0d0d16 0%, #0f0f1a 50%, #0a0a12 100%);
+    border-bottom: 0.5px solid var(--border);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(124,77,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .form-hero::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--purple-mid);
+    margin-bottom: 1.25rem;
+  }
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--canary);
+  }
+  .hero-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 0;
+    line-height: 1.9;
+  }
+  .hero-rule {
+    width: 40px;
+    height: 0.5px;
+    background: var(--gold);
+    margin: 1.5rem auto;
+  }
+
+  /* ── FORM WRAPPER ── */
+  .form-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .form-section-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2.75rem 0 1.5rem;
+  }
+  .form-section-head:first-of-type {
+    margin-top: 0;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--purple-mid);
+    opacity: 0.6;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .section-label-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .section-rule {
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* ── FORM FIELDS ── */
+  .field-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  .field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .field-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  label .req {
+    color: var(--canary);
+    margin-left: 0.2rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  select,
+  textarea {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 0.75rem 1rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  input::placeholder, textarea::placeholder { color: var(--faint); }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--gold);
+    background: var(--raised);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a6070'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  select option { background: #111118; }
+
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.7;
+  }
+
+  /* ── CHECKBOX GROUPS ── */
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 1rem;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.35rem 0.75rem;
+    border: 0.5px solid var(--border);
+    transition: border-color 0.18s, background 0.18s;
+    user-select: none;
+  }
+  .checkbox-item:hover {
+    border-color: var(--border-hover);
+    background: var(--raised);
+  }
+  .checkbox-item input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    padding: 0;
+    border: 0.5px solid var(--faint);
+    background: transparent;
+    cursor: pointer;
+    accent-color: var(--purple-mid);
+    transition: none;
+  }
+  .checkbox-item span {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .checkbox-item:has(input:checked) {
+    border-color: var(--purple-mid);
+    background: var(--purple-dim);
+  }
+  .checkbox-item:has(input:checked) span {
+    color: var(--text);
+  }
+
+  /* ── FILE DROP ZONE ── */
+  .drop-zone {
+    border: 0.5px dashed var(--faint);
+    background: var(--surface);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .drop-zone:hover,
+  .drop-zone.drag-over {
+    border-color: var(--gold);
+    background: var(--raised);
+  }
+  .drop-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+  .drop-icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 1rem;
+    opacity: 0.4;
+  }
+  .drop-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .drop-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .drop-file-name {
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--canary);
+    min-height: 1.2em;
+  }
+
+  /* ── SUBMIT ── */
+  .submit-wrap {
+    margin-top: 2.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .btn-submit {
+    background: var(--canary);
+    color: var(--ink);
+    border: none;
+    padding: 1rem 3rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    min-width: 280px;
+  }
+  .btn-submit:hover {
+    background: var(--gold);
+    transform: translateY(-1px);
+  }
+  .btn-submit:active { transform: translateY(0); }
+  .submit-note {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-align: center;
+  }
+
+  /* ── DIVIDER ── */
+  .field-divider {
+    height: 0.5px;
+    background: var(--border);
+    margin: 0.5rem 0;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  .success-msg .checkmark {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .success-msg h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+  .success-msg p {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* ── FOOTER ── */
+  .form-footer {
+    border-top: 0.5px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    .page-header { padding: 1rem 1.25rem; }
+    .form-hero { padding: 3rem 1.25rem 2.25rem; }
+    .form-wrap { padding: 2rem 1.25rem 4rem; }
+    .field-grid.cols-2,
+    .field-grid.cols-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="logo-mark">Muse</div>
+  <div class="logo-sep"></div>
+  <div class="logo-sub">Payment Processing</div>
+</header>
+
+<!-- HERO -->
+<div class="form-hero">
+  <p class="hero-eyebrow">Free · No Obligation · No Pressure</p>
+  <h1 class="hero-headline">Show me the <em>numbers.</em></h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">I'm interested in a free comparison analysis of my current rates versus what you'd charge me. Fill out the form below and we'll run the numbers side by side.</p>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+
+  <form id="lead-form" novalidate>
+
+    <!-- SECTION 1 · BUSINESS INFO -->
+    <div class="form-section-head">
+      <span class="section-num">01</span>
+      <span class="section-label-text">Business Information</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="field-grid cols-1" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="company">Company Name <span class="req">*</span></label>
+        <input type="text" id="company" name="company" placeholder="Acme Corp" required>
+      </div>
+    </div>
+
+    <div class="field-grid cols-2" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="fname">Owner's First Name <span class="req">*</span></label>
+        <input type="text" id="fname" name="fname" placeholder="Jane" required>
+      </div>
+      <div class="field">
+        <label for="lname">Owner's Last Name <span class="req">*</span></label>
+        <input type="text" id="lname" name="lname" placeholder="Smith" required>
+      </div>
+    </div>
+
+    <div class="field-grid cols-2" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="phone">Cell Phone <span class="req">*</span></label>
+        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required>
+      </div>
+      <div class="field">
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="jane@company.com" required>
+      </div>
+    </div>
+
+    <div class="field-grid cols-1" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="industry">Industry</label>
+        <select id="industry" name="industry">
+          <option value="" disabled selected>Select your industry</option>
+          <option>Retail</option>
+          <option>Restaurant / Food Service</option>
+          <option>Healthcare / Medical</option>
+          <option>Professional Services</option>
+          <option>Automotive</option>
+          <option>Contractor / Construction</option>
+          <option>E-Commerce</option>
+          <option>Hospitality / Hotel</option>
+          <option>Salon / Spa / Beauty</option>
+          <option>Grocery / Convenience</option>
+          <option>Non-Profit</option>
+          <option>IT / MSP</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SECTION 2 · ADDRESS -->
+    <div class="form-section-head">
+      <span class="section-num">02</span>
+      <span class="section-label-text">Business Address</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="field-grid cols-1" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="addr1">Street Address</label>
+        <input type="text" id="addr1" name="addr1" placeholder="123 Main Street">
+      </div>
+    </div>
+    <div class="field-grid cols-1" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="addr2">Suite / Unit / Floor</label>
+        <input type="text" id="addr2" name="addr2" placeholder="Suite 200">
+      </div>
+    </div>
+    <div class="field-grid cols-3" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="Fresno">
+      </div>
+      <div class="field">
+        <label for="state">State</label>
+        <select id="state" name="state">
+          <option value="" disabled selected>State</option>
+          <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="zip">Zip Code</label>
+        <input type="text" id="zip" name="zip" placeholder="93701" maxlength="10">
+      </div>
+    </div>
+
+    <!-- SECTION 3 · CURRENT PROCESSING -->
+    <div class="form-section-head">
+      <span class="section-num">03</span>
+      <span class="section-label-text">Current Processing Details</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="field" style="margin-bottom:1.25rem">
+      <label>Currently Accepted Payment Methods</label>
+      <div class="checkbox-group">
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Visa"><span>Visa</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Mastercard"><span>Mastercard</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Discover"><span>Discover</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Amex"><span>American Express</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Debit"><span>Debit</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Gift Cards"><span>Gift Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Loyalty Cards"><span>Loyalty Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="EBT Food Stamps"><span>EBT Food Stamps</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Fleet Cards"><span>Fleet Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="HSA Cards"><span>HSA Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="JCB/UnionPay"><span>JCB / UnionPay</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="Check Guarantee"><span>Check Guarantee</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="accept" value="ACH"><span>ACH</span></label>
+      </div>
+    </div>
+
+    <div class="field-grid cols-3" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="monthly-vol">Avg Monthly Sales Volume</label>
+        <input type="text" id="monthly-vol" name="monthly_volume" placeholder="$25,000">
+      </div>
+      <div class="field">
+        <label for="avg-ticket">Average Sales Ticket</label>
+        <input type="text" id="avg-ticket" name="avg_ticket" placeholder="$75">
+      </div>
+      <div class="field">
+        <label for="high-ticket">Highest Ticket Size</label>
+        <input type="text" id="high-ticket" name="high_ticket" placeholder="$500">
+      </div>
+    </div>
+
+    <div class="field-grid cols-3" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="locations">Number of Locations</label>
+        <input type="number" id="locations" name="locations" placeholder="1" min="1">
+      </div>
+      <div class="field">
+        <label for="processor">Current Processor</label>
+        <input type="text" id="processor" name="processor" placeholder="Square, Stripe, etc.">
+      </div>
+      <div class="field">
+        <label for="equipment">Equipment Type</label>
+        <input type="text" id="equipment" name="equipment" placeholder="Terminal model, POS system...">
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:1.25rem">
+      <label>Equipment Ownership</label>
+      <div class="checkbox-group">
+        <label class="checkbox-item"><input type="checkbox" name="ownership" value="No Equipment"><span>No Equipment</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="ownership" value="Need Replacement"><span>Need Replacement</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="ownership" value="Merchant Owned"><span>Merchant Owned</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="ownership" value="Merchant Leased"><span>Merchant Leased</span></label>
+      </div>
+    </div>
+
+    <!-- SECTION 4 · WHAT I WANT -->
+    <div class="form-section-head">
+      <span class="section-num">04</span>
+      <span class="section-label-text">What I'd Like to Offer</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="field" style="margin-bottom:1.25rem">
+      <label>Payment Methods I'd Like to Accept</label>
+      <div class="checkbox-group">
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Visa"><span>Visa</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Mastercard"><span>Mastercard</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Discover"><span>Discover</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Amex"><span>American Express</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Debit"><span>Debit</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Gift Cards"><span>Gift Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Loyalty Cards"><span>Loyalty Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="EBT Food Stamps"><span>EBT Food Stamps</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Fleet Cards"><span>Fleet Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="HSA Cards"><span>HSA Cards</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="JCB/UnionPay"><span>JCB / UnionPay</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="Check Guarantee"><span>Check Guarantee</span></label>
+        <label class="checkbox-item"><input type="checkbox" name="want" value="ACH"><span>ACH</span></label>
+      </div>
+    </div>
+
+    <!-- SECTION 5 · FEEDBACK + STATEMENT -->
+    <div class="form-section-head">
+      <span class="section-num">05</span>
+      <span class="section-label-text">Tell Us More</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="field" style="margin-bottom:1.25rem">
+      <label for="feedback">What do you like or dislike about your current provider?</label>
+      <textarea id="feedback" name="feedback" placeholder="Feel free to be honest — hidden fees, poor support, clunky equipment, confusing statements..."></textarea>
+    </div>
+
+    <div class="field" style="margin-bottom:2rem">
+      <label>Attach Your Most Recent Statement</label>
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="statement" name="statement" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+        <svg class="drop-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 4v20M10 16l8-8 8 8" stroke="#d4c97a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 28h24" stroke="#5a6070" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        <div class="drop-main">Drag &amp; drop your statement here</div>
+        <div class="drop-sub">PDF · DOC · JPG · PNG &nbsp;·&nbsp; Max 10MB</div>
+        <div class="drop-file-name" id="file-name-display"></div>
+      </div>
+      <p style="font-size:0.72rem;color:var(--faint);margin-top:0.5rem;letter-spacing:0.1em">Your statement is used only to run the comparison analysis. It is never shared or stored beyond this inquiry.</p>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit">Show Me the Numbers →</button>
+      <p class="submit-note">Free · No obligation · We'll reach out within 1 business day</p>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-msg" id="success-msg">
+    <div class="checkmark">◆</div>
+    <h2>We've got your info.</h2>
+    <div style="width:40px;height:0.5px;background:var(--gold);margin:1rem auto"></div>
+    <p>We'll review your details and reach out within one business day with a full side-by-side rate comparison. No pressure — just numbers.</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="form-footer">
+  Muse Bookkeeping &nbsp;·&nbsp; musebizsolutions.com &nbsp;·&nbsp; Payment Processing Partner Program
+</footer>
+
+<script>
+  // Phone formatting
+  document.getElementById('phone').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g,'').substring(0,10);
+    if(v.length>=6) v = '('+v.substring(0,3)+') '+v.substring(3,6)+'-'+v.substring(6);
+    else if(v.length>=3) v = '('+v.substring(0,3)+') '+v.substring(3);
+    e.target.value = v;
+  });
+
+  // Dollar formatting for money fields
+  ['monthly-vol','avg-ticket','high-ticket'].forEach(id => {
+    document.getElementById(id).addEventListener('blur', function() {
+      let raw = this.value.replace(/[^0-9.]/g,'');
+      if(raw && !isNaN(raw)) {
+        this.value = '$' + parseFloat(raw).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:2});
+      }
+    });
+    document.getElementById(id).addEventListener('focus', function() {
+      this.value = this.value.replace(/[$,]/g,'');
+    });
+  });
+
+  // Zip - digits only
+  document.getElementById('zip').addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g,'').substring(0,5);
+  });
+
+  // Drop zone
+  const dz = document.getElementById('drop-zone');
+  const fi = document.getElementById('statement');
+  const fn = document.getElementById('file-name-display');
+
+  fi.addEventListener('change', function() {
+    if(this.files[0]) fn.textContent = '✓ ' + this.files[0].name;
+  });
+
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.classList.remove('drag-over');
+    if(e.dataTransfer.files[0]) {
+      fi.files = e.dataTransfer.files;
+      fn.textContent = '✓ ' + e.dataTransfer.files[0].name;
+    }
+  });
+
+  // Form submit
+  document.getElementById('lead-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const required = this.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(f => {
+      f.style.borderColor = '';
+      if(!f.value.trim()) { f.style.borderColor = '#e85a4a'; valid = false; f.focus(); }
+    });
+    if(!valid) return;
+    // Replace this with your actual form submission endpoint
+    this.style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+    window.scrollTo({top: 0, behavior:'smooth'});
+  });
+</script>
+</body>
+</html>
