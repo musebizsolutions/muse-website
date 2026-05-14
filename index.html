@@ -157,11 +157,12 @@
 }
 </script>
 
+<link rel="dns-prefetch" href="https://assets.apollo.io">
+<link rel="dns-prefetch" href="https://formspree.io">
+<link rel="dns-prefetch" href="https://musebizsolutions.gumroad.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -171,7 +172,11 @@
   --canary:#d4c97a;--canary-light:#ddd4a0;
   --text:#e8e4f0;--muted:#9990b8;--faint:#5c5478;
 }
-html{scroll-behavior:smooth;font-size:18px}
+html{font-size:18px}
+/* smooth scroll only when user explicitly navigates - not on initial load */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 body{background:var(--ink);color:var(--text);font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
 
 /* PAYMENT PROCESSING FORM */
@@ -214,7 +219,8 @@ body{background:var(--ink);color:var(--text);font-family:'Jost',-apple-system,Bl
 }
 
 /* NAV */
-nav{position:sticky;top:0;left:0;right:0;z-index:199;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.97);backdrop-filter:blur(8px);border-bottom:0.5px solid rgba(168,176,184,0.15)}
+nav{position:sticky;top:0;left:0;right:0;z-index:199;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.97);border-bottom:0.5px solid rgba(168,176,184,0.15)}
+@media (min-width:901px){nav{backdrop-filter:blur(8px)}}
 .logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:600;letter-spacing:0.15em;color:var(--gold);text-decoration:none}
 .logo span{color:var(--muted);font-weight:400;font-size:0.8rem;display:block;letter-spacing:0.25em;text-transform:uppercase;margin-top:2px}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
@@ -228,7 +234,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:199;padding:1.25rem 3rem;displa
 .nav-dropdown>a{display:flex;align-items:center;gap:0.4rem}
 .nav-dropdown>a::after{content:'';width:6px;height:6px;border-right:0.5px solid currentColor;border-bottom:0.5px solid currentColor;transform:rotate(45deg) translateY(-2px);display:inline-block;transition:transform 0.2s}
 .nav-dropdown:hover>a::after{transform:rotate(-135deg) translateY(-2px)}
-.dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%);background:rgba(10,10,15,0.98);border:0.5px solid var(--border);backdrop-filter:blur(12px);min-width:200px;list-style:none;opacity:0;pointer-events:none;transition:opacity 0.18s,transform 0.18s;transform:translateX(-50%) translateY(-6px);z-index:500;padding-top:1rem}
+.dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%);background:rgba(10,10,15,0.98);border:0.5px solid var(--border);min-width:200px;list-style:none;opacity:0;pointer-events:none;transition:opacity 0.18s,transform 0.18s;transform:translateX(-50%) translateY(-6px);z-index:500;padding-top:1rem}
 .nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
 .dropdown-menu li a{display:block;padding:0.75rem 1.25rem;color:var(--muted);font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;white-space:nowrap;border-bottom:0.5px solid var(--border);transition:color 0.15s,background 0.15s}
 .dropdown-menu li:first-child a{border-top:0.5px solid var(--border)}
@@ -265,7 +271,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:199;padding:1.25rem 3rem;displa
 .hero-rule{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 2rem}
 
 /* SECTIONS */
-section{padding:6rem 2rem}
+section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px}
 .container{max-width:1100px;margin:0 auto}
 .section-label{font-size:0.85rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1rem}
@@ -291,7 +297,7 @@ section{padding:6rem 2rem}
 .services{background:var(--ink)}
 .services-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:4rem}
 .service-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
-.service-card{background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;transition:all 0.3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:stretch}
+.service-card{background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;transition:all 0.3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:stretch;will-change:transform}
 .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--purple-dim),transparent);opacity:0}
 .service-card:hover{border-color:var(--purple-dim);transform:translateY(-3px)}
 .service-card:hover::before{opacity:1}
@@ -355,6 +361,7 @@ section{padding:6rem 2rem}
   padding:2rem 1.5rem;
   position:relative;
   transition:border-color 0.3s, transform 0.3s;
+  will-change:transform;
 }
 .price-card:hover{border-color:var(--purple-dim);transform:translateY(-3px)}
 .price-card.featured{border-color:var(--canary);background:var(--raised)}
@@ -483,15 +490,22 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
   .badge-row-full{gap:1rem!important}
 }
 </style>
-<!-- Apollo Website Tracker — deferred until after page load -->
+<!-- Apollo Website Tracker — deferred until truly idle -->
 <script>
-window.addEventListener('load', function() {
-  var n=Math.random().toString(36).substring(7),o=document.createElement("script");
-  o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n;
-  o.async=true;o.defer=true;
-  o.onload=function(){window.trackingFunctions.onLoad({appId:"69e10e7c5eefd70021ef2c70"})};
-  document.head.appendChild(o);
-});
+(function(){
+  function loadApollo(){
+    var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+    o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n;
+    o.async=true;o.defer=true;
+    o.onload=function(){window.trackingFunctions.onLoad({appId:"69e10e7c5eefd70021ef2c70"})};
+    document.head.appendChild(o);
+  }
+  if('requestIdleCallback' in window){
+    requestIdleCallback(loadApollo, {timeout:4000});
+  } else {
+    window.addEventListener('load', function(){ setTimeout(loadApollo, 2000); });
+  }
+})();
 </script>
 
 </head>
@@ -790,7 +804,7 @@ window.addEventListener('load', function() {
   </div><!-- end scroll area -->
 </div><!-- end coa-modal -->
 
-<script>
+<script defer>
 // ── COA Easter Egg Modal ──
 function openCOAPreview(){
   var modal = document.getElementById('coa-modal');
@@ -827,8 +841,10 @@ function startCOACountdown(){
   }, 1000);
 }
 // close on backdrop click
-document.getElementById('coa-modal').addEventListener('click', function(e){
-  if(e.target === this) closeCOAModal();
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('coa-modal').addEventListener('click', function(e){
+    if(e.target === this) closeCOAModal();
+  });
 });
 </script>
 
@@ -836,7 +852,7 @@ document.getElementById('coa-modal').addEventListener('click', function(e){
 
 
 
-<section class="hero">
+<section class="hero" style="contain-intrinsic-size:0 100vh;content-visibility:visible">
   <div style="position:relative;z-index:1;max-width:780px">
     <div class="hero-ornament">Bookkeeping &amp; Payroll &amp; Taxes · Remote &amp; Fully Managed</div>
     <div class="hero-rule"></div>
@@ -855,7 +871,7 @@ document.getElementById('coa-modal').addEventListener('click', function(e){
     <div class="about-grid">
       <div>
         <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem">
-          <img src="meg_headshot.jpg" alt="Megan Muse, Founder of Muse Bookkeeping" width="80" height="80" loading="lazy" style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:1.5px solid var(--gold);flex-shrink:0">
+          <img src="meg_headshot.jpg" alt="Megan Muse, Founder of Muse Bookkeeping" width="80" height="80" loading="lazy" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:1.5px solid var(--gold);flex-shrink:0">
           <div>
             <span class="section-label" style="margin-bottom:0.25rem">About Muse</span>
             <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2.5rem)">Not your basic <em>bookkeeper.</em></h2>
@@ -906,9 +922,9 @@ document.getElementById('coa-modal').addEventListener('click', function(e){
       </div>
     </div>
     <div class="badge-row-full" style="display:flex;align-items:center;justify-content:center;gap:2.5rem;margin-top:3rem;flex-wrap:wrap">
-      <img src="quickbooks-online-certification-level-1.png" alt="QuickBooks Online ProAdvisor Level 1 Certified" width="220" height="220" loading="lazy" style="height:220px;width:auto">
-      <img src="quickbooks-online-certification-level-2.png" alt="QuickBooks Online ProAdvisor Level 2 Certified" width="220" height="220" loading="lazy" style="height:220px;width:auto">
-      <img src="intuit-bookkeeping-certification.png" alt="Intuit Bookkeeping Trained" width="220" height="220" loading="lazy" style="height:220px;width:auto">
+      <img src="quickbooks-online-certification-level-1.png" alt="QuickBooks Online ProAdvisor Level 1 Certified" width="220" height="220" loading="lazy" decoding="async" style="height:220px;width:auto">
+      <img src="quickbooks-online-certification-level-2.png" alt="QuickBooks Online ProAdvisor Level 2 Certified" width="220" height="220" loading="lazy" decoding="async" style="height:220px;width:auto">
+      <img src="intuit-bookkeeping-certification.png" alt="Intuit Bookkeeping Trained" width="220" height="220" loading="lazy" decoding="async" style="height:220px;width:auto">
     </div>
   </div>
 </section>
