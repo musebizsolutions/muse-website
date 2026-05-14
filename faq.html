@@ -61,13 +61,37 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 .faq-answer{display:none;padding-bottom:1.5rem}
 .faq-answer p{color:var(--muted);font-size:0.97rem;line-height:1.9}
 
+
+/* SERVICES DROPDOWN */
+.nav-dropdown{position:relative}
+.nav-dropdown>a{display:flex;align-items:center;gap:0.4rem}
+.nav-dropdown>a::after{content:'';width:6px;height:6px;border-right:0.5px solid currentColor;border-bottom:0.5px solid currentColor;transform:rotate(45deg) translateY(-2px);display:inline-block;transition:transform 0.2s}
+.nav-dropdown:hover>a::after{transform:rotate(-135deg) translateY(-2px)}
+.dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(10,10,15,0.98);border:0.5px solid var(--border);min-width:200px;list-style:none;opacity:0;pointer-events:none;transition:opacity 0.18s,transform 0.18s;z-index:500;padding-top:1rem}
+.nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.dropdown-menu li a{display:block;padding:0.75rem 1.25rem;color:var(--muted);font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;white-space:nowrap;border-bottom:0.5px solid var(--border);transition:color 0.15s,background 0.15s}
+.dropdown-menu li:first-child a{border-top:0.5px solid var(--border)}
+.dropdown-menu li:last-child a{border-bottom:none}
+.dropdown-menu li a:hover{color:var(--gold);background:var(--surface)}
+.dropdown-menu .dropdown-highlight a{color:var(--canary)!important}
+.dropdown-menu .dropdown-highlight a:hover{color:var(--canary)!important;background:rgba(212,201,122,0.06)}
 </style>
 <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69e10e7c5eefd70021ef2c70"})},document.head.appendChild(o)}initApollo();</script>
 <title>FAQ | Muse Bookkeeping</title><meta name="description" content="Frequently asked questions about Muse Bookkeeping. Pricing, software, remote services, MSP specialization, onboarding, and more."></head><body><nav>
   <a class="logo" href="index.html">Muse Bookkeeping <span>Muse Biz Solutions</span></a>
   <ul class="nav-links" id="nav-links">
     <li><a href="about.html" >About</a></li>
-    <li><a href="services.html" >Services</a></li>
+    <li class="nav-dropdown">
+      <a href="services.html">Services</a>
+      <ul class="dropdown-menu">
+        <li><a href="bookkeeping.html">Bookkeeping</a></li>
+        <li><a href="payroll.html">Payroll</a></li>
+        <li><a href="taxes.html">Taxes</a></li>
+        <li><a href="audit.html">Audit</a></li>
+        <li><a href="contact.html">Business Loans</a></li>
+        <li class="dropdown-highlight"><a href="index.html#payment-processing">Payment Processing</a></li>
+      </ul>
+    </li>
     <li><a href="pricing.html" >Pricing</a></li>
     <li><a href="resources.html" >Resources</a></li>
     <li><a href="faq.html" class="active">FAQ</a></li>
@@ -112,22 +136,22 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Are you a CPA? Do you do taxes?</span><span class="faq-icon">+</span></button>
-        <div class="faq-answer"><p>We are not a CPA firm and we do not prepare tax returns. What we do is keep your books so clean that your CPA barely has to touch them. We also coordinate with a CPA partner who handles compilations, reviews, and full audits for clients who need that level of credentialing.</p></div>
+        <div class="faq-answer"><p>We work hand-in-hand with Clark Shi, CPA, CMA, MBA, a proactive, forward-thinking CPA who is embedded in our process and involved with every client from day one. This is not a referral handoff. It is a real partnership built around keeping your finances clean, strategic, and ahead of the curve. Already have a CPA or tax preparer you trust? No problem. We collaborate seamlessly with outside professionals too.</p></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How does pricing work? Are there long-term contracts?</span><span class="faq-icon">+</span></button>
-        <div class="faq-answer"><p>Monthly bookkeeping is flat-rate and based on your revenue tier and transaction volume. Payroll is priced per run. Cleanup projects are quoted flat fee before we start. We do not require long-term contracts. Cancel anytime with 30 days notice.</p></div>
+        <div class="faq-answer"><p>Every engagement is custom quoted. Pricing is based on the specific combination of services your business needs, including transaction volume, number of accounts, adjusting entries, deferred revenue schedules, prepaid expenses, payroll accruals, subcontractor accruals, tool stack reconciliation, COGS mapping, labor allocation to COGS, franchise reporting, multi-territory tracking, deadline guarantees, and any cleanup or catch-up work required. No two businesses are the same, so no two quotes are the same. Schedule a free consultation and we will tell you exactly what it will cost.</p></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What happens during onboarding?</span><span class="faq-icon">+</span></button>
-        <div class="faq-answer"><p>We start with a free consultation to understand your business and current books. Once you are ready, we get read access to your existing accounts, review the current state, and map out the cleanup or setup needed. We then establish your chart of accounts, connect your bank feeds, and get your first month reconciled. Most clients are fully set up within two to three weeks.</p></div>
+        <div class="faq-answer"><p>We start with a discovery call to learn about your business and what you need. From there we gather the details to build your custom quote. Once you are ready, we send over an Engagement Letter that lays out everything in plain language. Sign it as-is or come back with questions. After signing, you receive a payment authorization form. You are auto-billed a flat monthly fee on the first of every month. We then begin onboarding. Once that is completed, my team and I get to work.</p></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What do I actually get every month?</span><span class="faq-icon">+</span></button>
-        <div class="faq-answer"><p>Reconciled books, a profit and loss statement, balance sheet, and cash flow statement delivered by the 15th of every month. Higher-tier plans include additional reporting and more frequent touchpoints. You will always know where your business stands without having to ask.</p></div>
+        <div class="faq-answer"><p>Reconciled books, a profit and loss statement, balance sheet, and cash flow statement delivered by the 15th of every month. Expedited financials by the 10th are available upon request. We schedule a one hour monthly call to go over everything with you. You also get unlimited texts and emails with a 24 hour response time. You will always know where your business stands without having to ask.</p></div>
       </div>
 
       <div class="faq-item">
