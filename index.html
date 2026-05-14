@@ -557,8 +557,8 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
         <li><a href="payroll.html" onclick="closeNav()">Payroll</a></li>
         <li><a href="taxes.html" onclick="closeNav()">Taxes</a></li>
         <li><a href="audit.html" onclick="closeNav()">Audit</a></li>
-        <li><a href="business-loans.html" onclick="closeNav()">Business Loans</a></li>
-        <li class="dropdown-highlight"><a href="payment-processing.html" onclick="closeNav()">Payment Processing</a></li>
+        <li><a href="#contact" onclick="closeNav()">Business Loans</a></li>
+        <li class="dropdown-highlight"><a href="#payment-processing" onclick="closeNav()">Payment Processing</a></li>
       </ul>
     </li>
     <li><a href="pricing.html" onclick="closeNav()">Pricing</a></li>
@@ -1591,7 +1591,14 @@ function toggleFaq(btn) {
 
 
 <!-- ═══════════════════════════════════════════ DIGITAL STORE ═══ -->
-<section class="shop" id="shop" style="background:var(--deep);padding:6rem 2rem">
+<div id="shop-lazy-wrapper" style="background:var(--deep);padding:6rem 2rem;min-height:200px">
+  <div class="container" style="text-align:center;padding:4rem 0">
+    <span class="section-label">MSP Financial Product Library</span>
+    <h2 class="section-title" style="margin-top:0.5rem">Tools built for <em>MSPs who mean business.</em></h2>
+    <p class="section-sub" style="margin:1rem auto 2rem">Scroll to load products...</p>
+  </div>
+</div>
+<template id="shop-template"><section class="shop" id="shop" style="background:var(--deep);padding:6rem 2rem">
 <div class="container">
 
   <!-- SECTION HEADER -->
@@ -1877,7 +1884,23 @@ function toggleFaq(btn) {
   </div>
 
 </div>
-</section>
+</section></template>
+<script>
+(function(){
+  var wrapper = document.getElementById('shop-lazy-wrapper');
+  var tmpl = document.getElementById('shop-template');
+  if(!wrapper || !tmpl) return;
+  var io = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
+      var frag = tmpl.content.cloneNode(true);
+      wrapper.parentNode.replaceChild(frag, wrapper);
+      tmpl.remove();
+      io.disconnect();
+    }
+  }, {rootMargin:'200px'});
+  io.observe(wrapper);
+})();
+</script>
 
 <section id="payment-processing" class="pp-section">
   <div class="pp-form-wrap">
