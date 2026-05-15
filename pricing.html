@@ -24,15 +24,6 @@
 <meta name="twitter:site" content="@musebookkeeping">
 <meta name="geo.region" content="US">
 <meta name="geo.placename" content="United States">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Muse Bookkeeping","url":"https://musebizsolutions.com","offers":[
-{"@type":"Offer","name":"Tier 1 Getting Started","price":"497","priceCurrency":"USD"},
-{"@type":"Offer","name":"Tier 2 Building Momentum","price":"747","priceCurrency":"USD"},
-{"@type":"Offer","name":"Tier 3 Revenue Ready","price":"1247","priceCurrency":"USD"},
-{"@type":"Offer","name":"Tier 4 Scaling Up","price":"1997","priceCurrency":"USD"},
-{"@type":"Offer","name":"Tier 5 Enterprise","price":"2997","priceCurrency":"USD"}
-]}
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -155,24 +146,15 @@ section{padding:6rem 2rem}
 }
 
 /* Each card spans all 9 row tracks and subgrids into them */
-.price-card{
-  grid-row:span 9;
-  display:grid;
-  grid-template-rows:subgrid;
-  background:var(--surface);
-  border:0.5px solid var(--border);
-  padding:2rem 1.5rem;
-  position:relative;
-  transition:border-color 0.3s, transform 0.3s;
-}
-.price-card:hover{border-color:var(--purple-dim);transform:translateY(-3px)}
-.price-card.featured{border-color:var(--canary);background:var(--raised)}
-.price-card.featured::after{content:'Most Popular';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--canary);color:var(--ink);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;font-weight:500;white-space:nowrap}
-.price-card.hidden{display:none}
+
+
+
+
+
 
 /* Children sit in their designated row - no margins needed for alignment */
 .price-tier-badge{font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);align-self:end;padding-bottom:0.35rem}
-.price-card h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;line-height:1.3;align-self:start}
+
 .price-rev{font-size:0.85rem;color:var(--faint);font-style:italic;align-self:start;padding-top:0.15rem}
 .price-amount-block{padding:1rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);align-self:stretch}
 .price-amount-block .amount{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold)}
@@ -274,7 +256,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
   .service-card h3{font-size:1.4rem}
   .service-card p{font-size:0.95rem}
   .pricing-grid{grid-template-columns:1fr}
-  .price-card h3{font-size:1.2rem;min-height:auto}
+  
   .price-amount-block .amount{font-size:2rem}
   .process-steps{grid-template-columns:1fr;gap:2.5rem}
   .step p{font-size:0.9rem}
@@ -364,377 +346,294 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     </div>
   </div>
 </div>
-<section class="pricing" id="pricing">
-  <div class="container" style="max-width:1400px">
-    <span class="section-label">Transparent Pricing</span>
-    <h2 class="section-title">Fixed fees. <em>No surprises.</em></h2>
-    <p class="section-sub" style="margin-top:0.5rem">Pricing is based on monthly transaction volume, number of accounts, and service complexity. All plans are billed monthly. Payroll available as an add-on to any tier.</p>
+<!-- PRICING ESTIMATOR -->
+<section style="background:var(--ink);padding:5rem 2rem">
+  <div style="max-width:660px;margin:0 auto">
+    <span style="font-size:0.85rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block">Estimate Your Investment</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.2;margin-bottom:0.5rem">Build your <em style="font-style:italic;color:var(--purple-mid)">custom quote.</em></h2>
+    <p style="color:var(--muted);font-size:1rem;line-height:1.9;margin-bottom:2.5rem">Adjust the quantities to match your business. All prices confirmed at consultation.</p>
 
-    <!-- TOGGLE -->
-    <div class="pricing-toggle-wrap">
-      <div class="pricing-toggle" role="group" aria-label="Pricing view">
-        <button class="toggle-btn active" id="btn-all" onclick="showAllPlans()">All Plans</button>
-        <button class="toggle-btn" id="btn-compare" onclick="showComparePlans()">Compare Plans</button>
+    <style>
+      .est-section{margin-bottom:2rem}
+      .est-section-label{font-size:0.68rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);margin-bottom:4px;padding-bottom:10px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:10px}
+      .est-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:0.5px solid var(--border);gap:16px}
+      .est-row:last-child{border-bottom:none}
+      .est-row-info{flex:1;min-width:0}
+      .est-row-info .est-label{font-size:0.9rem;font-weight:400;color:var(--text);line-height:1.3}
+      .est-row-info .est-sub{font-size:0.75rem;color:var(--muted);margin-top:2px;line-height:1.4}
+      .est-num{width:80px;flex-shrink:0;background:var(--surface);border:0.5px solid var(--border);border-radius:4px;color:var(--text);font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:400;text-align:center;padding:10px 8px;outline:none;transition:border-color 0.2s;-moz-appearance:textfield}
+      .est-num::-webkit-outer-spin-button,.est-num::-webkit-inner-spin-button{-webkit-appearance:none}
+      .est-num:focus{border-color:var(--canary)}
+      .est-payroll-complex{padding:14px 0;border-bottom:0.5px solid var(--border)}
+      .est-payroll-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+      .est-payroll-controls{margin-top:12px}
+      .est-select{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;color:var(--text);font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:300;padding:10px 36px 10px 12px;outline:none;cursor:pointer;transition:border-color 0.2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235c5478' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;width:100%}
+      .est-select:focus{border-color:var(--canary)}
+      .est-select option{background:var(--surface)}
+      .est-discount-toggle{display:flex;gap:0;margin-top:10px;border:0.5px solid var(--border);border-radius:4px;overflow:hidden;width:fit-content}
+      .est-toggle-btn{background:transparent;border:none;color:var(--muted);font-family:'Jost',sans-serif;font-size:0.8rem;font-weight:400;letter-spacing:0.08em;padding:9px 20px;cursor:pointer;transition:all 0.2s}
+      .est-toggle-btn.active{background:var(--canary);color:var(--ink);font-weight:500}
+      .est-email-gate{margin-top:2rem;border:0.5px solid var(--border);border-radius:4px;padding:28px 24px;text-align:center;background:var(--surface)}
+      .est-gate-heading{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--canary);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+      .est-gate-immediate{font-family:'Jost',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text);margin-bottom:4px}
+      .est-gate-sub{font-size:0.8rem;color:var(--muted);margin-bottom:20px;letter-spacing:0.05em}
+      .est-gate-row{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+      .est-email-input{flex:1;min-width:180px;background:var(--raised);border:0.5px solid var(--border);border-radius:4px;color:var(--text);font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:300;padding:12px 14px;outline:none;transition:border-color 0.2s}
+      .est-email-input:focus{border-color:var(--canary)}
+      .est-calc-btn{background:transparent;border:0.5px solid var(--canary);border-radius:4px;color:var(--canary);font-family:'Jost',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:12px 20px;cursor:pointer;transition:all 0.2s;white-space:nowrap;flex-shrink:0}
+      .est-calc-btn:hover{background:var(--canary);color:var(--ink)}
+      .est-gate-error{color:#c97070;font-size:0.75rem;margin-top:10px;min-height:1em;font-style:italic}
+      .est-result-panel{display:none;margin-top:1.5rem;border:0.5px solid var(--border);border-radius:4px;overflow:hidden}
+      .est-result-panel.visible{display:block}
+      .est-result-header{background:var(--raised);padding:20px 24px;border-bottom:0.5px solid var(--border)}
+      .est-result-header p{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+      .est-result-row{display:flex;gap:2rem;padding:16px 24px;border-bottom:0.5px solid var(--border)}
+      .est-result-row:last-child{border-bottom:none}
+      .est-result-col p{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+      .est-amount{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--canary)}
+      .est-amount span{font-size:0.9rem;color:var(--muted);font-family:'Jost',sans-serif;font-weight:300;margin-left:3px}
+      .est-discount-badge{display:inline-block;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);background:var(--canary);padding:2px 8px;border-radius:2px;margin-top:6px;font-weight:500}
+      .est-footnote{text-align:center;font-size:0.72rem;color:var(--faint);margin-top:1.5rem;letter-spacing:0.05em}
+    </style>
+
+    <!-- CORE BOOKKEEPING -->
+    <div class="est-section">
+      <div class="est-section-label">Core Bookkeeping</div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Transaction Volume</div><div class="est-sub">Number of monthly transactions</div></div><input class="est-num" type="number" min="0" value="0" data-rate="2.00" data-eid="transactions"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Bank &amp; CC Accounts</div><div class="est-sub">Bank and credit card accounts</div></div><input class="est-num" type="number" min="0" value="0" data-rate="75" data-eid="bank-cc-accounts"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Loan Accounts</div><div class="est-sub">Lines of credit, loans, financing</div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="loan-accounts"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Adjusting Entries</div><div class="est-sub">Month-end corrections and true-ups. Examples: reclassifying a personal expense, fixing uncategorized transactions, recording accrued income or expenses not yet invoiced.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="35" data-eid="adj-entries"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Deferred Revenue Schedules</div><div class="est-sub">Revenue collected upfront that gets recognized over time. Example: a 12-month managed services contract billed annually requires monthly recognition entries for each active agreement.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="40" data-eid="deferred-rev"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Prepaid Expenses</div><div class="est-sub">Expenses paid upfront and spread over time. Examples: annual software licenses (Microsoft 365, ConnectWise), insurance premiums, or vendor retainers amortized month by month.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="prepaid"></div>
+    </div>
+
+    <!-- ACCOUNTS PAYABLE & RECEIVABLE -->
+    <div class="est-section">
+      <div class="est-section-label">Accounts Payable &amp; Receivable</div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Accounts Payable</div><div class="est-sub">Number of AP transactions per month</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="ap"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Accounts Receivable</div><div class="est-sub">Number of AR transactions per month</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="ar"></div>
+      <div class="est-payroll-complex">
+        <div class="est-payroll-top">
+          <div class="est-row-info"><div class="est-label">Sales Tax Filings</div><div class="est-sub">How many states or jurisdictions do you file in? Enter the number and select your filing frequency.</div></div>
+          <input class="est-num" type="number" min="0" value="0" id="est-salestax-count" placeholder="0">
+        </div>
+        <div class="est-payroll-controls">
+          <select class="est-select" id="est-salestax-frequency">
+            <option value="monthly">Monthly filings</option>
+            <option value="quarterly" selected>Quarterly filings</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <!-- COMPARE SELECTORS (hidden until Compare mode) -->
-    <div class="compare-selectors" id="compare-selectors">
-      <select class="compare-select" id="select-a" onchange="updateCompare()" aria-label="First plan to compare">
-        <option value="0">Tier 1 - $497</option>
-        <option value="1">Tier 2 - $747</option>
-        <option value="2" selected>Tier 3 - $1,247</option>
-        <option value="3">Tier 4 - $1,997</option>
-        <option value="4">Tier 5 - $2,997</option>
-      </select>
-      <span style="color:var(--faint);align-self:center;font-size:0.85rem">vs</span>
-      <select class="compare-select" id="select-b" onchange="updateCompare()" aria-label="Second plan to compare">
-        <option value="0">Tier 1 - $497</option>
-        <option value="1">Tier 2 - $747</option>
-        <option value="2">Tier 3 - $1,247</option>
-        <option value="3" selected>Tier 4 - $1,997</option>
-        <option value="4">Tier 5 - $2,997</option>
-      </select>
+    <!-- PAYROLL -->
+    <div class="est-section">
+      <div class="est-section-label">Payroll</div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Payroll Accruals</div><div class="est-sub">Tracking wages, PTO, and payroll tax liabilities that are earned but not yet paid. Example: employees earn two weeks of wages before payday -- those are accrued liabilities that hit the books each month regardless of when payroll runs.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="payroll-accruals"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">1099 Contractor Accruals</div><div class="est-sub">Same concept as payroll accruals but for contractors. Enter the number of active 1099 contractors you pay regularly.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="contractor-accruals"></div>
+      <div class="est-payroll-complex">
+        <div class="est-payroll-top">
+          <div class="est-row-info"><div class="est-label">Payroll Processing</div><div class="est-sub">Base x employee x frequency</div></div>
+          <input class="est-num" type="number" min="0" value="0" id="est-payroll-employees" placeholder="0">
+        </div>
+        <div class="est-payroll-controls">
+          <select class="est-select" id="est-payroll-frequency" data-fees='{"monthly":0,"semi-monthly":75,"bi-weekly":150,"weekly":300}'>
+            <option value="monthly">Monthly &mdash; 12 paychecks/yr</option>
+            <option value="semi-monthly">Semi-monthly &mdash; 24 paychecks/yr</option>
+            <option value="bi-weekly" selected>Bi-weekly &mdash; 26 paychecks/yr</option>
+            <option value="weekly">Weekly &mdash; 52 paychecks/yr</option>
+          </select>
+        </div>
+      </div>
     </div>
 
-    <!-- CARDS -->
-    <div class="pricing-grid" id="pricing-grid">
-
-      <!-- TIER 1 -->
-      <div class="price-card" data-tier="0">
-        <div class="price-tier-badge">Tier 1</div>
-        <h3>The "Getting Started"</h3>
-        <div class="price-rev">Up to 100 transactions · 3 accounts</div>
-        <div class="price-amount-block">
-          <div class="amount">$497</div>
-          <div class="period">per month</div>
-        </div>
-        <div class="price-section-head">Bookkeeping</div>
-        <ul class="price-includes">
-          <li>Up to 100 transactions/mo</li>
-          <li>Up to 3 bank/CC accounts</li>
-          <li>Up to 1 loan</li>
-          <li>Monthly P&amp;L &amp; Balance Sheet</li>
-          <li>QBO management</li>
-          <li>Email support</li>
-          <li>1 hr phone call/mo</li>
-        </ul>
-        <div class="price-section-head">CPA Tax Services</div>
-        <ul class="price-includes">
-          <li>Annual business tax return</li>
-          <li>Quarterly estimated tax</li>
-          <li>Monthly tax check-in</li>
-          <li>Tax Q&amp;A by email</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact">Get Started</a>
-      </div>
-
-      <!-- TIER 2 -->
-      <div class="price-card" data-tier="1">
-        <div class="price-tier-badge">Tier 2</div>
-        <h3>The "Building Momentum"</h3>
-        <div class="price-rev">Up to 200 transactions · 5 accounts</div>
-        <div class="price-amount-block">
-          <div class="amount">$747</div>
-          <div class="period">per month</div>
-        </div>
-        <div class="price-section-head">Bookkeeping</div>
-        <ul class="price-includes">
-          <li>Up to 200 transactions/mo</li>
-          <li>Up to 5 bank/CC accounts</li>
-          <li>Up to 2 loans</li>
-          <li>AP up to 10 bills/mo</li>
-          <li>AR up to 10 invoices/mo</li>
-          <li>Payroll add-on available</li>
-          <li>1 hr phone call/mo</li>
-        </ul>
-        <div class="price-section-head">CPA Tax Services</div>
-        <ul class="price-includes">
-          <li>Annual business tax return</li>
-          <li>Quarterly estimates with tax planning</li>
-          <li>Monthly Q&amp;A call</li>
-          <li>Year-round Q&amp;A support</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact">Get Started</a>
-      </div>
-
-      <!-- TIER 3 - MOST POPULAR -->
-      <div class="price-card featured" data-tier="2">
-        <div class="price-tier-badge">Tier 3</div>
-        <h3>The "Revenue Ready"</h3>
-        <div class="price-rev">Up to 350 transactions · 8 accounts</div>
-        <div class="price-amount-block">
-          <div class="amount">$1,247</div>
-          <div class="period">per month</div>
-        </div>
-        <div class="price-section-head">Bookkeeping</div>
-        <ul class="price-includes">
-          <li>Up to 350 transactions/mo</li>
-          <li>Up to 8 bank/CC accounts</li>
-          <li>Up to 3 loans</li>
-          <li>AP up to 20 bills/mo</li>
-          <li>AR up to 20 invoices/mo</li>
-          <li>Sales tax up to 2 filings/yr</li>
-          <li>Payroll included</li>
-          <li>1 hr phone call/mo</li>
-        </ul>
-        <div class="price-section-head">CPA Tax Services</div>
-        <ul class="price-includes">
-          <li>Annual business tax return (up to 2 states)</li>
-          <li>Quarterly estimates + proactive tax planning</li>
-          <li>Monthly tax strategy call</li>
-          <li>Unlimited tax Q&amp;A + advisory</li>
-        </ul>
-        <a class="price-btn price-btn-primary" href="#contact">Get Started</a>
-      </div>
-
-      <!-- TIER 4 -->
-      <div class="price-card" data-tier="3">
-        <div class="price-tier-badge">Tier 4</div>
-        <h3>The "Momentum Machine"</h3>
-        <div class="price-rev">Up to 500 transactions · 12 accounts</div>
-        <div class="price-amount-block">
-          <div class="amount">$1,997</div>
-          <div class="period">per month</div>
-        </div>
-        <div class="price-section-head">Bookkeeping</div>
-        <ul class="price-includes">
-          <li>Up to 500 transactions/mo</li>
-          <li>Up to 12 bank/CC accounts</li>
-          <li>Up to 5 loans</li>
-          <li>AP up to 40 bills/mo</li>
-          <li>AR up to 40 invoices/mo</li>
-          <li>Sales tax up to 4 filings/yr</li>
-          <li>Payroll included</li>
-          <li>Bi-weekly check-ins</li>
-        </ul>
-        <div class="price-section-head">CPA Tax Services</div>
-        <ul class="price-includes">
-          <li>Annual business tax return (multi-state)</li>
-          <li>Quarterly estimates + advanced tax planning</li>
-          <li>Monthly tax strategy call</li>
-          <li>Unlimited advisory + proactive planning</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact">Get Started</a>
-      </div>
-
-      <!-- TIER 5 -->
-      <div class="price-card" data-tier="4">
-        <div class="price-tier-badge">Tier 5</div>
-        <h3>The "Elite Fractional CFO"</h3>
-        <div class="price-rev">500+ transactions · unlimited accounts</div>
-        <div class="price-amount-block">
-          <div class="amount">$2,997</div>
-          <div class="period">per month</div>
-        </div>
-        <div class="price-section-head">Bookkeeping &amp; CFO</div>
-        <ul class="price-includes">
-          <li>500+ transactions/mo</li>
-          <li>Unlimited accounts &amp; loans</li>
-          <li>Unlimited AP &amp; AR</li>
-          <li>Unlimited sales tax filings</li>
-          <li>Payroll included</li>
-          <li>Fractional CFO oversight</li>
-          <li>Board-ready reporting</li>
-          <li>Weekly check-ins</li>
-        </ul>
-        <div class="price-section-head">CPA Tax Services</div>
-        <ul class="price-includes">
-          <li>Multi-entity business tax returns</li>
-          <li>Quarterly estimates + full tax strategy</li>
-          <li>Monthly and on-demand strategy calls</li>
-          <li>Advanced advisory (QBI, cost seg, R&amp;D, retirement)</li>
-          <li>Multi-state compliance + entity structuring</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact">Get Started</a>
-      </div>
-
+    <!-- ADVANCED SERVICES -->
+    <div class="est-section">
+      <div class="est-section-label">Advanced Services</div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Tool Stack Reconciliation</div><div class="est-sub">PSA, RMM, SaaS tools</div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="tool-stack"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">COGS Mapping</div><div class="est-sub">Routing your direct costs to the right COGS accounts so your gross margin is accurate. Examples: hardware purchases mapped to Cost of Goods, software licenses mapped to Cost of Services, NOC fees mapped to Delivery. Enter the number of distinct mapping types you use.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="65" data-eid="cogs-mapping"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Labor Allocation to COGS</div><div class="est-sub">Splitting technician or delivery staff payroll between COGS and overhead so your P&amp;L reflects true service delivery cost. Example: a tech who splits time between billable work and internal projects requires payroll allocated across multiple cost categories. Enter the number of labor classes (roles or cost splits) tracked.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="125" data-eid="labor-cogs"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Multi-Territory Tracking</div><div class="est-sub">Number of locations/entities</div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="multi-territory"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Guaranteed Financials by the 10th</div><div class="est-sub">Financials guaranteed by the 10th of each month</div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="guaranteed-10th"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Express Financials (before the 10th)</div><div class="est-sub">Accelerated delivery prior to the 10th</div></div><input class="est-num" type="number" min="0" value="0" data-rate="100" data-eid="express-financials"></div>
     </div>
-  <p style="font-size:0.78rem;color:var(--faint);margin-top:2rem;font-style:italic;text-align:center">Catch-up &amp; cleanup priced by project. · Contact for a free assessment. · All plans cancel anytime.</p>
+
+    <!-- ADVISORY & PLANNING -->
+    <div class="est-section">
+      <div class="est-section-label">Advisory &amp; Planning</div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Tax Advisory &amp; Annual Filing</div><div class="est-sub">Per entity, billed monthly</div></div><input class="est-num" type="number" min="0" value="0" data-rate="200" data-eid="taxes"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Financial Planning &amp; Wealth Management</div><div class="est-sub">Per principal or household</div></div><input class="est-num" type="number" min="0" value="0" data-rate="250" data-eid="financial-planning"></div>
+    </div>
+
+    <!-- PROJECT WORK -->
+    <div class="est-section">
+      <div class="est-section-label">Project Work <span style="color:var(--muted);font-weight:300;text-transform:none;letter-spacing:0.05em;font-size:0.68rem">one-time fees</span></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Cleanup Work</div><div class="est-sub">Hours of cleanup</div></div><input class="est-num" type="number" min="0" value="0" data-rate="150" data-eid="cleanup" data-onetime="true"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Catch-Up Work</div><div class="est-sub">Months behind</div></div><input class="est-num" type="number" min="0" value="0" data-rate="500" data-eid="catchup" data-onetime="true"></div>
+    </div>
+
+    <!-- DISCOUNTS -->
+    <div class="est-section">
+      <div class="est-section-label">Discounts</div>
+      <div class="est-row">
+        <div class="est-row-info">
+          <div class="est-label">Are you an IT / MSP company?</div>
+          <div class="est-sub">IT and MSP clients receive 10% off their monthly total</div>
+        </div>
+        <div class="est-discount-toggle">
+          <button class="est-toggle-btn" id="msp-no" onclick="setMSP(false)">No</button>
+          <button class="est-toggle-btn" id="msp-yes" onclick="setMSP(true)">Yes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL GATE -->
+    <div class="est-email-gate">
+      <p class="est-gate-heading">Calculate My Total</p>
+      <p class="est-gate-immediate">Results Will Be Shown Immediately</p>
+      <p class="est-gate-sub">and emailed to you</p>
+      <div class="est-gate-row">
+        <input type="email" id="estGateEmail" class="est-email-input" placeholder="your@email.com" />
+        <button class="est-calc-btn" id="estCalcBtn">Get My Estimate</button>
+      </div>
+      <p class="est-gate-error" id="estGateError"></p>
+    </div>
+
+    <!-- RESULT PANEL -->
+    <div class="est-result-panel" id="estResultPanel">
+      <div class="est-result-header">
+        <p>Your Custom Estimate</p>
+      </div>
+      <div class="est-result-row">
+        <div class="est-result-col">
+          <p>Monthly Investment</p>
+          <div class="est-amount" id="estMonthlyAmount">$0<span>/mo</span></div>
+          <div id="estDiscountBadge" style="display:none"><span class="est-discount-badge">10% IT/MSP Discount Applied</span></div>
+        </div>
+      </div>
+      <div class="est-result-row" id="estOnetimeRow" style="display:none">
+        <div class="est-result-col">
+          <p>One-Time Fees</p>
+          <div class="est-amount" id="estOnetimeAmount">$0</div>
+        </div>
+      </div>
+      <div class="est-result-row">
+        <div class="est-result-col">
+          <p>Onboarding Fee (one-time)</p>
+          <div class="est-amount" id="estOnboardingAmount">$0</div>
+          <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;font-style:italic">3x your monthly investment</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="est-footnote">All pricing confirmed at consultation. Final quote based on your actual numbers.</p>
   </div>
+</section>
 
-  <script>
-  function showAllPlans() {
-    document.getElementById('btn-all').classList.add('active');
-    document.getElementById('btn-compare').classList.remove('active');
-    document.getElementById('compare-selectors').classList.remove('visible');
-    const grid = document.getElementById('pricing-grid');
-    grid.classList.remove('compare-mode');
-    grid.style.gridTemplateColumns = '';
-    document.querySelectorAll('.price-card').forEach(c => c.classList.remove('hidden'));
-  }
-  function showComparePlans() {
-    document.getElementById('btn-compare').classList.add('active');
-    document.getElementById('btn-all').classList.remove('active');
-    document.getElementById('compare-selectors').classList.add('visible');
-    updateCompare();
-  }
-  function updateCompare() {
-    const a = parseInt(document.getElementById('select-a').value);
-    const b = parseInt(document.getElementById('select-b').value);
-    const grid = document.getElementById('pricing-grid');
-    grid.classList.add('compare-mode');
-    grid.style.gridTemplateColumns = 'repeat(2,1fr)';
-    document.querySelectorAll('.price-card').forEach((c, i) => {
-      c.classList.toggle('hidden', i !== a && i !== b);
+<script>
+(function(){
+  const fmt = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+  const FORMSPREE = 'https://formspree.io/f/mzdolvyp';
+  let isMSP = false;
+
+  window.setMSP = function(val) {
+    isMSP = val;
+    document.getElementById('msp-yes').classList.toggle('active', val);
+    document.getElementById('msp-no').classList.toggle('active', !val);
+  };
+  setMSP(false);
+
+  function buildTotals() {
+    let monthly = 0, onetime = 0;
+    const lines = [];
+
+    document.querySelectorAll('input.est-num[data-eid]').forEach(input => {
+      const qty = parseFloat(input.value) || 0;
+      const rate = parseFloat(input.dataset.rate) || 0;
+      const isOne = input.dataset.onetime === 'true';
+      if (qty <= 0) return;
+      const amount = qty * rate;
+      const label = input.closest('.est-row')?.querySelector('.est-label')?.textContent?.trim() || input.dataset.eid;
+      if (isOne) { onetime += amount; } else { monthly += amount; }
+      lines.push({ label, amount, onetime: isOne, qty, rate });
     });
+
+    const emp = parseFloat(document.getElementById('est-payroll-employees').value) || 0;
+    if (emp > 0) {
+      const freqEl = document.getElementById('est-payroll-frequency');
+      const fees = JSON.parse(freqEl.dataset.fees);
+      const ppAmt = 50 + (emp * 10) + (fees[freqEl.value] || 0);
+      monthly += ppAmt;
+      lines.push({ label: 'Payroll Processing', amount: ppAmt, onetime: false });
+    }
+
+    const stCount = parseFloat(document.getElementById('est-salestax-count').value) || 0;
+    if (stCount > 0) {
+      const stFreq = document.getElementById('est-salestax-frequency').value;
+      // quarterly = $50/filing billed as monthly equivalent ($50/3 per month)
+      const stMonthlyAmt = stFreq === 'quarterly' ? stCount * (50 / 3) : stCount * 50;
+      monthly += stMonthlyAmt;
+      lines.push({ label: `Sales Tax Filings (${stCount} state${stCount>1?'s':''}, ${stFreq})`, amount: stMonthlyAmt, onetime: false });
+    }
+
+    if (isMSP) monthly = monthly * 0.9;
+    const onboarding = monthly * 3;
+
+    return { monthly, onetime, onboarding, lines };
   }
-  </script>
-</section>
 
-<!-- ═══════════════════════════════════════════ PAYROLL PACKAGES ═══ -->
-<section style="background:var(--ink);padding:6rem 2rem" id="payroll">
-  <div class="container">
-    <span class="section-label">Payroll Services</span>
-    <h2 class="section-title">Payroll packages, <em>built to grow with you.</em></h2>
-    <p class="section-sub" style="margin-top:0.5rem;margin-bottom:3rem">Full-service payroll via Gusto. Choose the package that fits where you are and upgrade anytime as your team grows.</p>
+  document.getElementById('estCalcBtn').addEventListener('click', async () => {
+    const email = document.getElementById('estGateEmail').value.trim();
+    const errEl = document.getElementById('estGateError');
+    errEl.textContent = '';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid email address to see your results.';
+      return;
+    }
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start">
+    const { monthly, onetime, onboarding, lines } = buildTotals();
 
-      <!-- PAYROLL ESSENTIAL -->
-      <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;display:grid;grid-template-rows:auto auto auto auto 1fr auto;position:relative;transition:border-color 0.3s,transform 0.3s" onmouseover="this.style.borderColor='var(--purple-dim)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);padding-bottom:0.5rem">Payroll Essential</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;line-height:1.3;margin-bottom:0.25rem">The "Run Payroll"</h3>
-        <div style="font-size:0.85rem;color:var(--faint);font-style:italic;padding-bottom:0.5rem">Simple, accurate, done.</div>
-        <div style="padding:1rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-bottom:1rem">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold)">Starting at $75</div>
-          <div style="font-size:0.85rem;color:var(--muted);letter-spacing:0.1em">per month</div>
-        </div>
-        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);font-weight:500;padding-bottom:0.5rem;padding-top:0.5rem">What's Included</div>
-        <ul style="list-style:none;margin:0 0 1.5rem 0;padding:0">
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Full-service payroll processing via Gusto</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Employee onboarding &amp; direct deposit setup</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Payroll tax filings (federal &amp; state)</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Year-end W-2s &amp; 1099s</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Weekly, bi-weekly, or monthly pay schedules</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>QBO payroll sync</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact" style="display:block;text-align:center;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem;text-decoration:none;background:transparent;border:0.5px solid var(--border);color:var(--muted);transition:all 0.2s;font-family:'Jost',sans-serif" onmouseover="this.style.borderColor='var(--purple-mid)';this.style.color='var(--purple-mid)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get Started</a>
-      </div>
+    document.getElementById('estMonthlyAmount').innerHTML = `${fmt(monthly)}<span>/mo</span>`;
+    document.getElementById('estOnboardingAmount').innerHTML = fmt(onboarding);
+    document.getElementById('estDiscountBadge').style.display = isMSP ? 'block' : 'none';
 
-      <!-- PAYROLL + HR - MOST POPULAR -->
-      <div style="background:var(--raised);border:0.5px solid var(--canary);padding:2.5rem 2rem;display:grid;grid-template-rows:auto auto auto auto 1fr auto;position:relative;transition:border-color 0.3s,transform 0.3s" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--canary);color:var(--ink);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;font-weight:500;white-space:nowrap">Most Popular</div>
-        <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);padding-bottom:0.5rem">Payroll + HR</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;line-height:1.3;margin-bottom:0.25rem">The "People Operations"</h3>
-        <div style="font-size:0.85rem;color:var(--faint);font-style:italic;padding-bottom:0.5rem">Payroll done right, HR handled too.</div>
-        <div style="padding:1rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-bottom:1rem">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold)">Starting at $175</div>
-          <div style="font-size:0.85rem;color:var(--muted);letter-spacing:0.1em">per month</div>
-        </div>
-        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);font-weight:500;padding-bottom:0.5rem;padding-top:0.5rem">Everything in Essential, plus</div>
-        <ul style="list-style:none;margin:0 0 1.5rem 0;padding:0">
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>HR document library &amp; policy templates</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Offer letter &amp; onboarding document support</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>PTO tracking &amp; time-off management</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Employee handbook setup &amp; maintenance</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Contractor &amp; 1099 management</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>HR compliance reminders &amp; support</li>
-        </ul>
-        <a href="#contact" style="display:block;text-align:center;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem;text-decoration:none;background:var(--canary);color:var(--ink);border:none;font-weight:500;font-family:'Jost',sans-serif;transition:background 0.2s" onmouseover="this.style.background='var(--canary-light)'" onmouseout="this.style.background='var(--canary)'">Get Started</a>
-      </div>
+    const onetimeRow = document.getElementById('estOnetimeRow');
+    if (onetime > 0) {
+      document.getElementById('estOnetimeAmount').innerHTML = fmt(onetime);
+      onetimeRow.style.display = 'flex';
+    } else {
+      onetimeRow.style.display = 'none';
+    }
 
-      <!-- PAYROLL + HR + BENEFITS -->
-      <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;display:grid;grid-template-rows:auto auto auto auto 1fr auto;position:relative;transition:border-color 0.3s,transform 0.3s" onmouseover="this.style.borderColor='var(--purple-dim)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);padding-bottom:0.5rem">Full HR Suite</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;line-height:1.3;margin-bottom:0.25rem">The "Total Package"</h3>
-        <div style="font-size:0.85rem;color:var(--faint);font-style:italic;padding-bottom:0.5rem">Payroll, HR, and benefits. All handled.</div>
-        <div style="padding:1rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-bottom:1rem">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold)">Starting at $300</div>
-          <div style="font-size:0.85rem;color:var(--muted);letter-spacing:0.1em">per month</div>
-        </div>
-        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);font-weight:500;padding-bottom:0.5rem;padding-top:0.5rem">Everything in People Ops, plus</div>
-        <ul style="list-style:none;margin:0 0 1.5rem 0;padding:0">
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Benefits administration (health, dental, vision)</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Open enrollment coordination &amp; support</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>401(k) / retirement plan integration</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Benefits deduction reconciliation</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>ACA compliance tracking</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Priority support &amp; dedicated check-ins</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact" style="display:block;text-align:center;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem;text-decoration:none;background:transparent;border:0.5px solid var(--border);color:var(--muted);transition:all 0.2s;font-family:'Jost',sans-serif" onmouseover="this.style.borderColor='var(--purple-mid)';this.style.color='var(--purple-mid)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get Started</a>
-      </div>
+    const panel = document.getElementById('estResultPanel');
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-    </div>
-    <p style="font-size:0.78rem;color:var(--faint);margin-top:2rem;font-style:italic;text-align:center">Pricing based on number of employees and pay frequency. · Contact for a custom quote. · Powered by Gusto.</p>
-  </div>
-</section>
-<section style="background:var(--ink);padding:6rem 2rem" id="payroll">
-  <div class="container">
-    <span class="section-label">Payroll Services</span>
-    <h2 class="section-title">Payroll packages, <em>built to grow with you.</em></h2>
-    <p class="section-sub" style="margin-top:0.5rem;margin-bottom:3rem">Full-service payroll via Gusto. Choose the package that fits where you are and upgrade anytime as your team grows.</p>
+    // Send full breakdown to Formspree (Megan sees it, client doesn't)
+    const summary = lines.map(l => `${l.label}: ${fmt(l.amount)}${l.onetime ? ' (one-time)' : '/mo'}`).join('\n');
+    try {
+      await fetch(FORMSPREE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email,
+          _replyto: email,
+          _subject: 'Muse Bookkeeping Pricing Estimate',
+          monthly_total: fmt(monthly) + '/mo' + (isMSP ? ' (IT/MSP 10% discount applied)' : ''),
+          onetime_fees: onetime > 0 ? fmt(onetime) : 'None',
+          onboarding_fee: fmt(onboarding),
+          line_items: summary || 'No services selected'
+        })
+      });
+    } catch(e) {}
+  });
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start">
+  document.getElementById('estGateEmail').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('estCalcBtn').click();
+  });
+})();
+</script>
 
-      <!-- PAYROLL ESSENTIAL -->
-      <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;display:grid;grid-template-rows:auto auto auto auto 1fr auto;position:relative;transition:border-color 0.3s,transform 0.3s" onmouseover="this.style.borderColor='var(--purple-dim)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);padding-bottom:0.5rem">Payroll Essential</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;line-height:1.3;margin-bottom:0.25rem">The "Run Payroll"</h3>
-        <div style="font-size:0.85rem;color:var(--faint);font-style:italic;padding-bottom:0.5rem">Simple, accurate, done.</div>
-        <div style="padding:1rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-bottom:1rem">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold)">Starting at $75</div>
-          <div style="font-size:0.85rem;color:var(--muted);letter-spacing:0.1em">per month</div>
-        </div>
-        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);font-weight:500;padding-bottom:0.5rem;padding-top:0.5rem">What's Included</div>
-        <ul style="list-style:none;margin:0 0 1.5rem 0;padding:0">
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Full-service payroll processing via Gusto</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Employee onboarding &amp; direct deposit setup</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Payroll tax filings (federal &amp; state)</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Year-end W-2s &amp; 1099s</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Weekly, bi-weekly, or monthly pay schedules</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>QBO payroll sync</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact" style="display:block;text-align:center;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem;text-decoration:none;background:transparent;border:0.5px solid var(--border);color:var(--muted);transition:all 0.2s;font-family:'Jost',sans-serif" onmouseover="this.style.borderColor='var(--purple-mid)';this.style.color='var(--purple-mid)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get Started</a>
-      </div>
-
-      <!-- PAYROLL + HR - MOST POPULAR -->
-      <div style="background:var(--raised);border:0.5px solid var(--canary);padding:2.5rem 2rem;display:grid;grid-template-rows:auto auto auto auto 1fr auto;position:relative;transition:border-color 0.3s,transform 0.3s" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--canary);color:var(--ink);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;font-weight:500;white-space:nowrap">Most Popular</div>
-        <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);padding-bottom:0.5rem">Payroll + HR</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;line-height:1.3;margin-bottom:0.25rem">The "People Operations"</h3>
-        <div style="font-size:0.85rem;color:var(--faint);font-style:italic;padding-bottom:0.5rem">Payroll done right, HR handled too.</div>
-        <div style="padding:1rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-bottom:1rem">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold)">Starting at $175</div>
-          <div style="font-size:0.85rem;color:var(--muted);letter-spacing:0.1em">per month</div>
-        </div>
-        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);font-weight:500;padding-bottom:0.5rem;padding-top:0.5rem">Everything in Essential, plus</div>
-        <ul style="list-style:none;margin:0 0 1.5rem 0;padding:0">
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>HR document library &amp; policy templates</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Offer letter &amp; onboarding document support</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>PTO tracking &amp; time-off management</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Employee handbook setup &amp; maintenance</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Contractor &amp; 1099 management</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--canary);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>HR compliance reminders &amp; support</li>
-        </ul>
-        <a href="#contact" style="display:block;text-align:center;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem;text-decoration:none;background:var(--canary);color:var(--ink);border:none;font-weight:500;font-family:'Jost',sans-serif;transition:background 0.2s" onmouseover="this.style.background='var(--canary-light)'" onmouseout="this.style.background='var(--canary)'">Get Started</a>
-      </div>
-
-      <!-- PAYROLL + HR + BENEFITS -->
-      <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;display:grid;grid-template-rows:auto auto auto auto 1fr auto;position:relative;transition:border-color 0.3s,transform 0.3s" onmouseover="this.style.borderColor='var(--purple-dim)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);padding-bottom:0.5rem">Full HR Suite</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;line-height:1.3;margin-bottom:0.25rem">The "Total Package"</h3>
-        <div style="font-size:0.85rem;color:var(--faint);font-style:italic;padding-bottom:0.5rem">Payroll, HR, and benefits. All handled.</div>
-        <div style="padding:1rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-bottom:1rem">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold)">Starting at $300</div>
-          <div style="font-size:0.85rem;color:var(--muted);letter-spacing:0.1em">per month</div>
-        </div>
-        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);font-weight:500;padding-bottom:0.5rem;padding-top:0.5rem">Everything in People Ops, plus</div>
-        <ul style="list-style:none;margin:0 0 1.5rem 0;padding:0">
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Benefits administration (health, dental, vision)</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Open enrollment coordination &amp; support</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>401(k) / retirement plan integration</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Benefits deduction reconciliation</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>ACA compliance tracking</li>
-          <li style="font-size:0.88rem;color:var(--muted);padding:0.28rem 0;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5"><span style="width:4px;height:4px;border:0.5px solid var(--purple-mid);transform:rotate(45deg);flex-shrink:0;margin-top:0.55rem;display:block"></span>Priority support &amp; dedicated check-ins</li>
-        </ul>
-        <a class="price-btn price-btn-ghost" href="#contact" style="display:block;text-align:center;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem;text-decoration:none;background:transparent;border:0.5px solid var(--border);color:var(--muted);transition:all 0.2s;font-family:'Jost',sans-serif" onmouseover="this.style.borderColor='var(--purple-mid)';this.style.color='var(--purple-mid)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get Started</a>
-      </div>
-
-    </div>
-    <p style="font-size:0.78rem;color:var(--faint);margin-top:2rem;font-style:italic;text-align:center">Pricing based on number of employees and pay frequency. · Contact for a custom quote. · Powered by Gusto.</p>
-  </div>
-</section>
 <section class="contact" id="contact" style="background:var(--ink)">
   <div class="container">
     <div class="contact-grid">
@@ -830,32 +729,4 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 function toggleNav(){var nav=document.getElementById('nav-links');var btn=document.getElementById('hamburger');var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';}
 function closeNav(){var nav=document.getElementById('nav-links');var btn=document.getElementById('hamburger');nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');document.body.style.overflow='';}
 </script>
-<script>
-function showAllPlans() {
-    document.getElementById('btn-all').classList.add('active');
-    document.getElementById('btn-compare').classList.remove('active');
-    document.getElementById('compare-selectors').classList.remove('visible');
-    const grid = document.getElementById('pricing-grid');
-    grid.classList.remove('compare-mode');
-    grid.style.gridTemplateColumns = '';
-    document.querySelectorAll('.price-card').forEach(c => c.classList.remove('hidden'));
-  }
-  function showComparePlans() {
-    document.getElementById('btn-compare').classList.add('active');
-    document.getElementById('btn-all').classList.remove('active');
-    document.getElementById('compare-selectors').classList.add('visible');
-    updateCompare();
-  }
-  function updateCompare() {
-    const a = parseInt(document.getElementById('select-a').value);
-    const b = parseInt(document.getElementById('select-b').value);
-    const grid = document.getElementById('pricing-grid');
-    grid.classList.add('compare-mode');
-    grid.style.gridTemplateColumns = 'repeat(2,1fr)';
-    document.querySelectorAll('.price-card').forEach((c, i) => {
-      c.classList.toggle('hidden', i !== a && i !== b);
-    });
-  }
-  </script>
 </body>
-</html>
