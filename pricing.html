@@ -458,6 +458,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
         </select>
       </div>
       <div class="est-row"><div class="est-row-info"><div class="est-label">Approximate monthly transaction volume</div><div class="est-sub">All bank, credit card, and clearing transactions across all accounts</div></div><input class="est-num" type="number" min="0" value="0" data-rate="3" data-eid="transactions"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many bank and credit card accounts do you have?</div><div class="est-sub">Checking, savings, lines of credit, and business credit cards</div></div><input class="est-num" type="number" min="0" value="0" data-rate="75" data-eid="bankAccounts"></div>
       <div class="est-row"><div class="est-row-info"><div class="est-label">How many active managed service clients do you have?</div><div class="est-sub">Clients on recurring contracts — MRR, block hours, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="15" data-eid="clients"></div>
       <div class="est-row"><div class="est-row-info"><div class="est-label">How many vendors do you pay each month?</div><div class="est-sub">Software, tools, subcontractors, distributors, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="7" data-eid="vendors"></div>
       <div class="est-row"><div class="est-row-info"><div class="est-label">How many business loans or lines of credit do you carry?</div><div class="est-sub">SBA loans, equipment financing, lines of credit, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="25" data-eid="loans"></div>
@@ -599,6 +600,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     // Standard per-unit line items
     const items = [
       { label: 'Transactions',                eid: 'transactions',   rate: 3      },
+      { label: 'Bank & CC Accounts',          eid: 'bankAccounts',   rate: 75     },
       { label: 'Managed Clients',             eid: 'clients',        rate: 15     },
       { label: 'Vendors',                     eid: 'vendors',        rate: 7      },
       { label: 'Loans / Lines of Credit',     eid: 'loans',          rate: 25     },
@@ -709,6 +711,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
         btn.disabled = false;
       }
     } catch(e) {
+      console.error('Estimate submission error:', e);
       errEl.textContent = 'Something went wrong. Please try again or call (209) 660-3898.';
       btn.textContent = 'Send My Estimate';
       btn.disabled = false;
