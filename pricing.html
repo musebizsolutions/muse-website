@@ -399,22 +399,21 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     <!-- CORE BOOKKEEPING -->
     <div class="est-section">
       <div class="est-section-label">Business Basics</div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many active customers do you support?</div><div class="est-sub"></div></div><input class="est-num" type="number" min="0" value="0" data-rate="0" data-eid="transactions"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many employees do you have?</div><div class="est-sub"></div></div><input class="est-num" type="number" min="0" value="0" data-rate="75" data-eid="bank-cc-accounts"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many contractors do you pay regularly?</div><div class="est-sub"></div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="loan-accounts"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many tools or services do you pay annually?</div><div class="est-sub">Examples: Microsoft 365 annual, ConnectWise annual, insurance, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="35" data-eid="adj-entries"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many customers pay you annually or upfront?</div><div class="est-sub"></div></div><input class="est-num" type="number" min="0" value="0" data-rate="40" data-eid="deferred-rev"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Do you resell hardware or cloud services?</div><div class="est-sub">Hardware, Microsoft, Google, AWS, etc. — enter approximate monthly transaction volume</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="prepaid"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">Approximate monthly transaction volume</div><div class="est-sub">All bank, credit card, and clearing transactions across all accounts</div></div><input class="est-num" type="number" min="0" value="0" data-rate="3" data-eid="transactions"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many active managed service clients do you have?</div><div class="est-sub">Clients on recurring contracts — MRR, block hours, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="15" data-eid="clients"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many vendors do you pay each month?</div><div class="est-sub">Software, tools, subcontractors, distributors, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="7" data-eid="vendors"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many business loans or lines of credit do you carry?</div><div class="est-sub">SBA loans, equipment financing, lines of credit, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="25" data-eid="loans"></div>
     </div>
 
-    <!-- ACCOUNTS PAYABLE & RECEIVABLE -->
+    <!-- BILLING & INVOICING -->
     <div class="est-section">
-      <div class="est-section-label">Vendors, Bills &amp; Invoices</div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many vendors do you pay each month?</div><div class="est-sub">Software, tools, services, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="ap"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many invoices do you send each month?</div><div class="est-sub"></div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="ar"></div>
+      <div class="est-section-label">Billing &amp; Invoicing</div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many invoices do you send per month?</div><div class="est-sub">Project invoices, time &amp; materials, ad-hoc billing, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="3" data-eid="invoices"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many clients are on monthly recurring billing?</div><div class="est-sub">MRR contracts, managed service agreements, recurring retainers</div></div><input class="est-num" type="number" min="0" value="0" data-rate="7" data-eid="monthlyBilling"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many clients are on annual or multi-year contracts?</div><div class="est-sub">Prepaid annuals, multi-year MSAs, upfront agreements</div></div><input class="est-num" type="number" min="0" value="0" data-rate="12" data-eid="annualBilling"></div>
       <div class="est-payroll-complex">
         <div class="est-payroll-top">
-          <div class="est-row-info"><div class="est-label">Do you file sales tax? / Do you collect or pay any e-waste, recycling, or environmental fees?</div><div class="est-sub">Enter number of states or jurisdictions. Select filing frequency below.</div></div>
+          <div class="est-row-info"><div class="est-label">Do you file sales tax or pay e-waste / recycling / environmental fees?</div><div class="est-sub">Enter number of states or jurisdictions. Select filing frequency below.</div></div>
           <input class="est-num" type="number" min="0" value="0" id="est-salestax-count" placeholder="0">
         </div>
         <div class="est-payroll-controls">
@@ -429,8 +428,8 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     <!-- PAYROLL -->
     <div class="est-section">
       <div class="est-section-label">Payroll</div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many employees are on payroll?</div><div class="est-sub"></div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="payroll-accruals"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Do you use subcontracted NOC, SOC, or helpdesk services?</div><div class="est-sub">Yes / No — if yes, enter the number of subcontracted services</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="contractor-accruals"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many W-2 employees are on payroll?</div><div class="est-sub">Includes a $75 base payroll processing fee</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="employees"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many 1099 contractors do you pay regularly?</div><div class="est-sub">Subcontracted NOC, SOC, helpdesk, field techs, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="12" data-eid="contractors"></div>
       <div class="est-payroll-complex">
         <div class="est-payroll-top">
           <div class="est-row-info"><div class="est-label">How often do you run payroll?</div><div class="est-sub">Select frequency below — Weekly / Bi-weekly / Semi-monthly / Monthly</div></div>
@@ -447,22 +446,18 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
       </div>
     </div>
 
-    <!-- ADVANCED SERVICES -->
+    <!-- MSP TOOL STACK -->
     <div class="est-section">
       <div class="est-section-label">Your MSP Tool Stack</div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">How many systems do you use for billing, tickets, monitoring, security, or reporting?</div><div class="est-sub">Examples: PSA, RMM, SIEM, EDR, SOC tools, SaaS billing platforms, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="tool-stack"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Do you have multi-year contracts or use project-based billing?</div><div class="est-sub">Yes / No — if yes, enter the number of active contracts or project types</div></div><input class="est-num" type="number" min="0" value="0" data-rate="65" data-eid="cogs-mapping"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Do your techs split time between billable work and internal work?</div><div class="est-sub">If yes: how many different tech roles do you have?</div></div><input class="est-num" type="number" min="0" value="0" data-rate="125" data-eid="labor-cogs"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Do you operate more than one business or location?</div><div class="est-sub">If yes: how many?</div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="multi-territory"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Monthly financials delivered by the 10th</div><div class="est-sub">When would you like your monthly financials delivered?</div></div><input class="est-num" type="number" min="0" value="0" data-rate="50" data-eid="guaranteed-10th"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Monthly financials delivered before the 10th (express)</div><div class="est-sub">Accelerated delivery prior to the 10th</div></div><input class="est-num" type="number" min="0" value="0" data-rate="100" data-eid="express-financials"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many managed services do you sell? (MRR line items)</div><div class="est-sub">Examples: managed endpoint, backup, security awareness, hosted voice, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="25" data-eid="services"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many hardware SKUs do you resell or track per month?</div><div class="est-sub">Workstations, servers, network gear, peripherals, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="10" data-eid="hardware"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many software licenses do you manage or resell?</div><div class="est-sub">Microsoft 365, security tools, cloud platforms, RMM, PSA, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="20" data-eid="licenses"></div>
     </div>
 
-    <!-- ADVISORY & PLANNING -->
+    <!-- STATE FEES -->
     <div class="est-section">
       <div class="est-section-label">Advisory &amp; Planning</div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Tax Advisory &amp; Annual Filing</div><div class="est-sub">Per entity, billed monthly</div></div><input class="est-num" type="number" min="0" value="0" data-rate="200" data-eid="taxes"></div>
-      <div class="est-row"><div class="est-row-info"><div class="est-label">Financial Planning &amp; Wealth Management</div><div class="est-sub">Per principal or household</div></div><input class="est-num" type="number" min="0" value="0" data-rate="250" data-eid="financial-planning"></div>
+      <div class="est-row"><div class="est-row-info"><div class="est-label">How many state registration or annual report fees do you pay?</div><div class="est-sub">Secretary of State filings, franchise tax fees, registered agent fees, etc.</div></div><input class="est-num" type="number" min="0" value="0" data-rate="0.833" data-eid="stateFees"></div>
     </div>
 
     <!-- PROJECT WORK -->
@@ -546,43 +541,85 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     let monthly = 0, onetime = 0;
     const lines = [];
 
-    document.querySelectorAll('input.est-num[data-eid]').forEach(input => {
-      const qty = parseFloat(input.value) || 0;
-      const rate = parseFloat(input.dataset.rate) || 0;
-      const isOne = input.dataset.onetime === 'true';
-      if (qty <= 0 || rate <= 0) return;
-      const amount = qty * rate;
-      const label = input.closest('.est-row')?.querySelector('.est-label')?.textContent?.trim() || input.dataset.eid;
-      if (isOne) { onetime += amount; } else { monthly += amount; }
-      lines.push({ label, amount, onetime: isOne, qty, rate });
+    // Helper: get value of a data-eid input
+    function val(eid) {
+      return parseFloat(document.querySelector('input[data-eid="' + eid + '"]')?.value) || 0;
+    }
+
+    // Business Basics
+    const transactions   = val('transactions');
+    const clients        = val('clients');
+    const vendors        = val('vendors');
+    const loans          = val('loans');
+
+    // Billing & Invoicing
+    const invoices       = val('invoices');
+    const monthlyBilling = val('monthlyBilling');
+    const annualBilling  = val('annualBilling');
+
+    // Payroll (employees row — per-employee rate)
+    const employees      = val('employees');
+    const contractors    = val('contractors');
+
+    // MSP Tool Stack
+    const services       = val('services');
+    const hardware       = val('hardware');
+    const licenses       = val('licenses');
+
+    // State fees ($10/yr per fee, billed monthly = $10/12)
+    const stateFees      = val('stateFees');
+
+    // Project Work (one-time)
+    const catchup        = val('catchup');
+
+    // Rates from calculateMSPPrice
+    const lineItems = [
+      { label: 'Transactions',          amount: transactions   * 3,    onetime: false },
+      { label: 'Managed Clients',       amount: clients        * 15,   onetime: false },
+      { label: 'Vendors',               amount: vendors        * 7,    onetime: false },
+      { label: 'Loans / Lines of Credit', amount: loans        * 25,   onetime: false },
+      { label: 'Invoices Sent',         amount: invoices       * 3,    onetime: false },
+      { label: 'Monthly Recurring Billing', amount: monthlyBilling * 7, onetime: false },
+      { label: 'Annual Contracts',      amount: annualBilling  * 12,   onetime: false },
+      { label: 'W-2 Employees',         amount: employees      * 10,   onetime: false },
+      { label: 'Contractors (1099)',     amount: contractors    * 12,   onetime: false },
+      { label: 'Managed Services (MRR lines)', amount: services * 25,  onetime: false },
+      { label: 'Hardware SKUs',         amount: hardware       * 10,   onetime: false },
+      { label: 'Software Licenses',     amount: licenses       * 20,   onetime: false },
+      { label: 'State Fees (monthly equiv.)', amount: stateFees * (10 / 12), onetime: false },
+      { label: 'Catch-up Bookkeeping',  amount: catchup        * 500,  onetime: true  },
+    ];
+
+    // Payroll base fee if any employees
+    if (employees > 0) {
+      lineItems.push({ label: 'Payroll Base Fee', amount: 75, onetime: false });
+    }
+
+    lineItems.forEach(item => {
+      if (item.amount <= 0) return;
+      if (item.onetime) { onetime += item.amount; } else { monthly += item.amount; }
+      lines.push(item);
     });
 
-    // Transaction volume = bills (AP) + invoices (AR) at $2 each
-    const apQty = parseFloat(document.querySelector('input[data-eid="ap"]')?.value) || 0;
-    const arQty = parseFloat(document.querySelector('input[data-eid="ar"]')?.value) || 0;
-    const txnQty = apQty + arQty;
-    if (txnQty > 0) {
-      const txnAmt = txnQty * 2;
-      monthly += txnAmt;
-      lines.push({ label: 'Transaction Volume (' + txnQty + ' total)', amount: txnAmt, onetime: false });
-    }
-
-    const emp = parseFloat(document.getElementById('est-payroll-employees').value) || 0;
-    if (emp > 0) {
+    // Payroll frequency surcharge
+    const freqEmp = parseFloat(document.getElementById('est-payroll-employees').value) || 0;
+    if (freqEmp > 0) {
       const freqEl = document.getElementById('est-payroll-frequency');
       const fees = JSON.parse(freqEl.dataset.fees);
-      const ppAmt = 50 + (emp * 10) + (fees[freqEl.value] || 0);
-      monthly += ppAmt;
-      lines.push({ label: 'Payroll Processing', amount: ppAmt, onetime: false });
+      const freqAmt = (fees[freqEl.value] || 0);
+      if (freqAmt > 0) {
+        monthly += freqAmt;
+        lines.push({ label: 'Payroll Frequency Surcharge', amount: freqAmt, onetime: false });
+      }
     }
 
+    // Sales tax filings
     const stCount = parseFloat(document.getElementById('est-salestax-count').value) || 0;
     if (stCount > 0) {
       const stFreq = document.getElementById('est-salestax-frequency').value;
-      // quarterly = $50/filing billed as monthly equivalent ($50/3 per month)
       const stMonthlyAmt = stFreq === 'quarterly' ? stCount * (50 / 3) : stCount * 50;
       monthly += stMonthlyAmt;
-      lines.push({ label: `Sales Tax Filings (${stCount} state${stCount>1?'s':''}, ${stFreq})`, amount: stMonthlyAmt, onetime: false });
+      lines.push({ label: 'Sales Tax Filings (' + stCount + ' state' + (stCount > 1 ? 's' : '') + ', ' + stFreq + ')', amount: stMonthlyAmt, onetime: false });
     }
 
     if (isMSP) monthly = monthly * 0.9;
