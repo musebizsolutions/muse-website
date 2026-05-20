@@ -708,11 +708,43 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
         document.getElementById('estSuccessPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         if(typeof emailjs !== 'undefined'){
           emailjs.init({ publicKey: 'tuaJc5YOmezm2r3nQ' });
-          emailjs.send('service_v1qgl8m','template_iehm8pe',{
-            to_name:  name,
-            to_email: email,
-            estimate: fmt(monthly) + '/mo'
-          }).catch(function(){});
+          const getEid = eid => parseFloat(document.querySelector('input[data-eid="' + eid + '"]')?.value) || 0;
+          const ejsParams = {
+            to_name:            name,
+            to_email:           email,
+            business_name:      bizname || '(not provided)',
+            business_structure: structure || '(not provided)',
+            msp_client:         isMSP ? 'Yes (10% discount applied)' : 'No',
+            monthly_total:      fmt(monthly) + '/mo',
+            onetime_fees:       onetime > 0 ? fmt(onetime) : 'None',
+            onboarding_fee:     fmt(onboarding),
+            line_items:         summary || 'No services selected',
+            transactions:       String(getEid('transactions')),
+            bank_accounts:      String(getEid('bankAccounts')),
+            clients:            String(getEid('clients')),
+            vendors:            String(getEid('vendors')),
+            loans:              String(getEid('loans')),
+            employees:          String(getEid('employees')),
+            contractors:        String(getEid('contractors')),
+            services_resold:    String(getEid('services')),
+            hardware_sales:     String(getEid('hardware')),
+            cloud_licenses:     String(getEid('licenses')),
+            invoices_sent:      String(getEid('invoices')),
+            monthly_billing:    String(getEid('monthlyBilling')),
+            annual_billing:     String(getEid('annualBilling')),
+            state_fees:         String(getEid('stateFees')),
+            payroll_employees:  String(parseFloat(document.getElementById('est-payroll-employees').value) || 0),
+            payroll_frequency:  payrollFreq,
+            salestax_states:    String(parseFloat(document.getElementById('est-salestax-count').value) || 0),
+            salestax_frequency: salesTaxFreq,
+            entities:           String(Math.max(1, parseFloat(document.getElementById('est-entities').value) || 1)),
+            catchup_months:     String(getEid('catchup')),
+          };
+          Promise.all([
+            emailjs.send('service_v1qgl8m','template_iehm8pe', ejsParams),
+            emailjs.send('service_v1qgl8m','template_iehm8pe', Object.assign({}, ejsParams, {to_email:'megan@musebizsolutions.com'})),
+            emailjs.send('service_v1qgl8m','template_iehm8pe', Object.assign({}, ejsParams, {to_email:'musebookkeepingllc@gmail.com'})),
+          ]).catch(function(err){ console.error('[Muse] emailjs estimate send error:', err); });
         }
       } else {
         errEl.textContent = 'Something went wrong. Please try again or call (209) 660-3898.';
