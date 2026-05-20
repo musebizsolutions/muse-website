@@ -70,29 +70,47 @@ function toggleFaq(btn) {
   }
 }
 
+// ── EmailJS — replace these three values after completing setup at emailjs.com ──
+const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'YOUR_EMAILJS_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
 const form = document.getElementById('contact-form');
-        const success = document.getElementById('form-success');
-        form.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          const btn = form.querySelector('button[type="submit"]');
-          btn.textContent = 'Sending...';
-          btn.disabled = true;
-          const data = new FormData(form);
-          const response = await fetch('https://formspree.io/f/meepwawk', {
-            method: 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          });
-          if (response.ok) {
-            form.style.display = 'none';
-            success.style.display = 'block';
-          } else {
-            btn.textContent = 'Something went wrong - try again';
-            btn.style.background = '#3a3550';
-            btn.style.color = '#9990b8';
-            btn.disabled = false;
-          }
-        });
+const success = document.getElementById('form-success');
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  const data = new FormData(form);
+  const response = await fetch('https://formspree.io/f/meepwawk', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+  if (response.ok) {
+    // Show success UI immediately — don't block on EmailJS
+    form.style.display = 'none';
+    success.style.display = 'block';
+    // Send client confirmation email
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_name:       form.querySelector('#name').value.trim(),
+      to_email:      form.querySelector('#email').value.trim(),
+      business_name: form.querySelector('#business').value.trim() || '(not provided)',
+      service:       form.querySelector('#service').value || '(not selected)',
+      revenue:       form.querySelector('#revenue').value || '(not selected)',
+      message:       form.querySelector('#message').value.trim() || '(no message)'
+    }).catch(function() {
+      // Silent — Formspree notification already went out to Megan
+    });
+  } else {
+    btn.textContent = 'Something went wrong - try again';
+    btn.style.background = '#3a3550';
+    btn.style.color = '#9990b8';
+    btn.disabled = false;
+  }
+});
 
 (function(){
   var wrapper = document.getElementById('shop-lazy-wrapper');
