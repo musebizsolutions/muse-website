@@ -24,6 +24,10 @@ body{background:var(--ink);color:var(--text);font-family:'Jost',-apple-system,Bl
 .price-card.featured{border-color:var(--canary)}
 .price-card.featured:hover{border-color:var(--canary-light)}
 
+/* PRODUCT CARDS */
+.product-card{overflow:hidden}
+.product-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center;max-width:100%}
+
 /* PAYMENT PROCESSING FORM */
 .pp-section{background:linear-gradient(180deg,var(--ink) 0%,var(--deep) 100%);padding:6rem 2rem;border-top:0.5px solid var(--border);position:relative;overflow:hidden}
 .pp-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(212,201,122,0.05) 0%,transparent 70%);pointer-events:none}
@@ -289,6 +293,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
   .process-steps{grid-template-columns:1fr 1fr;gap:2rem}.process-steps::before{display:none}
   .testimonial-grid{grid-template-columns:1fr}
   .about-stats{grid-template-columns:1fr 1fr}
+  .product-grid{grid-template-columns:repeat(2,1fr)!important;gap:1.25rem!important}
 }
 @media(min-width:901px){.hamburger{display:none}}
 
