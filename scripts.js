@@ -227,6 +227,12 @@ form.addEventListener('submit', async function(e) {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
     });
     if (response.ok) {
+      // Fire-and-forget — don't block the success UI on Brevo
+      fetch('/api/subscribe', {
+        method: 'POST',
+        body: JSON.stringify({ email: email }),
+        headers: { 'Content-Type': 'application/json' }
+      }).catch(function() {});
       document.getElementById('popup-form').style.display = 'none';
       document.getElementById('popup-success').style.display = 'block';
       setTimeout(closePopup, 3000);
