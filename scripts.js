@@ -71,9 +71,9 @@ function toggleFaq(btn) {
 }
 
 // ── EmailJS — replace these three values after completing setup at emailjs.com ──
-const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID  = 'YOUR_EMAILJS_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY  = 'tuaJc5YOmezm2r3nQ';
+const EMAILJS_SERVICE_ID  = 'service_v1qgl8m';
+const EMAILJS_TEMPLATE_ID = 'template_330fz0d';
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
 const form = document.getElementById('contact-form');
