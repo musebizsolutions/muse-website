@@ -43,6 +43,8 @@
 <link rel="dns-prefetch" href="https://api.emailjs.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Preload above-fold image (first img on page, in about section just below hero) -->
+<link rel="preload" as="image" href="meg_headshot.jpg" fetchpriority="high">
 <!-- Preload font CSS so the LCP hero text doesn't stare at the void -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
@@ -540,7 +542,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
     <div class="about-grid">
       <div>
         <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem">
-          <img src="meg_headshot.jpg" alt="Megan Muse, Founder of Muse Bookkeeping" width="80" height="80" loading="lazy" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:1.5px solid var(--gold);flex-shrink:0">
+          <img src="meg_headshot.jpg" alt="Megan Muse, Founder of Muse Bookkeeping" width="80" height="80" loading="eager" fetchpriority="high" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:1.5px solid var(--gold);flex-shrink:0">
           <div>
             <span class="section-label" style="margin-bottom:0.25rem">About Muse</span>
             <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2.5rem)">Not your basic <em>bookkeeper.</em></h2>
@@ -847,7 +849,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
   <!-- COA LEAD MAGNET REMOVED -->
   <div style="display:none">
-    <img src="img-coa-preview.jpg" loading="lazy" decoding="async" alt="IT and MSP SIL Chart of Accounts" style="width:100%;height:100%;object-fit:cover;display:block">
+    <img src="img-coa-preview.jpg" loading="lazy" decoding="async" alt="IT and MSP SIL Chart of Accounts" width="600" height="400" style="width:100%;height:100%;object-fit:cover;display:block">
     <div style="padding:2rem 2.5rem;display:flex;flex-direction:column;justify-content:center;gap:1rem">
       <div style="display:flex;align-items:center;gap:1rem">
         <span style="font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;background:var(--canary);color:var(--ink);font-weight:700;padding:0.25rem 0.75rem">Free Download</span>
@@ -872,7 +874,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
     <!-- Product 1 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s;position:relative" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="position:absolute;top:0.75rem;left:0.75rem;background:var(--canary);color:var(--ink);font-size:0.65rem;letter-spacing:0.2em;font-weight:600;padding:0.2rem 0.6rem;z-index:1">START HERE</div>
-      <img src="img-product-1-ffg.jpg" loading="lazy" decoding="async" alt="MSP Financial Foundations Guide" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-1-ffg.jpg" loading="lazy" decoding="async" alt="MSP Financial Foundations Guide" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 01</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Financial Foundations Guide</h3>
@@ -884,7 +886,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 2 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-2-mrk.jpg" loading="lazy" decoding="async" alt="Monthly Reporting and KPIs" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-2-mrk.jpg" loading="lazy" decoding="async" alt="Monthly Reporting and KPIs" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 02</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Monthly Reporting and KPIs</h3>
@@ -896,7 +898,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 3 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-3-cfm.jpg" loading="lazy" decoding="async" alt="Cash Flow Management" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-3-cfm.jpg" loading="lazy" decoding="async" alt="Cash Flow Management" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 03</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Cash Flow Management</h3>
@@ -908,7 +910,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 4 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-4-srt.jpg" loading="lazy" decoding="async" alt="Service Pricing Toolkit" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-4-srt.jpg" loading="lazy" decoding="async" alt="Service Pricing Toolkit" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 04</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Service Pricing Toolkit</h3>
@@ -920,7 +922,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 5 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-5-bf.jpg" loading="lazy" decoding="async" alt="Budgeting and Forecasting" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-5-bf.jpg" loading="lazy" decoding="async" alt="Budgeting and Forecasting" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 05</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Budgeting and Forecasting</h3>
@@ -932,7 +934,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 6 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-6-rr.jpg" loading="lazy" decoding="async" alt="Revenue Reconciliation" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-6-rr.jpg" loading="lazy" decoding="async" alt="Revenue Reconciliation" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 06</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Revenue Reconciliation</h3>
@@ -944,7 +946,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 7 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-7-cpa.jpg" loading="lazy" decoding="async" alt="Client Profitability Analysis" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-7-cpa.jpg" loading="lazy" decoding="async" alt="Client Profitability Analysis" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 07</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Client Profitability Analysis</h3>
@@ -956,7 +958,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 8 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-8-cp.jpg" loading="lazy" decoding="async" alt="MSP Compensation Planning" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-8-cp.jpg" loading="lazy" decoding="async" alt="MSP Compensation Planning" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 08</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Compensation Planning</h3>
@@ -968,7 +970,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 9 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-9-stc.jpg" loading="lazy" decoding="async" alt="Sales Tax Compliance" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-9-stc.jpg" loading="lazy" decoding="async" alt="Sales Tax Compliance" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 09</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Sales Tax Compliance</h3>
@@ -980,7 +982,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 10 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-10-cff.jpg" loading="lazy" decoding="async" alt="MSP Cash Flow Forecast" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-10-cff.jpg" loading="lazy" decoding="async" alt="MSP Cash Flow Forecast" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 10</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Cash Flow Forecast</h3>
@@ -992,7 +994,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 11 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-11-oet.jpg" loading="lazy" decoding="async" alt="Operational Efficiency Toolkit" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-11-oet.jpg" loading="lazy" decoding="async" alt="Operational Efficiency Toolkit" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 11</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Operational Efficiency Toolkit</h3>
@@ -1004,7 +1006,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
     <!-- Product 12 -->
     <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-      <img src="img-product-12-epg.jpg" loading="lazy" decoding="async" alt="MSP Exit Planning Guide" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <img src="img-product-12-epg.jpg" loading="lazy" decoding="async" alt="MSP Exit Planning Guide" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
       <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
         <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 12</p>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Exit Planning Guide</h3>
