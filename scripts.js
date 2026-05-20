@@ -220,11 +220,20 @@ form.addEventListener('submit', async function(e) {
     const btn = this.querySelector('button[type="submit"]');
     btn.textContent = 'Subscribing...';
     btn.disabled = true;
-    // If you use Formspree, swap the URL below; otherwise hook into your ESP
-    await new Promise(r => setTimeout(r, 800)); // simulate
-    document.getElementById('popup-form').style.display = 'none';
-    document.getElementById('popup-success').style.display = 'block';
-    setTimeout(closePopup, 3000);
+    const email = document.getElementById('popup-email').value.trim();
+    const response = await fetch('https://formspree.io/f/meepwawk', {
+      method: 'POST',
+      body: JSON.stringify({ email: email, _source: 'exit-intent-popup' }),
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    });
+    if (response.ok) {
+      document.getElementById('popup-form').style.display = 'none';
+      document.getElementById('popup-success').style.display = 'block';
+      setTimeout(closePopup, 3000);
+    } else {
+      btn.textContent = 'Something went wrong - try again';
+      btn.disabled = false;
+    }
   });
 })();
 
