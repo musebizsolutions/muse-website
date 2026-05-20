@@ -73,7 +73,7 @@ function toggleFaq(btn) {
 // ── EmailJS — replace these three values after completing setup at emailjs.com ──
 const EMAILJS_PUBLIC_KEY  = 'tuaJc5YOmezm2r3nQ';
 const EMAILJS_SERVICE_ID  = 'service_v1qgl8m';
-const EMAILJS_TEMPLATE_ID = 'template_330fz0d';
+const EMAILJS_TEMPLATE_ID = 'template_iehm8pe';
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
 const form = document.getElementById('contact-form');
