@@ -706,6 +706,14 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
         document.querySelector('.est-email-gate').style.display = 'none';
         document.getElementById('estSuccessPanel').style.display = 'block';
         document.getElementById('estSuccessPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if(typeof emailjs !== 'undefined'){
+          emailjs.init({ publicKey: 'tuaJc5YOmezm2r3nQ' });
+          emailjs.send('service_v1qgl8m','template_iehm8pe',{
+            to_name:  name,
+            to_email: email,
+            estimate: fmt(monthly) + '/mo'
+          }).catch(function(){});
+        }
       } else {
         errEl.textContent = 'Something went wrong. Please try again or call (209) 660-3898.';
         btn.textContent = 'Send My Estimate';
@@ -787,19 +795,15 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     var resp=await fetch('https://formspree.io/f/meepwawk',{method:'POST',body:data,headers:{'Accept':'application/json'}});
     if(resp.ok){
       var params={
-        to_name:       form.querySelector('#pg-name').value.trim(),
-        to_email:      form.querySelector('#pg-email').value.trim(),
-        business_name: form.querySelector('#pg-business').value.trim() || '(not provided)',
-        service:       form.querySelector('#pg-service').value || '(not selected)',
-        revenue:       form.querySelector('#pg-revenue').value || '(not selected)',
-        message:       form.querySelector('#pg-message').value.trim() || '(no message)'
+        to_name:  form.querySelector('#pg-name').value.trim(),
+        to_email: form.querySelector('#pg-email').value.trim()
       };
       console.log('[Muse] emailjs.send params:', params);
       form.style.display='none';
       success.style.display='block';
       if(typeof emailjs !== 'undefined'){
         emailjs.init({ publicKey: 'tuaJc5YOmezm2r3nQ' });
-        emailjs.send('service_v1qgl8m','template_iehm8pe',params)
+        emailjs.send('service_v1qgl8m','template_c5cpi7m',params)
           .then(function(r){ console.log('[Muse] emailjs.send success:', r); })
           .catch(function(err){ console.error('[Muse] emailjs.send error:', err); });
       } else {
