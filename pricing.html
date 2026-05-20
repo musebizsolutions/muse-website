@@ -718,7 +718,6 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
             monthly_total:      fmt(monthly) + '/mo',
             onetime_fees:       onetime > 0 ? fmt(onetime) : 'None',
             onboarding_fee:     fmt(onboarding),
-            line_items:         summary || 'No services selected',
             transactions:       String(getEid('transactions')),
             bank_accounts:      String(getEid('bankAccounts')),
             clients:            String(getEid('clients')),
