@@ -172,7 +172,9 @@ form.addEventListener('submit', async function(e) {
     if(!valid) return;
     form.style.display='none';
     document.getElementById('pp-success').style.display='block';
-    document.getElementById('payment-processing').scrollIntoView({behavior:'smooth'});
+    requestAnimationFrame(function(){
+      document.getElementById('payment-processing').scrollIntoView({behavior:'smooth'});
+    });
   });
 })();
 
@@ -199,7 +201,13 @@ form.addEventListener('submit', async function(e) {
 
   // Fallback: show after 45s of inactivity
   let timer = setTimeout(showPopup, 45000);
-  document.addEventListener('mousemove', function(){ clearTimeout(timer); timer = setTimeout(showPopup, 45000); });
+  let moveThrottle;
+  document.addEventListener('mousemove', function(){
+    if(moveThrottle) return;
+    moveThrottle = setTimeout(function(){ moveThrottle = null; }, 500);
+    clearTimeout(timer);
+    timer = setTimeout(showPopup, 45000);
+  }, {passive: true});
 
   // Close on backdrop click
   document.getElementById('exit-popup').addEventListener('click', function(e){
