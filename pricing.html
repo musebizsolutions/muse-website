@@ -290,7 +290,8 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 </style>
 
 <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69e10e7c5eefd70021ef2c70"})},document.head.appendChild(o)}initApollo();</script><script src="./pricing 1_files/tracker.iife.js.download" async="" defer=""></script>
-<script src="chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/js/recordConsoleEvents.js"></script></head>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+</head>
 <body>
 <div id="coa-bar" style="position:sticky;top:0;z-index:300;background:var(--canary);padding:0.65rem 2rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap">
   <span style="font-family:&#39;Jost&#39;,sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink)">🔒 Free Download</span>
@@ -772,6 +773,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 </section>
 <script>
 (function(){
+  emailjs.init({ publicKey: 'tuaJc5YOmezm2r3nQ' });
   var form=document.getElementById('contact-form-pg');
   if(!form) return;
   var success=document.getElementById('pg-form-success');
@@ -781,8 +783,20 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     btn.textContent='Sending...'; btn.disabled=true;
     var data=new FormData(form);
     var resp=await fetch('https://formspree.io/f/meepwawk',{method:'POST',body:data,headers:{'Accept':'application/json'}});
-    if(resp.ok){form.style.display='none';success.style.display='block';}
-    else{btn.textContent='Something went wrong - try again';btn.style.background='#3a3550';btn.style.color='#9990b8';btn.disabled=false;}
+    if(resp.ok){
+      form.style.display='none';
+      success.style.display='block';
+      emailjs.send('service_v1qgl8m','template_330fz0d',{
+        to_name:       form.querySelector('#pg-name').value.trim(),
+        to_email:      form.querySelector('#pg-email').value.trim(),
+        business_name: form.querySelector('#pg-business').value.trim() || '(not provided)',
+        service:       form.querySelector('#pg-service').value || '(not selected)',
+        revenue:       form.querySelector('#pg-revenue').value || '(not selected)',
+        message:       form.querySelector('#pg-message').value.trim() || '(no message)'
+      }).catch(function(){});
+    } else {
+      btn.textContent='Something went wrong - try again';btn.style.background='#3a3550';btn.style.color='#9990b8';btn.disabled=false;
+    }
   });
 })();
 </script>
