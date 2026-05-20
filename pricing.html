@@ -772,28 +772,36 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 </section>
 <script>
 (function(){
+  console.log('[Muse] pricing.html script block running');
+  console.log('[Muse] typeof emailjs:', typeof emailjs);
   emailjs.init({ publicKey: 'tuaJc5YOmezm2r3nQ' });
   var form=document.getElementById('contact-form-pg');
   if(!form) return;
   var success=document.getElementById('pg-form-success');
   form.addEventListener('submit',async function(e){
     e.preventDefault();
+    console.log('[Muse] form submit fired');
     var btn=form.querySelector('button[type="submit"]');
     btn.textContent='Sending...'; btn.disabled=true;
     var data=new FormData(form);
     var resp=await fetch('https://formspree.io/f/meepwawk',{method:'POST',body:data,headers:{'Accept':'application/json'}});
     if(resp.ok){
-      form.style.display='none';
-      success.style.display='block';
-      emailjs.send('service_v1qgl8m','template_iehm8pe',{
+      var params={
         to_name:       form.querySelector('#pg-name').value.trim(),
         to_email:      form.querySelector('#pg-email').value.trim(),
         business_name: form.querySelector('#pg-business').value.trim() || '(not provided)',
         service:       form.querySelector('#pg-service').value || '(not selected)',
         revenue:       form.querySelector('#pg-revenue').value || '(not selected)',
         message:       form.querySelector('#pg-message').value.trim() || '(no message)'
-      }).catch(function(){});
+      };
+      console.log('[Muse] emailjs.send params:', params);
+      form.style.display='none';
+      success.style.display='block';
+      emailjs.send('service_v1qgl8m','template_iehm8pe',params)
+        .then(function(r){ console.log('[Muse] emailjs.send success:', r); })
+        .catch(function(err){ console.error('[Muse] emailjs.send error:', err); });
     } else {
+      console.warn('[Muse] Formspree response not ok:', resp.status);
       btn.textContent='Something went wrong - try again';btn.style.background='#3a3550';btn.style.color='#9990b8';btn.disabled=false;
     }
   });
