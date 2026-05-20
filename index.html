@@ -49,7 +49,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap"></noscript>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--ink:#0a0a0f;--deep:#12101a;--surface:#1a1726;--raised:#221f30;--border:#3a3550;--purple:#7c4dff;--purple-mid:#9c6fff;--purple-dim:#4a2f9a;--gold:#8b9aa3;--gold-light:#c4cdd6;--canary:#d4c97a;--canary-light:#ddd4a0;--text:#e8e4f0;--muted:#9990b8;--faint:#5c5478}
+:root{--ink:#0a0a0f;--deep:#12101a;--surface:#1a1726;--raised:#221f30;--border:#3a3550;--purple:#7c4dff;--purple-mid:#9c6fff;--purple-dim:#4a2f9a;--gold:#8b9aa3;--gold-light:#c4cdd6;--canary:#d4c97a;--canary-light:#ddd4a0;--text:#e8e4f0;--muted:#9990b8;--faint:#807b9e}
 html{font-size:18px}
 @media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{background:var(--ink);color:var(--text);font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
@@ -283,7 +283,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 <!-- ═══════════════════════════════════════════════
      LEAD MAGNET SECTION — STEEL BEAR TRAP FUNNEL
 ════════════════════════════════════════════════ -->
-<section id="coa-funnel" style="background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:5rem 2rem;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden">
+<section id="coa-funnel" style="background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:5rem 2rem;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden;content-visibility:visible">
   <!-- ambient glow -->
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(124,77,255,0.1) 0%,transparent 70%);pointer-events:none"></div>
 
@@ -826,7 +826,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
 
 <!-- ═══════════════════════════════════════════ DIGITAL STORE ═══ -->
-<div id="shop-lazy-wrapper" style="background:var(--deep);padding:6rem 2rem;min-height:200px">
+<div id="shop-lazy-wrapper" style="background:var(--deep);padding:6rem 2rem;min-height:1400px">
   <div class="container" style="text-align:center;padding:4rem 0">
     <span class="section-label">MSP Financial Product Library</span>
     <h2 class="section-title" style="margin-top:0.5rem">Tools built for <em>MSPs who mean business.</em></h2>
@@ -1317,7 +1317,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
         <textarea class="pp-textarea" id="pp-feedback" name="feedback" placeholder="Hidden fees, poor support, clunky equipment, confusing statements — we've heard it all. Be honest."></textarea>
       </div>
       <div class="pp-field">
-        <label class="pp-label">Attach Your Most Recent Statement</label>
+        <label class="pp-label" for="pp-statement">Attach Your Most Recent Statement</label>
         <div class="pp-drop-zone" id="pp-drop-zone">
           <input type="file" id="pp-statement" name="statement" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto 1rem;opacity:0.4;display:block">
@@ -1386,6 +1386,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;line-height:1.2;margin-bottom:0.75rem">Get your books in order<br><em style="color:var(--purple-mid)">without the chaos.</em></h2>
     <p style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:2rem">Join the list for bookkeeping tips, small biz resources, and first access to new digital products - straight to your inbox.</p>
     <form id="popup-form" style="display:flex;flex-direction:column;gap:0.75rem">
+      <label for="popup-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Email address</label>
       <input type="email" id="popup-email" placeholder="your@email.com" required style="background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.85rem 1rem;font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:300;outline:none;width:100%;box-sizing:border-box">
       <button type="submit" style="background:var(--canary);color:var(--ink);border:none;padding:1rem;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='var(--canary-light)'" onmouseout="this.style.background='var(--canary)'">Yes, Sign Me Up</button>
     </form>

@@ -4,7 +4,7 @@
   --purple:#7c4dff;--purple-mid:#9c6fff;--purple-dim:#4a2f9a;
   --gold:#8b9aa3;--gold-light:#c4cdd6;
   --canary:#d4c97a;--canary-light:#ddd4a0;
-  --text:#e8e4f0;--muted:#9990b8;--faint:#5c5478;
+  --text:#e8e4f0;--muted:#9990b8;--faint:#807b9e;
 }
 html{font-size:18px}
 /* smooth scroll only when user explicitly navigates - not on initial load */
