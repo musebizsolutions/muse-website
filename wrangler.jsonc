@@ -1,14 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "muse-website",
-  "main": "worker.js",
   "compatibility_date": "2026-05-04",
   "observability": {
     "enabled": true
   },
-  "assets": {
-    "directory": "WEBSITE MBS"
-  },
+  "pages_build_output_dir": ".",
   "compatibility_flags": [
     "nodejs_compat"
   ]
