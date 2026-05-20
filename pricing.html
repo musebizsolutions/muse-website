@@ -774,7 +774,6 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 (function(){
   console.log('[Muse] pricing.html script block running');
   console.log('[Muse] typeof emailjs:', typeof emailjs);
-  emailjs.init({ publicKey: 'tuaJc5YOmezm2r3nQ' });
   var form=document.getElementById('contact-form-pg');
   if(!form) return;
   var success=document.getElementById('pg-form-success');
@@ -797,9 +796,14 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
       console.log('[Muse] emailjs.send params:', params);
       form.style.display='none';
       success.style.display='block';
-      emailjs.send('service_v1qgl8m','template_iehm8pe',params)
-        .then(function(r){ console.log('[Muse] emailjs.send success:', r); })
-        .catch(function(err){ console.error('[Muse] emailjs.send error:', err); });
+      if(typeof emailjs !== 'undefined'){
+        emailjs.init({ publicKey: 'tuaJc5YOmezm2r3nQ' });
+        emailjs.send('service_v1qgl8m','template_iehm8pe',params)
+          .then(function(r){ console.log('[Muse] emailjs.send success:', r); })
+          .catch(function(err){ console.error('[Muse] emailjs.send error:', err); });
+      } else {
+        console.error('[Muse] EmailJS SDK not loaded — confirmation email skipped');
+      }
     } else {
       console.warn('[Muse] Formspree response not ok:', resp.status);
       btn.textContent='Something went wrong - try again';btn.style.background='#3a3550';btn.style.color='#9990b8';btn.disabled=false;
