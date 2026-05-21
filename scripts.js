@@ -14,47 +14,6 @@
   }
 })();
 
-// ── COA Easter Egg Modal ──
-function openCOAPreview(){
-  var modal = document.getElementById('coa-modal');
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  startCOACountdown();
-}
-function closeCOAModal(){
-  document.getElementById('coa-modal').style.display = 'none';
-  document.body.style.overflow = '';
-  clearInterval(window._coaTimer);
-  // Reset for next open
-  document.getElementById('coa-countdown').textContent = '8';
-  document.getElementById('coa-paywall').style.display = 'none';
-  document.getElementById('coa-content-wrap').style.filter = '';
-  document.getElementById('coa-scroll-area').style.overflowY = 'auto';
-}
-function startCOACountdown(){
-  var n = 8;
-  var el = document.getElementById('coa-countdown');
-  el.textContent = n;
-  clearInterval(window._coaTimer);
-  window._coaTimer = setInterval(function(){
-    n--;
-    el.textContent = n;
-    if(n <= 0){
-      clearInterval(window._coaTimer);
-      // blur content and show paywall
-      document.getElementById('coa-content-wrap').style.filter = 'blur(6px)';
-      document.getElementById('coa-scroll-area').style.overflowY = 'hidden';
-      document.getElementById('coa-paywall').style.display = 'block';
-      el.textContent = '0';
-    }
-  }, 1000);
-}
-// close on backdrop click
-document.addEventListener('DOMContentLoaded', function(){
-  document.getElementById('coa-modal').addEventListener('click', function(e){
-    if(e.target === this) closeCOAModal();
-  });
-});
 
 function toggleFaq(btn) {
   var answer = btn.nextElementSibling;

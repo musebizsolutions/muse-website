@@ -94,8 +94,6 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
   .logo{font-size:1rem}
   .logo span{font-size:0.7rem}
   .nav-cta{padding:0.45rem 1rem;font-size:0.78rem;letter-spacing:0.08em}
-  .funnel-preview-grid{grid-template-columns:1fr!important;max-width:100%!important}
-  .funnel-steps-grid{grid-template-columns:1fr!important}
 }
 .pp-flag{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:490;display:flex;flex-direction:column;align-items:flex-end}
 .pp-flag-panel{width:0;overflow:hidden;opacity:0;pointer-events:none}
@@ -243,31 +241,6 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
   <button class="pp-flag-tab" onclick="this.closest('.pp-flag').classList.toggle('open')" aria-label="Payment processing savings">Save Money Now · Payment Processing</button>
 </div>
 
-<!-- COA ANNOUNCEMENT BAR -->
-<div id="coa-bar" style="
-  position:sticky;top:0;z-index:300;
-  background:var(--canary);
-  padding:0.65rem 2rem;
-  display:flex;align-items:center;justify-content:center;gap:1.5rem;
-  flex-wrap:wrap;
-">
-  <a href="https://musebizsolutions.gumroad.com/l/MSPCOA" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;text-decoration:none;cursor:pointer">
-    <span style="font-family:'Jost',sans-serif;font-size:0.8rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);text-decoration:underline;text-underline-offset:3px">CLICK HERE →</span>
-    <span style="font-family:'Jost',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink)">🔓 Free Download</span>
-    <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--ink);font-style:italic">The only IT &amp; MSP SIL Chart of Accounts — CODE MUSE26</span>
-  </a>
-  <button onclick="openCOAPreview()" style="
-    font-family:'Jost',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
-    background:var(--ink);color:var(--canary);
-    border:none;padding:0.45rem 1.25rem;cursor:pointer;
-    transition:opacity 0.2s;white-space:nowrap;
-  " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Peek Inside →</button>
-  <button onclick="document.getElementById('coa-bar').style.display='none'" aria-label="Dismiss" style="
-    background:none;border:none;cursor:pointer;color:var(--ink);opacity:0.5;
-    font-size:1.1rem;line-height:1;padding:0;margin-left:0.5rem;
-  ">&#x2715;</button>
-</div>
-
 
 <nav>
   <a class="logo" href="/">Muse Bookkeeping <span>Muse Biz Solutions</span></a>
@@ -297,243 +270,6 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
     <a class="nav-cta" href="contact.html">Get Started</a>
   </div>
 </nav>
-
-<!-- ═══════════════════════════════════════════════
-     LEAD MAGNET SECTION — STEEL BEAR TRAP FUNNEL
-════════════════════════════════════════════════ -->
-<section id="coa-funnel" style="background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:5rem 2rem;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden;content-visibility:visible">
-  <!-- ambient glow -->
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(124,77,255,0.1) 0%,transparent 70%);pointer-events:none"></div>
-
-  <div style="max-width:1100px;margin:0 auto;position:relative;z-index:1">
-
-    <!-- TOP HOOK -->
-    <div style="text-align:center;margin-bottom:3.5rem">
-      <p style="font-size:0.75rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--canary);margin-bottom:0.75rem">Free Resource · IT &amp; MSP Owners</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:300;line-height:1.15;color:var(--text);margin-bottom:1.25rem">
-        Your QuickBooks is a<br><em style="color:var(--purple-mid)">silent money leak.</em>
-      </h2>
-      <p style="color:var(--muted);max-width:580px;margin:0 auto;font-size:1.05rem;line-height:1.9">
-        If your QuickBooks feels like a PSA sync loop, a phishing-ticket avalanche, or a rage-quit migration — you're bleeding money. One fix. Free. MSP-specific.
-      </p>
-    </div>
-
-    <!-- TWO HOVER-REVEAL PREVIEW IMAGES -->
-    <div class="funnel-preview-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:820px;margin:0 auto 3.5rem">
-
-      <div style="position:relative;cursor:pointer;border:0.5px solid var(--border);overflow:hidden;transition:border-color 0.3s" 
-           onmouseover="this.querySelector('.reveal-label').style.opacity='0';this.querySelector('.coa-reveal').style.opacity='1';this.style.borderColor='var(--canary)'"
-           onmouseout="this.querySelector('.reveal-label').style.opacity='1';this.querySelector('.coa-reveal').style.opacity='0';this.style.borderColor='var(--border)'"
-           onclick="openCOAPreview()" title="Click to peek inside">
-        <!-- thumbnail placeholder (dark branded) -->
-        <div style="aspect-ratio:4/3;background:linear-gradient(135deg,var(--surface),var(--raised));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem">
-          <div style="width:56px;height:56px;border:0.5px solid var(--canary);display:flex;align-items:center;justify-content:center;opacity:0.9">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="26" font-family="Cormorant Garamond, serif" font-weight="600" fill="#d4c97a">$</text>
-            </svg>
-          </div>
-          <p style="font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);text-align:center">SIL Chart of Accounts<br>Section I — Income</p>
-          <p style="font-size:0.8rem;color:var(--faint);text-align:center;line-height:1.5">Managed Services · RMR Breakdown<br>Project Revenue · T&amp;M Billing</p>
-        </div>
-        <!-- hover reveal overlay -->
-        <div class="coa-reveal" style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,77,255,0.15),rgba(18,16,26,0.95));display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.35s;gap:0.75rem">
-          <span style="font-size:2rem">👀</span>
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--canary);text-align:center">Click to peek<br>inside →</p>
-          <p style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">8 seconds free</p>
-        </div>
-        <div class="reveal-label" style="position:absolute;bottom:0;left:0;right:0;padding:0.75rem;background:rgba(10,10,15,0.8);text-align:center;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);transition:opacity 0.35s">Hover to preview</div>
-      </div>
-
-      <div style="position:relative;cursor:pointer;border:0.5px solid var(--border);overflow:hidden;transition:border-color 0.3s"
-           onmouseover="this.querySelector('.reveal-label2').style.opacity='0';this.querySelector('.coa-reveal2').style.opacity='1';this.style.borderColor='var(--canary)'"
-           onmouseout="this.querySelector('.reveal-label2').style.opacity='1';this.querySelector('.coa-reveal2').style.opacity='0';this.style.borderColor='var(--border)'"
-           onclick="openCOAPreview()" title="Click to peek inside">
-        <div style="aspect-ratio:4/3;background:linear-gradient(135deg,var(--raised),var(--surface));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem">
-          <div style="width:56px;height:56px;border:0.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;opacity:0.9">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2h6l1 3.5a8 8 0 0 1 2.6 1.5l3.4-1 3 5.2-2.6 2.5a8.1 8.1 0 0 1 0 3l2.6 2.5-3 5.2-3.4-1A8 8 0 0 1 18 25l-1 3.5h-6L10 25a8 8 0 0 1-2.6-1.5l-3.4 1L1 19.3l2.6-2.5a8.1 8.1 0 0 1 0-3L1 11.3l3-5.2 3.4 1A8 8 0 0 1 10 5.5z" stroke="#d4c97a" stroke-width="1" fill="none"/>
-              <circle cx="15" cy="15" r="4" stroke="#d4c97a" stroke-width="1" fill="none"/>
-            </svg>
-          </div>
-          <p style="font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);text-align:center">SIL Chart of Accounts<br>Section II — COGS</p>
-          <p style="font-size:0.8rem;color:var(--faint);text-align:center;line-height:1.5">Labor · Subcontractors · Software<br>Direct Tool Stack · NOC Costs</p>
-        </div>
-        <div class="coa-reveal2" style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,77,255,0.15),rgba(18,16,26,0.95));display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.35s;gap:0.75rem">
-          <span style="font-size:2rem">🔍</span>
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--canary);text-align:center">8 seconds.<br>Then it's yours.</p>
-          <p style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Click to see it</p>
-        </div>
-        <div class="reveal-label2" style="position:absolute;bottom:0;left:0;right:0;padding:0.75rem;background:rgba(10,10,15,0.8);text-align:center;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);transition:opacity 0.35s">Hover to preview</div>
-      </div>
-
-    </div><!-- end preview grid -->
-
-    <!-- FUNNEL SPIRAL — value ladder down the rabbit hole -->
-    <div class="funnel-steps-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:3.5rem;align-items:stretch">
-
-      <div style="background:var(--surface);border:0.5px solid var(--border);border-top:2px solid var(--canary);padding:2rem;position:relative;display:flex;flex-direction:column">
-        <span style="position:absolute;top:-1px;left:1.5rem;background:var(--canary);color:var(--ink);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.2rem 0.6rem;font-weight:700">Step 1 · Free</span>
-        <p style="font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--faint);margin-top:0.75rem;margin-bottom:0.75rem">The COA</p>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;margin-bottom:0.75rem;color:var(--text)">Get Your Books Built Right</h3>
-        <p style="font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem">Download the SIL Chart of Accounts — the exact account structure built for MSPs. Managed services, RMR, COGS, contractor costs. All of it, ready to import.</p>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;flex:1">
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--canary);flex-shrink:0">◆</span> 12+ income account categories</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--canary);flex-shrink:0">◆</span> Full COGS breakdown for MSPs</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--canary);flex-shrink:0">◆</span> QBO-ready import format</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--canary);flex-shrink:0">◆</span> Coupon code: <strong style="color:var(--canary)">MUSE26</strong></li>
-        </ul>
-        <button onclick="openCOAPreview()" style="display:block;width:100%;background:var(--canary);color:var(--ink);border:none;padding:0.85rem;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;cursor:pointer;box-sizing:border-box;min-height:50px">Peek Inside First</button>
-      </div>
-
-      <div style="background:var(--surface);border:0.5px solid var(--border);border-top:2px solid var(--purple-mid);padding:2rem;position:relative;display:flex;flex-direction:column">
-        <span style="position:absolute;top:-1px;left:1.5rem;background:var(--purple-mid);color:var(--ink);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.2rem 0.6rem;font-weight:700">Step 2 · Digital Tools</span>
-        <p style="font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--faint);margin-top:0.75rem;margin-bottom:0.75rem">The Toolkit</p>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;margin-bottom:0.75rem;color:var(--text)">Stop Guessing at Your Numbers</h3>
-        <p style="font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem">Once your accounts are set up, you need to know what to do with the data. Cash flow forecasts, pricing calculators, KPI dashboards — all built for MSPs by someone who knows MSPs.</p>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;flex:1">
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--purple-mid);flex-shrink:0">◆</span> MSP Pricing Toolkit</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--purple-mid);flex-shrink:0">◆</span> Cash Flow Forecast</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--purple-mid);flex-shrink:0">◆</span> KPI Dashboard</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--purple-mid);flex-shrink:0">◆</span> 12 tools total in the shop</li>
-        </ul>
-        <a href="https://musebizsolutions.gumroad.com/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;text-align:center;background:transparent;color:var(--purple-mid);border:0.5px solid var(--purple-mid);padding:0.85rem;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;text-decoration:none;box-sizing:border-box;min-height:50px">Browse the Shop</a>
-      </div>
-
-      <div style="background:var(--surface);border:0.5px solid var(--border);border-top:2px solid var(--gold);padding:2rem;position:relative;display:flex;flex-direction:column">
-        <span style="position:absolute;top:-1px;left:1.5rem;background:var(--gold);color:var(--ink);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.2rem 0.6rem;font-weight:700">Step 3 · Done For You</span>
-        <p style="font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--faint);margin-top:0.75rem;margin-bottom:0.75rem">The Real Solution</p>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;margin-bottom:0.75rem;color:var(--text)">Let Us Just Handle It</h3>
-        <p style="font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem">The COA is free. The tools are good. But the best option? Having a bookkeeper who already knows your business, your RMR, your contractor setup — and just handles all of it.</p>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;flex:1">
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--gold);flex-shrink:0">◆</span> Monthly bookkeeping, done</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--gold);flex-shrink:0">◆</span> Payroll &amp; tax prep included</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--gold);flex-shrink:0">◆</span> Clean reports every month</li>
-          <li style="font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem"><span style="color:var(--gold);flex-shrink:0">◆</span> Free consultation to start</li>
-        </ul>
-        <a href="#contact" style="display:flex;align-items:center;justify-content:center;text-align:center;background:var(--gold);color:var(--ink);padding:0.85rem;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;text-decoration:none;box-sizing:border-box;min-height:50px">Book Free Consultation</a>
-      </div>
-
-    </div><!-- end funnel steps -->
-
-    <!-- URGENCY CLOSER -->
-    <div style="text-align:center;border-top:0.5px solid var(--border);padding-top:2.5rem">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;color:var(--muted);margin-bottom:0.5rem">Every month you run the wrong chart of accounts…</p>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:300;color:var(--text)">…your tax bill gets a little <em style="color:var(--purple-mid)">unnecessarily larger.</em></p>
-      <button onclick="openCOAPreview()" class="btn-outline-canary" style="margin-top:1.75rem;background:none;border:0.5px solid var(--canary);color:var(--canary);padding:0.75rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s">Take a peek at the SIL COA</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════
-     COA EASTER EGG MODAL — 8-second scrollable preview
-════════════════════════════════════════════════ -->
-<div id="coa-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,4,12,0.92);backdrop-filter:blur(8px);flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden">
-
-  <!-- modal header bar -->
-  <div style="width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:0.5px solid var(--border);background:var(--deep);flex-shrink:0">
-    <div>
-      <p style="font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--canary)">Easter Egg Unlocked · SIL COA Preview</p>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text)">MSP Chart of Accounts — Muse Bookkeeping</p>
-    </div>
-    <div style="display:flex;align-items:center;gap:1.25rem">
-      <!-- countdown timer -->
-      <div style="text-align:center">
-        <div id="coa-countdown" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--canary);line-height:1">8</div>
-        <div style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint)">seconds</div>
-      </div>
-      <button onclick="closeCOAModal()" class="hover-gold" style="background:none;border:0.5px solid var(--border);color:var(--faint);font-size:1rem;cursor:pointer;padding:0.4rem 0.75rem;transition:all 0.2s">&#x2715;</button>
-    </div>
-  </div>
-
-  <!-- scrollable COA content -->
-  <div id="coa-scroll-area" style="width:100%;max-width:860px;overflow-y:auto;flex:1;padding:2rem 1.5rem;position:relative">
-
-    <!-- BLURRED after 8 sec -->
-    <div id="coa-content-wrap" style="transition:filter 1.2s ease">
-
-      <div style="text-align:center;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:0.5px solid var(--border)">
-        <p style="font-size:0.7rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">Muse Bookkeeping · Muse Biz Solutions</p>
-        <h2 style="font-family:'Cinzel',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:600;color:var(--text);letter-spacing:0.1em;margin-bottom:0.5rem">SIL Chart of Accounts</h2>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--muted)">Built Specifically for IT Companies &amp; Managed Service Providers</p>
-        <p style="font-size:0.78rem;color:var(--faint);margin-top:0.75rem;letter-spacing:0.12em">QuickBooks Online · Sub-Item Level (SIL) Structure · Import Ready</p>
-      </div>
-
-      <!-- INCOME SECTION -->
-      <div style="margin-bottom:2rem">
-        <div style="background:var(--surface);border:0.5px solid var(--border);border-left:3px solid var(--canary);padding:0.85rem 1.25rem;margin-bottom:0.5rem">
-          <p style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);margin-bottom:0.2rem">Category 1</p>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--text)">Income / Revenue</h3>
-        </div>
-        <div style="display:grid;gap:0.35rem">
-          <div style="background:var(--raised);padding:0.6rem 1.25rem 0.6rem 2rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.9rem;color:var(--text)">Managed Services Revenue</span><span style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple-mid)">Parent</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">RMR — Recurring Managed Revenue</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Managed Security Services</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">RMM / PSA Platform Fees Billed</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--raised);padding:0.6rem 1.25rem 0.6rem 2rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-top:0.5rem"><span style="font-size:0.9rem;color:var(--text)">Project &amp; Professional Services</span><span style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple-mid)">Parent</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Project Revenue — One-Time</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Time &amp; Materials Billing</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Network Infrastructure Projects</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--raised);padding:0.6rem 1.25rem 0.6rem 2rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-top:0.5rem"><span style="font-size:0.9rem;color:var(--text)">Hardware &amp; Software Resale</span><span style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple-mid)">Parent</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Hardware Sales</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Software Licensing &amp; Subscriptions Resold</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Microsoft 365 / Cloud Licensing</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-        </div>
-      </div>
-
-      <!-- COGS SECTION -->
-      <div style="margin-bottom:2rem">
-        <div style="background:var(--surface);border:0.5px solid var(--border);border-left:3px solid var(--purple-mid);padding:0.85rem 1.25rem;margin-bottom:0.5rem">
-          <p style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:0.2rem">Category 2</p>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--text)">Cost of Goods Sold (COGS)</h3>
-        </div>
-        <div style="display:grid;gap:0.35rem">
-          <div style="background:var(--raised);padding:0.6rem 1.25rem 0.6rem 2rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.9rem;color:var(--text)">Labor — Direct Technical</span><span style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple-mid)">Parent</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Technician Wages — Hourly</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">NOC / Help Desk Labor</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--raised);padding:0.6rem 1.25rem 0.6rem 2rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-top:0.5rem"><span style="font-size:0.9rem;color:var(--text)">Subcontractors &amp; 1099s</span><span style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple-mid)">Parent</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Subcontractor — IT Field Services</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Subcontractor — Security Specialists</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--raised);padding:0.6rem 1.25rem 0.6rem 2rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-top:0.5rem"><span style="font-size:0.9rem;color:var(--text)">Direct Software &amp; Tool Stack</span><span style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple-mid)">Parent</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">RMM Platform Subscription</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">PSA / Ticketing Software</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-          <div style="background:var(--surface);padding:0.5rem 1.25rem 0.5rem 3rem;border-left:0.5px solid var(--border);display:flex;justify-content:space-between"><span style="font-size:0.85rem;color:var(--muted)">Backup &amp; DR Software — Direct</span><span style="font-size:0.72rem;color:var(--faint)">Sub-item</span></div>
-        </div>
-      </div>
-
-      <!-- OPERATING EXPENSES TEASER -->
-      <div style="margin-bottom:2rem">
-        <div style="background:var(--surface);border:0.5px solid var(--border);border-left:3px solid var(--gold);padding:0.85rem 1.25rem;margin-bottom:0.5rem">
-          <p style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.2rem">Category 3</p>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--text)">Operating Expenses</h3>
-        </div>
-        <div style="background:var(--raised);border:0.5px dashed var(--border);padding:1.5rem;text-align:center">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;color:var(--muted);margin-bottom:0.5rem">Payroll, G&amp;A, Marketing, Insurance, Depreciation…</p>
-          <p style="font-size:0.82rem;color:var(--faint)">Plus 9 more fully structured categories in the complete download.</p>
-        </div>
-      </div>
-
-    </div><!-- end coa-content-wrap -->
-
-    <!-- PAYWALL OVERLAY (shown after 8 sec) -->
-    <div id="coa-paywall" style="display:none;position:sticky;bottom:0;left:0;right:0;background:linear-gradient(to top,var(--deep) 60%,transparent);padding:4rem 1.5rem 2.5rem;text-align:center;z-index:10">
-      <p style="font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);margin-bottom:0.75rem">Time's Up · Want the Full Thing?</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--text);margin-bottom:0.75rem">Get the Complete SIL COA<br><em style="color:var(--purple-mid)">free on Gumroad</em></h3>
-      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1.75rem">Use code <strong style="color:var(--canary);font-size:1rem">MUSE26</strong> at checkout — brings it to $0.00</p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <a href="https://musebizsolutions.gumroad.com/l/MSPCOA" target="_blank" rel="noopener" style="background:var(--canary);color:var(--ink);padding:0.9rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;text-decoration:none">Get It Free on Gumroad →</a>
-        <button onclick="closeCOAModal()" style="background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.9rem 2rem;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer">Maybe Later</button>
-      </div>
-    </div>
-
-  </div><!-- end scroll area -->
-</div><!-- end coa-modal -->
-
-
-
-
-
-
 
 <section class="hero" style="contain-intrinsic-size:0 100vh;content-visibility:visible">
   <div style="position:relative;z-index:1;max-width:780px">
@@ -777,6 +513,11 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
     <span class="section-label">Client Feedback</span>
     <h2 class="section-title">What clients <em>actually</em> say.</h2>
     <div style="margin-top:3rem">
+      <div class="testimonial" style="max-width:100%;margin-bottom:2rem">
+        <p class="testimonial-text">During my time working with Muse Bookkeeping &amp; Biz Solutions, Megan consistently demonstrates professionalism, accuracy, and strong financial management skills. Megan is responsible for maintaining financial records, reconciling accounts, processing invoices and payments, managing payroll support, and ensuring all transactions are recorded accurately and on time. She shows excellent attention to detail and maintains confidentiality while handling sensitive financial information. Beyond technical ability, Megan is dependable, organized, and easy to work with. She has excellent communication skills and consistently meets deadlines, even during busy reporting periods. I am confident that Megan would be a valuable asset to any organization seeking a trustworthy and skilled bookkeeper. I highly recommend her without reservation.</p>
+        <p class="testimonial-author">Michael R.</p>
+        <p class="testimonial-role">Vineyard Owner, Bronze Leaf LLC</p>
+      </div>
       <div class="testimonial" style="max-width:100%">
         <p class="testimonial-text">Megan has completed the regular tasks of reconciling credit card statements, putting together monthly P&L statements, compiling receipts, handling payroll, and coordinating sales tax payments. She has been the bookkeeper of two of my businesses for the past two years, and we have together managed to have no tax issues with the IRS or formal employee complaints to the Texas Workforce Commission. Megan has been able to navigate the ups and downs of a small business environment, which is always no simple task. She is diligent, treats me fairly, and has a broad range of skills related to bookkeeping. I recommend hiring Megan if you need a nimble and honest bookkeeper.</p>
         <p class="testimonial-author">Andrew M.</p>
@@ -860,26 +601,6 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
   <p class="section-sub" style="margin-bottom:1rem">12 done-for-you financial and operational resources built specifically for managed service providers. Grab what you need or bundle and save.</p>
   <a href="https://musebizsolutions.gumroad.com/" target="_blank" rel="noopener" style="display:inline-block;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);border:0.5px solid var(--canary);padding:0.6rem 1.5rem;text-decoration:none;margin-bottom:3.5rem;transition:all 0.2s" onmouseover="this.style.background='var(--canary)';this.style.color='var(--ink)'" onmouseout="this.style.background='transparent';this.style.color='var(--canary)'">Browse the Full Store</a>
 
-  <!-- COA LEAD MAGNET REMOVED -->
-  <div style="display:none">
-    <img src="img-coa-preview.jpg" loading="lazy" decoding="async" alt="IT and MSP SIL Chart of Accounts" width="600" height="400" style="width:100%;height:100%;object-fit:cover;display:block">
-    <div style="padding:2rem 2.5rem;display:flex;flex-direction:column;justify-content:center;gap:1rem">
-      <div style="display:flex;align-items:center;gap:1rem">
-        <span style="font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;background:var(--canary);color:var(--ink);font-weight:700;padding:0.25rem 0.75rem">Free Download</span>
-        <span style="font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint)">Pay what you want</span>
-      </div>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--text);line-height:1.2;margin:0">IT &amp; MSP SIL COA<em style="display:block;color:var(--canary);font-style:italic;font-size:1.4rem">Chart of Accounts</em></h3>
-      <p style="font-size:0.88rem;color:var(--muted);line-height:1.75;margin:0;max-width:560px">Most MSPs run their books on a generic chart built for restaurants. The SIL COA is the Service Leadership Index standard -- purpose-built for IT and managed services. Get the structure the most profitable MSPs in the industry actually use.</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.25rem">
-        <a href="https://musebizsolutions.gumroad.com/l/MSPCOA" target="_blank" rel="noopener" class="btn-primary" style="text-decoration:none;padding:0.75rem 2rem;font-size:0.82rem">Get It Free</a>
-        <a href="#contact" style="
-          font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;
-          color:var(--muted);border:0.5px solid var(--border);padding:0.75rem 2rem;text-decoration:none;
-          transition:all 0.2s;
-        " onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Have Us Set It Up</a>
-      </div>
-    </div>
-  </div>
 
     <!-- PRODUCT GRID -->
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:5rem" class="product-grid">
