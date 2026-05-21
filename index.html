@@ -236,7 +236,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 <div class="pp-flag" id="pp-flag">
   <div class="pp-flag-panel">
     <p class="pp-flag-headline">Save <em>money</em><br>on payment<br>processing</p>
-    <button class="pp-flag-btn" onclick="document.getElementById('payment-processing').scrollIntoView({behavior:'smooth'})">Save Now</button>
+    <button class="pp-flag-btn" onclick="window.location.href='/payment-processing'">Save Now</button>
   </div>
   <button class="pp-flag-tab" onclick="this.closest('.pp-flag').classList.toggle('open')" aria-label="Payment processing savings">Save Money Now · Payment Processing</button>
 </div>
@@ -253,7 +253,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
         <li><a href="payroll.html" onclick="closeNav()">Payroll</a></li>
         <li><a href="taxes.html" onclick="closeNav()">Taxes</a></li>
             <li><a href="#contact" onclick="closeNav()">Business Loans</a></li>
-        <li class="dropdown-highlight"><a href="#payment-processing" onclick="closeNav()">Payment Processing</a></li>
+        <li class="dropdown-highlight"><a href="/payment-processing" onclick="closeNav()">Payment Processing</a></li>
       </ul>
     </li>
     <li><a href="pricing.html" onclick="closeNav()">Pricing</a></li>
@@ -273,7 +273,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 
 <section class="hero" style="contain-intrinsic-size:0 100vh;content-visibility:visible">
   <div style="position:relative;z-index:1;max-width:780px">
-    <div class="hero-ornament">Bookkeeping &amp; Payroll &amp; Taxes · Remote &amp; Fully Managed</div>
+    <div class="hero-ornament">Bookkeeping &amp; Payroll &amp; Taxes<br>Remote &amp; Fully Managed</div>
     <div class="hero-rule"></div>
     <!-- fetchpriority=high tells the browser this h1 IS the LCP element -->
     <h1 fetchpriority="high">Your books, payroll and taxes<br><em>finally</em> under control.</h1>
@@ -874,230 +874,17 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 </section></template>
 
 
-<section id="payment-processing" class="pp-section">
-  <div class="pp-form-wrap">
-
-    <!-- HEADER -->
-    <div style="text-align:center;margin-bottom:3.5rem">
-      <p style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:1.25rem">Free · No Obligation · No Pressure</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;margin-bottom:1rem">Payment Processing - <em style="font-style:italic;color:var(--canary)">show me the numbers.</em></h2>
-      <div style="width:40px;height:0.5px;background:var(--gold);margin:1.25rem auto"></div>
-      <p style="font-size:0.9rem;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.9">Request a free side-by-side comparison of your current processing rates versus what we'd charge. Fill out the form below and we'll run the numbers for you.</p>
-    </div>
-
-    <form id="pp-lead-form" novalidate>
-
-      <!-- 01 · BUSINESS INFO -->
-      <div class="pp-form-section-head">
-        <span class="pp-section-num">01</span>
-        <span class="pp-section-label">Business Information</span>
-        <div class="pp-section-rule"></div>
-      </div>
-      <div class="pp-field-grid">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-company">Company Name <span class="req">*</span></label>
-          <input class="pp-input" type="text" id="pp-company" name="company" placeholder="Acme Corp" required>
-        </div>
-      </div>
-      <div class="pp-field-grid g2">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-fname">Owner's First Name <span class="req">*</span></label>
-          <input class="pp-input" type="text" id="pp-fname" name="fname" placeholder="Jane" required>
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-lname">Owner's Last Name <span class="req">*</span></label>
-          <input class="pp-input" type="text" id="pp-lname" name="lname" placeholder="Smith" required>
-        </div>
-      </div>
-      <div class="pp-field-grid g2">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-phone">Cell Phone <span class="req">*</span></label>
-          <input class="pp-input" type="tel" id="pp-phone" name="phone" placeholder="(555) 000-0000" required>
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-email">Email <span class="req">*</span></label>
-          <input class="pp-input" type="email" id="pp-email" name="email" placeholder="jane@company.com" required>
-        </div>
-      </div>
-      <div class="pp-field-grid">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-industry">Industry</label>
-          <select class="pp-select" id="pp-industry" name="industry">
-            <option value="" disabled selected>Select your industry</option>
-            <option>Retail</option>
-            <option>Restaurant / Food Service</option>
-            <option>Healthcare / Medical</option>
-            <option>Professional Services</option>
-            <option>Automotive</option>
-            <option>Contractor / Construction</option>
-            <option>E-Commerce</option>
-            <option>Hospitality / Hotel</option>
-            <option>Salon / Spa / Beauty</option>
-            <option>Grocery / Convenience</option>
-            <option>Non-Profit</option>
-            <option>IT / MSP</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 02 · ADDRESS -->
-      <div class="pp-form-section-head">
-        <span class="pp-section-num">02</span>
-        <span class="pp-section-label">Business Address</span>
-        <div class="pp-section-rule"></div>
-      </div>
-      <div class="pp-field-grid">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-addr1">Street Address</label>
-          <input class="pp-input" type="text" id="pp-addr1" name="addr1" placeholder="123 Main Street">
-        </div>
-      </div>
-      <div class="pp-field-grid">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-addr2">Suite / Unit / Floor</label>
-          <input class="pp-input" type="text" id="pp-addr2" name="addr2" placeholder="Suite 200">
-        </div>
-      </div>
-      <div class="pp-field-grid g3">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-city">City</label>
-          <input class="pp-input" type="text" id="pp-city" name="city" placeholder="San Francisco, CA">
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-state">State</label>
-          <select class="pp-select" id="pp-state" name="state">
-            <option value="" disabled selected>State</option>
-            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option>
-          </select>
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-zip">Zip Code</label>
-          <input class="pp-input" type="text" id="pp-zip" name="zip" placeholder="94123" maxlength="5">
-        </div>
-      </div>
-
-      <!-- 03 · CURRENT PROCESSING -->
-      <div class="pp-form-section-head">
-        <span class="pp-section-num">03</span>
-        <span class="pp-section-label">Current Processing Details</span>
-        <div class="pp-section-rule"></div>
-      </div>
-      <label class="pp-label" style="margin-bottom:0.5rem;display:block">Currently Accepted Payment Methods</label>
-      <div class="pp-checkbox-group">
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Visa"><span>Visa</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Mastercard"><span>Mastercard</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Discover"><span>Discover</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Amex"><span>American Express</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Debit"><span>Debit</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Gift Cards"><span>Gift Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Loyalty Cards"><span>Loyalty Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="EBT Food Stamps"><span>EBT Food Stamps</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Fleet Cards"><span>Fleet Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="HSA Cards"><span>HSA Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="JCB/UnionPay"><span>JCB / UnionPay</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="Check Guarantee"><span>Check Guarantee</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="accept" value="ACH"><span>ACH</span></label>
-      </div>
-      <div class="pp-field-grid g3">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-vol">Avg Monthly Sales Volume</label>
-          <input class="pp-input" type="text" id="pp-vol" name="monthly_volume" placeholder="$25,000">
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-avg">Average Sales Ticket</label>
-          <input class="pp-input" type="text" id="pp-avg" name="avg_ticket" placeholder="$75">
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-high">Highest Ticket Size</label>
-          <input class="pp-input" type="text" id="pp-high" name="high_ticket" placeholder="$500">
-        </div>
-      </div>
-      <div class="pp-field-grid g3">
-        <div class="pp-field">
-          <label class="pp-label" for="pp-locs">Number of Locations</label>
-          <input class="pp-input" type="number" id="pp-locs" name="locations" placeholder="1" min="1">
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-processor">Current Processor</label>
-          <input class="pp-input" type="text" id="pp-processor" name="processor" placeholder="Square, Stripe, etc.">
-        </div>
-        <div class="pp-field">
-          <label class="pp-label" for="pp-equip">Equipment Type</label>
-          <input class="pp-input" type="text" id="pp-equip" name="equipment" placeholder="Terminal model, POS...">
-        </div>
-      </div>
-      <label class="pp-label" style="margin-bottom:0.5rem;display:block">Equipment Ownership</label>
-      <div class="pp-checkbox-group">
-        <label class="pp-checkbox-item"><input type="checkbox" name="ownership" value="No Equipment"><span>No Equipment</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="ownership" value="Need Replacement"><span>Need Replacement</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="ownership" value="Merchant Owned"><span>Merchant Owned</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="ownership" value="Merchant Leased"><span>Merchant Leased</span></label>
-      </div>
-
-      <!-- 04 · WHAT I WANT -->
-      <div class="pp-form-section-head">
-        <span class="pp-section-num">04</span>
-        <span class="pp-section-label">What I'd Like to Offer</span>
-        <div class="pp-section-rule"></div>
-      </div>
-      <label class="pp-label" style="margin-bottom:0.5rem;display:block">Payment Methods I'd Like to Accept</label>
-      <div class="pp-checkbox-group">
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Visa"><span>Visa</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Mastercard"><span>Mastercard</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Discover"><span>Discover</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Amex"><span>American Express</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Debit"><span>Debit</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Gift Cards"><span>Gift Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Loyalty Cards"><span>Loyalty Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="EBT Food Stamps"><span>EBT Food Stamps</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Fleet Cards"><span>Fleet Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="HSA Cards"><span>HSA Cards</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="JCB/UnionPay"><span>JCB / UnionPay</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="Check Guarantee"><span>Check Guarantee</span></label>
-        <label class="pp-checkbox-item"><input type="checkbox" name="want" value="ACH"><span>ACH</span></label>
-      </div>
-
-      <!-- 05 · FEEDBACK + STATEMENT -->
-      <div class="pp-form-section-head">
-        <span class="pp-section-num">05</span>
-        <span class="pp-section-label">Tell Us More</span>
-        <div class="pp-section-rule"></div>
-      </div>
-      <div class="pp-field" style="margin-bottom:1.25rem">
-        <label class="pp-label" for="pp-feedback">What do you like or dislike about your current provider?</label>
-        <textarea class="pp-textarea" id="pp-feedback" name="feedback" placeholder="Hidden fees, poor support, clunky equipment, confusing statements - we've heard it all. Be honest."></textarea>
-      </div>
-      <div class="pp-field">
-        <label class="pp-label" for="pp-statement">Attach Your Most Recent Statement</label>
-        <div class="pp-drop-zone" id="pp-drop-zone">
-          <input type="file" id="pp-statement" name="statement" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto 1rem;opacity:0.4;display:block">
-            <path d="M18 4v20M10 16l8-8 8 8" stroke="#d4c97a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 28h24" stroke="#5a6070" stroke-width="1" stroke-linecap="round"/>
-          </svg>
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--text);margin-bottom:0.4rem">Drag &amp; drop your statement here</p>
-          <p style="font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint)">PDF · DOC · JPG · PNG &nbsp;·&nbsp; Max 10MB</p>
-          <p style="font-size:0.82rem;color:var(--canary);margin-top:0.75rem;min-height:1.2em" id="pp-file-name"></p>
-        </div>
-        <p style="font-size:0.72rem;color:var(--faint);margin-top:0.5rem;letter-spacing:0.1em">Your statement is used only to run the comparison analysis and is never shared beyond this inquiry.</p>
-      </div>
-
-      <!-- SUBMIT -->
-      <button type="submit" class="pp-submit-btn">Show Me the Numbers →</button>
-      <p style="text-align:center;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint);margin-top:1rem">Free · No obligation · Response within 1 business day</p>
-
-    </form>
-
-    <!-- SUCCESS STATE -->
-    <div class="pp-success" id="pp-success">
-      <p style="font-size:2rem;margin-bottom:1rem">◆</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;margin-bottom:1rem">We've got your info.</h3>
-      <div style="width:40px;height:0.5px;background:var(--gold);margin:0 auto 1.5rem"></div>
-      <p style="color:var(--muted);font-size:0.9rem;max-width:420px;margin:0 auto">We'll review your details and reach out within one business day with a full side-by-side rate comparison. No pressure - just numbers.</p>
-    </div>
-
+<section style="background:linear-gradient(180deg,var(--ink) 0%,var(--deep) 100%);border-top:0.5px solid var(--border);padding:5rem 2rem;text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(212,201,122,0.05) 0%,transparent 70%);pointer-events:none"></div>
+  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
+  <div class="container" style="position:relative;z-index:1;max-width:680px">
+    <p style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:1.25rem">Free - No Obligation - No Pressure</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;margin-bottom:1rem">Are You Overpaying on <em style="color:var(--canary)">Payment Processing?</em></h2>
+    <div style="width:40px;height:0.5px;background:var(--gold);margin:1.25rem auto"></div>
+    <p style="color:var(--muted);font-size:1.05rem;line-height:1.9;margin-bottom:2.5rem">Get a free side-by-side rate comparison. We'll run your current processor's numbers against what you'd actually pay - no pressure, just data.</p>
+    <a href="/payment-processing" style="display:inline-block;background:var(--canary);color:var(--ink);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.9rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background='var(--canary-light)'" onmouseout="this.style.background='var(--canary)'">Get My Free Rate Comparison &#x2192;</a>
   </div>
+
 </section>
 
 
@@ -1112,7 +899,7 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
     <li><a href="resources.html">Resources</a></li>
     <li><a href="faq.html">FAQ</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="#payment-processing" style="color:var(--gold)">Payment Processing</a></li>
+    <li><a href="/payment-processing" style="color:var(--gold)">Payment Processing</a></li>
     <li><a href="shop.html" style="color:var(--canary)">Shop</a></li>
   </ul>
   <div style="margin:2rem 0">
