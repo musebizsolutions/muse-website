@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSP Financial Health Scorecard | Muse Bookkeeping</title>
+<meta name="description" content="15 questions. Instant results. Find out exactly where your MSP books are bleeding money — and what to fix first. Free from Muse Bookkeeping.">
+<link rel="canonical" href="https://musebizsolutions.com/scorecard">
+<link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;--deep:#12101a;--surface:#1a1726;--raised:#221f30;--border:#3a3550;
+  --purple:#7c4dff;--purple-mid:#9c6fff;--purple-dim:#4a2f9a;
+  --gold:#8b9aa3;--gold-light:#c4cdd6;
+  --canary:#d4c97a;--canary-light:#ddd4a0;
+  --text:#e8e4f0;--muted:#9990b8;--faint:#807b9e;
+  --red:#e85a4a;--green:#4caf7d;
+}
+html{font-size:18px;scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:sticky;top:0;z-index:199;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.97);backdrop-filter:blur(8px);border-bottom:0.5px solid rgba(168,176,184,0.15)}
+.logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:600;letter-spacing:0.15em;color:var(--gold)}
+.logo span{color:var(--muted);font-weight:400;font-size:0.8rem;display:block;letter-spacing:0.25em;text-transform:uppercase;margin-top:2px}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--muted);font-size:0.9rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{border:0.5px solid var(--canary);color:var(--canary);padding:0.5rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.12em;text-transform:uppercase;transition:all 0.2s}
+.nav-cta:hover{background:var(--canary);color:var(--ink)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;z-index:600}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:all 0.3s}
+
+/* PAGE HERO */
+.page-hero{background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:5rem 2rem 4rem;text-align:center;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(124,77,255,0.1) 0%,transparent 70%);pointer-events:none}
+.page-hero .container{max-width:720px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{font-size:0.72rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--canary);display:block;margin-bottom:1rem}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:300;line-height:1.15;margin-bottom:1rem}
+.page-title em{font-style:italic;color:var(--purple-mid)}
+.page-sub{color:var(--muted);font-size:1.05rem;line-height:1.9;max-width:560px;margin:0 auto}
+
+/* QUIZ WRAPPER */
+.quiz-wrap{max-width:780px;margin:0 auto;padding:5rem 2rem}
+
+/* PROGRESS */
+.progress-bar-wrap{margin-bottom:3rem}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem}
+.progress-label{font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint)}
+.progress-count{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--canary)}
+.progress-track{height:2px;background:var(--border);position:relative}
+.progress-fill{height:2px;background:var(--canary);transition:width 0.4s ease;width:0%}
+
+/* QUESTION CARD */
+.question-card{display:none;animation:fadeUp 0.3s ease}
+.question-card.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.q-category{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--faint);margin-bottom:0.5rem}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:300;line-height:1.3;color:var(--text);margin-bottom:2rem}
+
+/* ANSWER BUTTONS */
+.answers{display:flex;flex-direction:column;gap:0.75rem}
+.answer-btn{background:var(--surface);border:0.5px solid var(--border);color:var(--muted);padding:1rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:300;letter-spacing:0.05em;text-align:left;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:1rem;width:100%}
+.answer-btn:hover{border-color:var(--canary);color:var(--text);background:var(--raised)}
+.answer-btn.selected{border-color:var(--canary);color:var(--canary);background:rgba(212,201,122,0.08)}
+.answer-icon{width:20px;height:20px;border:0.5px solid currentColor;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.65rem}
+
+/* NAV BUTTONS */
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.5rem}
+.btn-back{background:none;border:0.5px solid var(--border);color:var(--faint);padding:0.75rem 1.75rem;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.btn-back:hover{border-color:var(--muted);color:var(--muted)}
+.btn-next{background:var(--canary);color:var(--ink);border:none;padding:0.85rem 2.25rem;font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;opacity:0.4;pointer-events:none}
+.btn-next.ready{opacity:1;pointer-events:all}
+.btn-next.ready:hover{background:var(--canary-light)}
+
+/* RESULTS */
+#results{display:none;animation:fadeUp 0.4s ease}
+.score-display{text-align:center;padding:3rem 2rem;border:0.5px solid var(--border);background:var(--surface);margin-bottom:2.5rem;position:relative;overflow:hidden}
+.score-display::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.score-label{font-size:0.72rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--faint);margin-bottom:0.75rem}
+.score-number{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;line-height:1;margin-bottom:0.25rem}
+.score-denom{font-size:1rem;color:var(--faint)}
+.score-grade{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:0.25em;text-transform:uppercase;margin-top:1rem}
+.score-summary{font-size:0.95rem;color:var(--muted);margin-top:0.75rem;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto}
+
+/* Grade colors */
+.grade-critical .score-number,.grade-critical .score-grade{color:var(--red)}
+.grade-critical .score-display::before{background:var(--red)}
+.grade-needs .score-number,.grade-needs .score-grade{color:#e8943a}
+.grade-needs .score-display::before{background:#e8943a}
+.grade-fair .score-number,.grade-fair .score-grade{color:var(--canary)}
+.grade-fair .score-display::before{background:var(--canary)}
+.grade-strong .score-number,.grade-strong .score-grade{color:var(--green)}
+.grade-strong .score-display::before{background:var(--green)}
+
+/* BREAKDOWN */
+.breakdown-title{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--faint);margin-bottom:1.25rem}
+.breakdown-list{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2.5rem}
+.breakdown-item{display:flex;align-items:center;gap:1rem;padding:0.85rem 1.25rem;background:var(--surface);border:0.5px solid var(--border)}
+.breakdown-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.breakdown-text{font-size:0.88rem;color:var(--muted);flex:1;line-height:1.5}
+.breakdown-ok .breakdown-dot{background:var(--green)}
+.breakdown-warn .breakdown-dot{background:#e8943a}
+.breakdown-bad .breakdown-dot{background:var(--red)}
+
+/* CTA BLOCK */
+.result-cta{background:var(--deep);border:0.5px solid var(--border);border-top:2px solid var(--canary);padding:2.5rem;text-align:center}
+.result-cta h3{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:300;margin-bottom:0.75rem}
+.result-cta p{font-size:0.9rem;color:var(--muted);margin-bottom:2rem;line-height:1.8}
+.btn-primary{background:var(--canary);color:var(--ink);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.9rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;display:inline-block}
+.btn-primary:hover{background:var(--canary-light)}
+.btn-retake{background:none;border:none;color:var(--faint);font-family:'Jost',sans-serif;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;margin-top:1.25rem;display:block;width:100%;transition:color 0.2s}
+.btn-retake:hover{color:var(--muted)}
+
+footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 2rem;text-align:center}
+.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:1rem}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin:1.5rem 0;list-style:none;flex-wrap:wrap}
+.footer-links a{font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-text{font-size:0.82rem;color:var(--faint);letter-spacing:0.08em}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,0.98);z-index:500;align-items:center;justify-content:center;gap:2rem}
+  .nav-links.open a{font-size:1.2rem}
+  .hamburger{display:flex}
+  .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+}
+@media(min-width:901px){.hamburger{display:none!important}}
+@media(max-width:600px){
+  html{font-size:16px}
+  nav{padding:0.9rem 1.25rem}
+  .page-hero{padding:3.5rem 1.25rem 3rem}
+  .quiz-wrap{padding:3rem 1.25rem}
+  .quiz-nav{flex-direction:column-reverse;gap:0.75rem}
+  .btn-back,.btn-next{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Muse Bookkeeping <span>Muse Biz Solutions</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="shop.html" style="color:var(--canary)">Shop</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="nav-cta" href="contact.html">Get Started</a>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Free Assessment · MSP Owners</span>
+    <h1 class="page-title">MSP Financial Health <em>Scorecard</em></h1>
+    <p class="page-sub">15 questions. Instant results. Find out where your books are bleeding — and what to fix first.</p>
+  </div>
+</div>
+
+<div class="quiz-wrap">
+
+  <!-- QUIZ -->
+  <div id="quiz">
+    <div class="progress-bar-wrap">
+      <div class="progress-meta">
+        <span class="progress-label">Your Progress</span>
+        <span class="progress-count" id="progress-count">1 of 15</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+
+    <!-- Questions injected by JS -->
+    <div id="questions-container"></div>
+
+    <div class="quiz-nav">
+      <button class="btn-back" id="btn-back" onclick="prevQuestion()" style="visibility:hidden">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+    <div class="score-display" id="score-display">
+      <div class="score-label">Your Financial Health Score</div>
+      <div class="score-number" id="score-number">0</div>
+      <div class="score-denom">out of 30</div>
+      <div class="score-grade" id="score-grade"></div>
+      <p class="score-summary" id="score-summary"></p>
+    </div>
+
+    <p class="breakdown-title">Question by Question</p>
+    <div class="breakdown-list" id="breakdown-list"></div>
+
+    <div class="result-cta">
+      <h3>Ready to fix what's <em style="color:var(--purple-mid)">actually broken?</em></h3>
+      <p>Your score shows exactly where to focus. Book a free consultation and we'll walk through your biggest leaks — no pitch, just answers.</p>
+      <a href="/contact.html" class="btn-primary">Book a Free Consultation</a>
+      <button class="btn-retake" onclick="retakeQuiz()">Retake the scorecard</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Muse Bookkeeping</div>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="shop.html">Shop</a></li>
+  </ul>
+  <p class="footer-text">&copy; 2025 Muse Biz Solutions LLC · Remote Bookkeeping &amp; Payroll · Nationwide</p>
+</footer>
+
+<script>
+const questions = [
+  {
+    category: 'Bank Reconciliation',
+    text: 'Are your bank and credit card accounts reconciled every month?',
+    answers: ['Yes, every month without fail', 'Sometimes — we get behind', 'No, rarely or never']
+  },
+  {
+    category: 'Account Structure',
+    text: 'Do you have a chart of accounts built specifically for IT or MSP businesses?',
+    answers: ['Yes, SIL or similar MSP structure', 'Generic chart, not MSP-specific', 'Not sure what chart of accounts means']
+  },
+  {
+    category: 'Revenue Tracking',
+    text: 'Do you track revenue by type — RMR, project, T&M, hardware resale — separately?',
+    answers: ['Yes, all tracked separately', 'Partially — some categories', 'No, it all goes to one income account']
+  },
+  {
+    category: 'Profit & Loss',
+    text: 'Do you review a P&L statement every month?',
+    answers: ['Yes, every month', 'Occasionally — a few times a year', 'No, I rarely or never look at it']
+  },
+  {
+    category: 'Cash Flow',
+    text: 'Do you have a cash flow forecast or projection for the next 90 days?',
+    answers: ['Yes, maintained and updated', 'We have a rough idea but nothing formal', 'No cash flow forecast at all']
+  },
+  {
+    category: 'Cash Reserves',
+    text: 'Do you have at least 3 months of operating expenses in cash reserves?',
+    answers: ['Yes, 3+ months covered', 'Roughly 1–2 months', 'No reserves — we run lean']
+  },
+  {
+    category: 'Accounts Receivable',
+    text: 'Do you review accounts receivable aging and follow up on overdue invoices?',
+    answers: ['Yes, actively managed', 'Sometimes, when cash gets tight', 'No formal AR review process']
+  },
+  {
+    category: 'COGS Tracking',
+    text: 'Do you know your Cost of Goods Sold (COGS) as a percentage of revenue?',
+    answers: ['Yes, I track gross margin monthly', 'I have a rough number but not precise', 'No, I don\'t track COGS separately']
+  },
+  {
+    category: 'Payroll & Taxes',
+    text: 'Are payroll taxes filed and deposited on time, every period?',
+    answers: ['Yes, always on time', 'Mostly, with occasional delays', 'We\'ve had late filings or penalties']
+  },
+  {
+    category: 'Sales Tax',
+    text: 'Are your sales tax obligations tracked and filed correctly across all states you operate in?',
+    answers: ['Yes, fully compliant', 'Partially — handling some states', 'No, this is a gap for us']
+  },
+  {
+    category: 'Client Profitability',
+    text: 'Do you know which clients are profitable and which are costing you money?',
+    answers: ['Yes, I track it by client', 'I have a gut feeling but no data', 'No, I have no visibility into this']
+  },
+  {
+    category: 'Budget vs. Actual',
+    text: 'Do you compare actual results against a budget or financial plan?',
+    answers: ['Yes, monthly budget vs. actual review', 'We have a budget but rarely compare', 'No budget or plan in place']
+  },
+  {
+    category: 'Books Currency',
+    text: 'Are your books current — reconciled and up to date within the last 30 days?',
+    answers: ['Yes, always current', '1–3 months behind', 'More than 3 months behind']
+  },
+  {
+    category: 'Pricing Strategy',
+    text: 'Do you know your target gross margin per service line and price accordingly?',
+    answers: ['Yes, margin-based pricing in place', 'Roughly — we estimate', 'No, pricing is mostly gut feel']
+  },
+  {
+    category: 'Financial Advisor',
+    text: 'Do you work with a bookkeeper or accountant who understands the MSP business model?',
+    answers: ['Yes, MSP-specific financial support', 'Generic bookkeeper or CPA', 'Handling it myself with no outside help']
+  }
+];
+
+// Points: Yes=2, Sometimes=1, No=0
+const scores = [2, 1, 0];
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+
+function buildQuestions() {
+  const container = document.getElementById('questions-container');
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card' + (i === 0 ? ' active' : '');
+    card.id = 'q-' + i;
+    card.innerHTML = `
+      <p class="q-category">${q.category}</p>
+      <p class="q-text">${q.text}</p>
+      <div class="answers">
+        ${q.answers.map((a, ai) => `
+          <button class="answer-btn" onclick="selectAnswer(${i}, ${ai})">
+            <span class="answer-icon"></span>
+            <span>${a}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+  updateUI();
+}
+
+function selectAnswer(qIndex, aIndex) {
+  answers[qIndex] = aIndex;
+  const card = document.getElementById('q-' + qIndex);
+  card.querySelectorAll('.answer-btn').forEach((btn, i) => {
+    btn.classList.toggle('selected', i === aIndex);
+    btn.querySelector('.answer-icon').textContent = i === aIndex ? '✓' : '';
+  });
+  document.getElementById('btn-next').classList.add('ready');
+}
+
+function nextQuestion() {
+  if (answers[current] === null) return;
+  if (current < questions.length - 1) {
+    document.getElementById('q-' + current).classList.remove('active');
+    current++;
+    document.getElementById('q-' + current).classList.add('active');
+    updateUI();
+  } else {
+    showResults();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) {
+    document.getElementById('q-' + current).classList.remove('active');
+    current--;
+    document.getElementById('q-' + current).classList.add('active');
+    updateUI();
+  }
+}
+
+function updateUI() {
+  const total = questions.length;
+  document.getElementById('progress-count').textContent = (current + 1) + ' of ' + total;
+  document.getElementById('progress-fill').style.width = ((current / total) * 100) + '%';
+  document.getElementById('btn-back').style.visibility = current > 0 ? 'visible' : 'hidden';
+  const nextBtn = document.getElementById('btn-next');
+  nextBtn.textContent = current === total - 1 ? 'See My Results →' : 'Next →';
+  nextBtn.classList.toggle('ready', answers[current] !== null);
+}
+
+function showResults() {
+  document.getElementById('quiz').style.display = 'none';
+  const resultsEl = document.getElementById('results');
+  resultsEl.style.display = 'block';
+
+  const total = answers.reduce((sum, a) => sum + (a !== null ? scores[a] : 0), 0);
+  const max = questions.length * 2;
+
+  let gradeClass, grade, summary;
+  if (total <= 10) {
+    gradeClass = 'grade-critical'; grade = 'Critical — Needs Immediate Attention';
+    summary = 'Your books have significant gaps that are likely costing you money right now. The good news: these are fixable. Start with reconciliation and a proper chart of accounts.';
+  } else if (total <= 18) {
+    gradeClass = 'grade-needs'; grade = 'Needs Work — Several Key Gaps';
+    summary = 'You have a foundation, but gaps in tracking and reporting are leaving money on the table. Tightening up COGS, cash flow, and AR aging will make the biggest difference.';
+  } else if (total <= 24) {
+    gradeClass = 'grade-fair'; grade = 'Getting There — Solid But Room to Grow';
+    summary = 'Your financials are in decent shape, but there are a few areas holding back profitability and clarity. Focus on the weak spots to take your numbers to the next level.';
+  } else {
+    gradeClass = 'grade-strong'; grade = 'Financially Strong — Keep It Up';
+    summary = 'Your MSP is running tight books. The opportunity now is optimization — margins, pricing strategy, and exit readiness. Consider whether you have the right financial partner scaling with you.';
+  }
+
+  const display = document.getElementById('score-display');
+  display.className = 'score-display ' + gradeClass;
+  document.getElementById('score-number').textContent = total;
+  document.getElementById('score-grade').textContent = grade;
+  document.getElementById('score-summary').textContent = summary;
+
+  const breakdown = document.getElementById('breakdown-list');
+  questions.forEach((q, i) => {
+    const a = answers[i];
+    const pts = a !== null ? scores[a] : 0;
+    let cls = pts === 2 ? 'breakdown-ok' : pts === 1 ? 'breakdown-warn' : 'breakdown-bad';
+    const item = document.createElement('div');
+    item.className = 'breakdown-item ' + cls;
+    item.innerHTML = `
+      <div class="breakdown-dot"></div>
+      <div class="breakdown-text"><strong style="color:var(--text)">${q.category}:</strong> ${q.answers[a ?? 2]}</div>
+    `;
+    breakdown.appendChild(item);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retakeQuiz() {
+  answers = new Array(questions.length).fill(null);
+  current = 0;
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('q-0').classList.add('active');
+  document.querySelectorAll('.answer-btn').forEach(b => { b.classList.remove('selected'); b.querySelector('.answer-icon').textContent = ''; });
+  document.getElementById('breakdown-list').innerHTML = '';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleNav() {
+  const nav = document.getElementById('nav-links');
+  const btn = document.getElementById('hamburger');
+  const open = nav.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+
+buildQuestions();
+</script>
+</body>
+</html>
