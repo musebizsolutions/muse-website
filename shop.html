@@ -3,59 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSP Financial Product Library | Muse Bookkeeping</title>
+<meta name="description" content="12 done-for-you financial and operational resources built specifically for managed service providers. Templates, toolkits, and guides for MSP finances.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://musebizsolutions.com/shop">
+<link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta name="theme-color" content="#0a0a0f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --ink:#0a0a0f;--deep:#12101a;--surface:#1a1726;--raised:#221f30;--border:#3a3550;
-  --purple:#7c4dff;--purple-mid:#9c6fff;--purple-dim:#4a2f9a;
-  --gold:#8b9aa3;--gold-light:#c4cdd6;
-  --canary:#d4c97a;--canary-light:#ddd4a0;
-  --text:#e8e4f0;--muted:#9990b8;--faint:#5c5478;
-}
-html{scroll-behavior:smooth;font-size:18px}
-body{background:var(--ink);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-nav{position:sticky;top:0;z-index:199;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.97);backdrop-filter:blur(8px);border-bottom:0.5px solid rgba(168,176,184,0.15)}
+:root{--ink:#0a0a0f;--deep:#12101a;--surface:#1a1726;--raised:#221f30;--border:#3a3550;--purple:#7c4dff;--purple-mid:#9c6fff;--purple-dim:#4a2f9a;--gold:#8b9aa3;--gold-light:#c4cdd6;--canary:#d4c97a;--canary-light:#ddd4a0;--text:#e8e4f0;--muted:#9990b8;--faint:#807b9e}
+html{font-size:18px}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{background:var(--ink);color:var(--text);font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
+nav{position:sticky;top:0;z-index:199;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.97);border-bottom:0.5px solid rgba(168,176,184,0.15);backdrop-filter:blur(8px)}
 .logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:600;letter-spacing:0.15em;color:var(--gold);text-decoration:none}
 .logo span{color:var(--muted);font-weight:400;font-size:0.8rem;display:block;letter-spacing:0.25em;text-transform:uppercase;margin-top:2px}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s}
-.nav-links a:hover,.nav-links a.active{color:var(--gold)}
-.nav-cta{background:transparent;border:0.5px solid var(--canary);color:var(--canary);padding:0.5rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none}
-.nav-cta:hover{background:var(--canary);color:var(--ink)}
-.hamburger{display:none}
-.page-hero{background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:6rem 2rem 4rem;border-bottom:0.5px solid var(--border);text-align:center}
-.page-hero .container{max-width:780px;margin:0 auto}
-.section-label{font-size:0.85rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1rem}
-.section-title em{font-style:italic;color:var(--purple-mid)}
-.section-sub{color:var(--muted);max-width:580px;font-size:1.05rem;line-height:1.9;margin:0 auto}
-.container{max-width:1100px;margin:0 auto}
-.btn-primary{background:var(--canary);color:var(--ink);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;font-weight:500;transition:all 0.2s;text-decoration:none;display:inline-block}
-.btn-primary:hover{background:var(--canary-light)}
-.btn-ghost{background:transparent;color:var(--text);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;border:0.5px solid var(--border);cursor:pointer;font-weight:300;transition:all 0.2s;text-decoration:none;display:inline-block}
-.btn-ghost:hover{border-color:var(--purple-mid);color:var(--purple-mid)}
-section.content{padding:5rem 2rem}
-footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 2rem;text-align:center}
-.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:1rem}
-.footer-links{display:flex;justify-content:center;gap:2rem;margin:1.5rem 0;list-style:none;flex-wrap:wrap}
-.footer-links a{font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color 0.2s}
-.footer-links a:hover{color:var(--gold)}
-.footer-text{font-size:0.82rem;color:var(--faint);letter-spacing:0.08em}
-@media(max-width:900px){
-  nav{padding:1rem 1.5rem}.nav-links{display:none}
-  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,0.98);z-index:500;align-items:center;justify-content:center;gap:2rem}
-  .nav-links.open a{font-size:1.2rem}
-  .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;z-index:600}
-  .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:all 0.3s}
-}
-@media(min-width:901px){.hamburger{display:none}}
-@media(max-width:600px){html{font-size:16px}nav{padding:0.9rem 1.25rem}.page-hero{padding:4rem 1.25rem 3rem}section.content{padding:3.5rem 1.25rem}}
-
-
-/* SERVICES DROPDOWN */
+.nav-links a:hover{color:var(--text)}
 .nav-dropdown{position:relative}
 .nav-dropdown>a{display:flex;align-items:center;gap:0.4rem}
 .nav-dropdown>a::after{content:'';width:6px;height:6px;border-right:0.5px solid currentColor;border-bottom:0.5px solid currentColor;transform:rotate(45deg) translateY(-2px);display:inline-block;transition:transform 0.2s}
@@ -66,109 +35,356 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 .dropdown-menu li:first-child a{border-top:0.5px solid var(--border)}
 .dropdown-menu li:last-child a{border-bottom:none}
 .dropdown-menu li a:hover{color:var(--gold);background:var(--surface)}
-.dropdown-menu .dropdown-highlight a{color:var(--canary)!important}
-.dropdown-menu .dropdown-highlight a:hover{color:var(--canary)!important;background:rgba(212,201,122,0.06)}
+.dropdown-highlight a{color:var(--canary)!important}
+.nav-cta{background:transparent;border:0.5px solid var(--canary);color:var(--canary);padding:0.5rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none}
+.nav-cta:hover{background:var(--canary);color:var(--ink)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;z-index:600}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav-phone{font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.1em;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.nav-phone:hover{color:var(--gold)}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-size:0.85rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--purple-mid)}
+.section-sub{color:var(--muted);max-width:580px;font-size:1.05rem;line-height:1.9;margin:0 auto}
+.btn-primary{background:var(--canary);color:var(--ink);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;font-weight:500;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--canary-light)}
+.btn-ghost{background:transparent;color:var(--text);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;border:0.5px solid var(--border);cursor:pointer;font-weight:300;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{border-color:var(--purple-mid);color:var(--purple-mid)}
+footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 2rem;text-align:center}
+.footer-logo{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;letter-spacing:0.15em;color:var(--gold);margin-bottom:1.5rem}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;list-style:none;margin-bottom:2rem}
+.footer-links a{color:var(--faint);text-decoration:none;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-text{font-size:0.78rem;color:var(--faint);letter-spacing:0.08em}
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,0.98);z-index:500;align-items:center;justify-content:center;gap:2rem}
+  .nav-links.open a{font-size:1.2rem;letter-spacing:0.15em}
+  .hamburger{display:flex}
+  .nav-phone{display:none}
+  .product-grid{grid-template-columns:repeat(2,1fr)!important;gap:1.25rem!important}
+  .bundle-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:600px){
+  html{font-size:16px}
+  nav{padding:0.9rem 1.25rem}
+  .logo{font-size:1rem}
+  .logo span{font-size:0.7rem}
+  .nav-cta{padding:0.45rem 1rem;font-size:0.78rem;letter-spacing:0.08em}
+  .product-grid{grid-template-columns:repeat(2,1fr)!important;gap:1rem!important}
+}
+@media(max-width:420px){
+  .product-grid{grid-template-columns:1fr!important}
+}
 </style>
-<script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69e10e7c5eefd70021ef2c70"})},document.head.appendChild(o)}initApollo();</script>
-<title>Shop | Muse Bookkeeping</title><meta name="description" content="MSP bookkeeping templates, SIL chart of accounts, and financial tools for IT businesses. Download instantly from Muse Bookkeeping."></head><body><nav>
-  <a class="logo" href="index.html">Muse Bookkeeping <span>Muse Biz Solutions</span></a>
+<link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="styles.css"></noscript>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Muse Bookkeeping <span>Muse Biz Solutions</span></a>
   <ul class="nav-links" id="nav-links">
-    <li><a href="about.html" >About</a></li>
+    <li><a href="about.html" onclick="closeNav()">About</a></li>
     <li class="nav-dropdown">
-      <a href="services.html">Services</a>
+      <a href="services.html" onclick="closeNav()">Services</a>
       <ul class="dropdown-menu">
-        <li><a href="bookkeeping.html">Bookkeeping</a></li>
-        <li><a href="payroll.html">Payroll</a></li>
-        <li><a href="taxes.html">Taxes</a></li>
-        <li><a href="audit.html">Audit</a></li>
-        <li><a href="contact.html">Business Loans</a></li>
-        <li class="dropdown-highlight"><a href="index.html#payment-processing">Payment Processing</a></li>
+        <li><a href="bookkeeping.html" onclick="closeNav()">Bookkeeping</a></li>
+        <li><a href="payroll.html" onclick="closeNav()">Payroll</a></li>
+        <li><a href="taxes.html" onclick="closeNav()">Taxes</a></li>
+        <li><a href="contact.html" onclick="closeNav()">Business Loans</a></li>
+        <li class="dropdown-highlight"><a href="/payment-processing" onclick="closeNav()">Payment Processing</a></li>
       </ul>
     </li>
-    <li><a href="pricing.html" >Pricing</a></li>
-    <li><a href="resources.html" >Resources</a></li>
-    <li><a href="faq.html" >FAQ</a></li>
-    <li><a href="contact.html" >Contact</a></li>
-    <li><a href="shop.html" style="color:var(--canary)" class="active">Shop</a></li>
+    <li><a href="pricing.html" onclick="closeNav()">Pricing</a></li>
+    <li><a href="resources.html" onclick="closeNav()">Resources</a></li>
+    <li><a href="faq.html" onclick="closeNav()">FAQ</a></li>
+    <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+    <li><a href="/shop" style="color:var(--canary)" onclick="closeNav()">Shop</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" onclick="document.getElementById('nav-links').classList.toggle('open')">
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </button>
-  <a class="nav-cta" href="contact.html">Get Started</a>
+  <div style="display:flex;align-items:center;gap:1rem;flex-shrink:0">
+    <a href="tel:+12096603898" class="nav-phone">
+      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.16h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.61a16 16 0 0 0 6.05 6.05l1.5-1.5a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      (209) 660-3898
+    </a>
+    <a class="nav-cta" href="contact.html">Get Started</a>
+  </div>
 </nav>
-<header class="page-hero">
-  <div class="container">
-    <span class="section-label" style="color:var(--canary)">Shop</span>
-    <h1 class="section-title">Tools built for <em>MSP finances.</em></h1>
-    <p class="section-sub">Templates, chart of accounts setups, and financial tools you can put to work immediately. Built by a bookkeeper who specializes in IT businesses.</p>
-  </div>
-</header>
-<section class="content" style="background:var(--deep)">
-  <div class="container" style="text-align:center">
-    <p style="color:var(--muted);font-size:1.1rem;margin-bottom:3rem">Our full product catalog is available on the main page. Browse all templates, tools, and downloadable resources below.</p>
-    <a class="btn-primary" href="index.html#shop">Browse the Full Shop</a>
-    <div style="margin-top:4rem;background:var(--surface);border:0.5px solid var(--border);border-left:2px solid var(--canary);padding:2.5rem;text-align:left;max-width:680px;margin-left:auto;margin-right:auto">
-      <div style="font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);margin-bottom:0.75rem">Free Download</div>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;margin-bottom:0.75rem">SIL MSP Chart of Accounts</h3>
-      <p style="color:var(--muted);line-height:1.9;margin-bottom:1.5rem">The only IT and MSP SIL chart of accounts available as a direct QuickBooks Online import. Use code MUSE26 at checkout for a free download.</p>
-      <a class="btn-primary" href="index.html#shop">Get It Free</a>
-    </div>
-  </div>
-</section>
 
-<!-- CONTACT FORM FOOTER -->
-<section style="background:var(--ink);padding:5rem 2rem;border-top:0.5px solid var(--border)">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start">
-      <div>
-        <span class="section-label">Get In Touch</span>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;line-height:1.3;margin-bottom:1.25rem">We respond <em>the same day.</em></h2>
-        <p style="color:var(--muted);line-height:1.9;margin-bottom:2rem">Free consultation. No obligation. Whether your books are current or years behind, tell us what is going on and we will tell you what we can do.</p>
-        <div style="margin-bottom:1rem">
-          <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint)">Email</div>
-          <div style="color:var(--text);margin-top:0.2rem">megan@musebizsolutions.com</div>
-        </div>
-        <div style="margin-bottom:1rem">
-          <div style="font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint)">Service Area</div>
-          <div style="color:var(--text);margin-top:0.2rem">Nationwide, 100% remote</div>
-        </div>
-        <div style="background:var(--surface);border:0.5px solid var(--border);border-left:2px solid var(--canary);padding:1.25rem;margin-top:2rem">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--text);line-height:1.7">No question is too basic. No mess is too big. We have seen it all.</p>
-        </div>
-      </div>
-      <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem">
-        <form action="https://formspree.io/f/meepwawk" method="POST" class="page-contact-form">
-          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Full Name</label><input type="text" name="name" placeholder="Your name" required style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
-          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Email Address</label><input type="email" name="email" placeholder="your@email.com" required style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
-          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Business Name</label><input type="text" name="business" placeholder="Your business" style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></div>
-          <div style="margin-bottom:1.25rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">What Do You Need?</label><select name="service" style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;cursor:pointer;-webkit-appearance:none"><option value="">Select a service</option><option>Monthly Bookkeeping</option><option>Payroll Services</option><option>Catch-Up / Cleanup</option><option>CPA Tax Services</option><option>Audit / Compilation</option><option>Not sure yet</option></select></div>
-          <div style="margin-bottom:1.5rem"><label style="display:block;font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Tell Me About Your Books</label><textarea name="message" rows="4" placeholder="Current software, how far behind you are, what is driving you crazy. Whatever is relevant." style="width:100%;background:var(--raised);border:0.5px solid var(--border);color:var(--text);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.95rem;font-weight:300;outline:none;resize:vertical;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--purple-mid)'" onblur="this.style.borderColor='var(--border)'"></textarea></div>
-          <button type="submit" style="width:100%;background:var(--canary);color:var(--ink);border:none;padding:1rem;font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='var(--canary-light)'" onmouseout="this.style.background='var(--canary)'">Send Message</button>
-        </form>
-        <div class="page-contact-success" style="display:none;text-align:center;padding:2rem">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold)">Message received.</p>
-          <p style="color:var(--muted);margin-top:0.5rem">We will be in touch the same business day.</p>
-        </div>
-      </div>
+<!-- PAGE HEADER -->
+<div style="background:linear-gradient(180deg,var(--deep) 0%,var(--ink) 100%);padding:5rem 2rem 4rem;text-align:center;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(124,77,255,0.08) 0%,transparent 70%);pointer-events:none"></div>
+  <div style="position:relative;z-index:1">
+    <span class="section-label">MSP Financial Product Library</span>
+    <h1 class="section-title">Tools built for <em>MSPs who mean business.</em></h1>
+    <p class="section-sub">12 done-for-you financial and operational resources built specifically for managed service providers. Grab what you need or bundle and save.</p>
+    <div style="margin-top:2rem">
+      <a href="https://musebizsolutions.gumroad.com/" target="_blank" rel="noopener" style="display:inline-block;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--canary);border:0.5px solid var(--canary);padding:0.6rem 1.5rem;text-decoration:none;transition:all 0.2s" onmouseover="this.style.background='var(--canary)';this.style.color='var(--ink)'" onmouseout="this.style.background='transparent';this.style.color='var(--canary)'">Browse Full Gumroad Store &#x2197;</a>
     </div>
   </div>
+</div>
+
+<!-- PRODUCT GRID -->
+<section style="background:var(--deep);padding:5rem 2rem">
+<div class="container">
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:5rem" class="product-grid">
+
+    <!-- Product 1 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s;position:relative" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <div style="position:absolute;top:0.75rem;left:0.75rem;background:var(--canary);color:var(--ink);font-size:0.65rem;letter-spacing:0.2em;font-weight:600;padding:0.2rem 0.6rem;z-index:1">START HERE</div>
+      <img src="img-product-1-ffg.jpg" loading="lazy" decoding="async" alt="MSP Financial Foundations Guide" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 01</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Financial Foundations Guide</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Build audit-ready books from scratch.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$497</p>
+        <a href="GUMROAD_LINK_01" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:var(--canary);color:var(--ink);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;text-decoration:none">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-2-mrk.jpg" loading="lazy" decoding="async" alt="Monthly Reporting and KPIs" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 02</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Monthly Reporting and KPIs</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">18 MSP-specific metrics, benchmarked and tracked.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$397</p>
+        <a href="GUMROAD_LINK_02" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-3-cfm.jpg" loading="lazy" decoding="async" alt="Cash Flow Management" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 03</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Cash Flow Management</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Eliminate surprise cash crunches permanently.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$347</p>
+        <a href="GUMROAD_LINK_03" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-4-srt.jpg" loading="lazy" decoding="async" alt="Service Pricing Toolkit" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 04</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Service Pricing Toolkit</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Price with confidence. Margin improvement of 15-25%.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$447</p>
+        <a href="GUMROAD_LINK_04" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-5-bf.jpg" loading="lazy" decoding="async" alt="Budgeting and Forecasting" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 05</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Budgeting and Forecasting</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Predictable profits start with a real budget.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$397</p>
+        <a href="GUMROAD_LINK_05" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-6-rr.jpg" loading="lazy" decoding="async" alt="Revenue Reconciliation" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 06</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Revenue Reconciliation</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Recover 3-8% in leaked revenue.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$347</p>
+        <a href="GUMROAD_LINK_06" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-7-cpa.jpg" loading="lazy" decoding="async" alt="Client Profitability Analysis" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 07</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Client Profitability Analysis</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Know exactly which clients make or lose you money.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$397</p>
+        <a href="GUMROAD_LINK_07" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-8-cp.jpg" loading="lazy" decoding="async" alt="MSP Compensation Planning" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 08</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Compensation Planning</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Retain top techs with competitive, aligned pay.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$347</p>
+        <a href="GUMROAD_LINK_08" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 9 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-9-stc.jpg" loading="lazy" decoding="async" alt="Sales Tax Compliance" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 09</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Sales Tax Compliance</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Multi-state tax clarity for IT services.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$297</p>
+        <a href="GUMROAD_LINK_09" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 10 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-10-cff.jpg" loading="lazy" decoding="async" alt="MSP Cash Flow Forecast" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 10</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Cash Flow Forecast</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">12-month projections with scenario analysis.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$447</p>
+        <a href="GUMROAD_LINK_10" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 11 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-11-oet.jpg" loading="lazy" decoding="async" alt="Operational Efficiency Toolkit" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 11</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">Operational Efficiency Toolkit</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">15-30% utilization improvement. Lower cost per ticket.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$397</p>
+        <a href="GUMROAD_LINK_11" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+    <!-- Product 12 -->
+    <div class="product-card" style="background:var(--surface);border:0.5px solid var(--border);display:flex;flex-direction:column;transition:all 0.3s" onmouseover="this.style.borderColor='var(--canary)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <img src="img-product-12-epg.jpg" loading="lazy" decoding="async" alt="MSP Exit Planning Guide" width="400" height="400" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.4rem">Product 12</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;color:var(--text)">MSP Exit Planning Guide</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;flex:1">Maximize your valuation. Exit on your terms.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--canary);margin-top:0.75rem;font-weight:300">$597</p>
+        <a href="GUMROAD_LINK_12" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:1rem;background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:0.65rem;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--canary)';this.style.color='var(--canary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get It</a>
+      </div>
+    </div>
+
+  </div><!-- end product-grid -->
+
+  <!-- BUNDLES -->
+  <div style="margin-bottom:1rem">
+    <span class="section-label">Bundle and Save</span>
+    <h2 class="section-title" style="margin-bottom:0.5rem">Buy the stack that fits your stage. <em>Save big.</em></h2>
+    <p class="section-sub" style="margin-bottom:1.5rem">Three curated bundles built around the biggest MSP financial pain points.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto auto auto auto auto auto;gap:2rem;margin-bottom:5rem;align-items:stretch" class="bundle-grid">
+
+    <!-- Bundle 1: Starter -->
+    <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;display:grid;grid-row:span 7;grid-template-rows:subgrid;position:relative">
+      <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--purple-dim);color:var(--text);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 1rem;white-space:nowrap">Best for: Building from the Ground Up</div>
+      <p style="font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);margin-bottom:0.75rem;margin-top:0.5rem">Starter Bundle</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;margin-bottom:0.5rem;color:var(--text)">MSP Financial Foundations</h3>
+      <p style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem">The financial infrastructure trifecta for MSPs getting their books in order. Clean books, real cash visibility, and monthly reporting that actually means something.</p>
+      <div style="border-top:0.5px solid var(--border);padding:1rem 0;margin-bottom:0.75rem">
+        <p style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.75rem">Includes (Products 01, 02, 03)</p>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.5rem;font-size:0.85rem;color:var(--muted)"><span style="color:var(--canary);flex-shrink:0">01</span> MSP Financial Foundations Guide</div>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.5rem;font-size:0.85rem;color:var(--muted)"><span style="color:var(--canary);flex-shrink:0">02</span> Monthly Reporting and KPIs</div>
+        <div style="display:flex;gap:0.75rem;font-size:0.85rem;color:var(--muted)"><span style="color:var(--canary);flex-shrink:0">03</span> Cash Flow Management</div>
+      </div>
+      <div style="margin-bottom:0">
+        <div style="font-size:0.78rem;color:var(--faint);text-decoration:line-through;margin-bottom:0.25rem">Individual value: $1,241</div>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--canary)">$997</span>
+        <p style="font-size:0.88rem;color:var(--purple-mid);margin-top:0.1rem;font-weight:500">You save $244 (20% off)</p>
+      </div>
+      <a href="GUMROAD_BUNDLE_STARTER" target="_blank" rel="noopener" class="bundle-btn">Get the Starter Bundle</a>
+      <p style="font-size:0.75rem;color:var(--faint);text-align:center;margin-top:1rem;line-height:1.8;align-self:end">Want this done for you every month?<br><a href="contact.html" style="color:var(--canary);text-decoration:none">Book a free call.</a></p>
+    </div>
+
+    <!-- Bundle 2: Growth -->
+    <div style="background:var(--surface);border:0.5px solid var(--canary);padding:2.5rem 2rem;display:grid;grid-row:span 7;grid-template-rows:subgrid;position:relative">
+      <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--canary);color:var(--ink);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 1rem;white-space:nowrap;font-weight:600">Most Popular</div>
+      <p style="font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);margin-bottom:0.75rem;margin-top:0.5rem">Growth Bundle</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;margin-bottom:0.5rem;color:var(--text)">MSP Margin Optimization</h3>
+      <p style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem">The margin optimization stack for MSPs ready to scale profitably. Price right, plan ahead, know your clients, and run a tight operation.</p>
+      <div style="border-top:0.5px solid var(--border);padding:1rem 0;margin-bottom:0.75rem">
+        <p style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.75rem">Includes (Products 04, 05, 07, 11)</p>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.5rem;font-size:0.85rem;color:var(--muted)"><span style="color:var(--canary);flex-shrink:0">04</span> Service Pricing Toolkit</div>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.5rem;font-size:0.85rem;color:var(--muted)"><span style="color:var(--canary);flex-shrink:0">05</span> Budgeting and Forecasting</div>
+        <div style="display:flex;gap:0.75rem;margin-bottom:0.5rem;font-size:0.85rem;color:var(--muted)"><span style="color:var(--canary);flex-shrink:0">07</span> Client Profitability Analysis</div>
+        <div style="display:flex;gap:0.75rem;font-size:0.85rem;color:var(--muted)"><span style="color:var(--canary);flex-shrink:0">11</span> Operational Efficiency Toolkit</div>
+      </div>
+      <div style="margin-bottom:0">
+        <div style="font-size:0.78rem;color:var(--faint);text-decoration:line-through;margin-bottom:0.25rem">Individual value: $1,638</div>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--canary)">$1,297</span>
+        <p style="font-size:0.88rem;color:var(--purple-mid);margin-top:0.1rem;font-weight:500">You save $341 (21% off)</p>
+      </div>
+      <a href="GUMROAD_BUNDLE_GROWTH" target="_blank" rel="noopener" class="bundle-btn">Get the Growth Bundle</a>
+      <p style="font-size:0.75rem;color:var(--faint);text-align:center;margin-top:1rem;line-height:1.8;align-self:end">Ready to hand it all off?<br><a href="contact.html" style="color:var(--canary);text-decoration:none">Let us handle it.</a></p>
+    </div>
+
+    <!-- Bundle 3: Complete -->
+    <div style="background:var(--surface);border:0.5px solid var(--border);padding:2.5rem 2rem;display:grid;grid-row:span 7;grid-template-rows:subgrid;position:relative">
+      <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--purple-dim);color:var(--text);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 1rem;white-space:nowrap">Best Value - Save $1,119</div>
+      <p style="font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--canary);margin-bottom:0.75rem;margin-top:0.5rem">Complete Bundle</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;margin-bottom:0.5rem;color:var(--text)">Complete MSP Financial Mastery</h3>
+      <p style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem">All 12 products. The full arsenal. Everything you need to build, optimize, and eventually exit a financially disciplined MSP.</p>
+      <div style="border-top:0.5px solid var(--border);padding:1rem 0;margin-bottom:0.75rem">
+        <p style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:0.75rem">All 12 Products Included</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 1rem">
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">01</span> Foundations</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">02</span> KPIs</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">03</span> Cash Flow</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">04</span> Pricing</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">05</span> Budgeting</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">06</span> Revenue Rec.</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">07</span> Client Profit.</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">08</span> Compensation</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">09</span> Tax Compliance</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">10</span> Cash Forecast</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">11</span> Efficiency</div>
+          <div style="font-size:0.8rem;color:var(--muted)"><span style="color:var(--canary)">12</span> Exit Planning</div>
+        </div>
+      </div>
+      <div style="margin-bottom:0">
+        <div style="font-size:0.78rem;color:var(--faint);text-decoration:line-through;margin-bottom:0.25rem">Individual value: $4,616</div>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--canary)">$3,497</span>
+        <p style="font-size:0.88rem;color:var(--purple-mid);margin-top:0.1rem;font-weight:500">You save $1,119 (24% off)</p>
+      </div>
+      <a href="https://musebizsolutions.gumroad.com/" target="_blank" rel="noopener" class="bundle-btn">Get the Full Library</a>
+      <p style="font-size:0.75rem;color:var(--faint);text-align:center;margin-top:1rem;line-height:1.8;align-self:end">The complete package - tools plus done-for-you?<br><a href="contact.html" style="color:var(--canary);text-decoration:none">Let's talk.</a></p>
+    </div>
+
+  </div><!-- end bundle-grid -->
+
+  <!-- FUNNEL CTA -->
+  <div style="background:linear-gradient(135deg,var(--raised),var(--surface));border:0.5px solid var(--canary);padding:3.5rem;text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(124,77,255,0.08) 0%,transparent 70%);pointer-events:none"></div>
+    <p style="font-size:0.8rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--canary);margin-bottom:1rem">The Next Step</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;color:var(--text);line-height:1.2;margin-bottom:1rem">Done reading about it?<br><em style="color:var(--purple-mid)">Let us just do it for you.</em></h2>
+    <p style="color:var(--muted);max-width:520px;margin:0 auto 2.5rem;font-size:1rem;line-height:1.8">These tools are great for DIY. But if you want clean books delivered every month without touching a spreadsheet, that is what we do. No chaos, no surprises, no guessing.</p>
+    <div style="display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap">
+      <a href="contact.html" class="btn-primary" style="text-decoration:none">Book a Free Consultation</a>
+      <a href="https://musebizsolutions.gumroad.com/" target="_blank" rel="noopener" class="btn-ghost" style="text-decoration:none">Browse All Products</a>
+    </div>
+  </div>
+
+</div>
 </section>
-<script>
-(function(){
-  var forms=document.querySelectorAll('.page-contact-form');
-  forms.forEach(function(form){
-    form.addEventListener('submit',async function(e){
-      e.preventDefault();
-      var data=new FormData(this);
-      var res=await fetch(this.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
-      if(res.ok){
-        this.style.display='none';
-        this.nextElementSibling.style.display='block';
-      }
-    });
-  });
-})();
-</script>
 
 <footer>
   <div class="footer-logo">Muse Bookkeeping</div>
@@ -177,11 +393,43 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
     <li><a href="services.html">Services</a></li>
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="payroll.html">Payroll</a></li>
-    <li><a href="audit.html">Audit</a></li>
     <li><a href="resources.html">Resources</a></li>
     <li><a href="faq.html">FAQ</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="shop.html" style="color:var(--canary)">Shop</a></li>
+    <li><a href="/payment-processing" style="color:var(--gold)">Payment Processing</a></li>
   </ul>
-  <p class="footer-text">&copy; 2026 Muse Bookkeeping &amp; Muse Biz Solutions. All rights reserved. Remote services nationwide.</p>
-</footer></body></html>
+  <div style="margin:2rem 0">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--gold);margin-bottom:1.25rem">Let's get social!</p>
+    <ul style="display:flex;justify-content:center;flex-wrap:wrap;gap:1.25rem;list-style:none">
+      <li><a href="https://www.facebook.com/groups/bookkeeping4smallbiz" target="_blank" rel="noopener" style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color 0.2s">FB Group</a></li>
+      <li><a href="https://www.facebook.com/MuseBookkeepingBizSolutions" target="_blank" rel="noopener" style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color 0.2s">Facebook</a></li>
+      <li><a href="https://www.instagram.com/musebookkeeping/" target="_blank" rel="noopener" style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color 0.2s">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/in/megan-muse/" target="_blank" rel="noopener" style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color 0.2s">LinkedIn</a></li>
+      <li><a href="https://www.tiktok.com/@musebookkeeping" target="_blank" rel="noopener" style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color 0.2s">TikTok</a></li>
+      <li><a href="https://x.com/musebookkeeping" target="_blank" rel="noopener" style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color 0.2s">X</a></li>
+    </ul>
+  </div>
+  <p class="footer-text">&copy; 2026 Muse Bookkeeping &amp; Muse Biz Solutions &middot; All rights reserved</p>
+  <p style="font-size:0.72rem;color:var(--faint);margin-top:0.5rem;letter-spacing:0.08em">Remote services nationwide</p>
+</footer>
+
+<script>
+function toggleNav(){
+  var nav=document.getElementById('nav-links');
+  var btn=document.getElementById('hamburger');
+  var open=nav.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.setAttribute('aria-expanded',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function closeNav(){
+  var nav=document.getElementById('nav-links');
+  var btn=document.getElementById('hamburger');
+  nav.classList.remove('open');
+  btn.classList.remove('open');
+  btn.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+</script>
+</body>
+</html>
