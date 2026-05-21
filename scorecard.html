@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MSP Financial Health Scorecard | Muse Bookkeeping</title>
-<meta name="description" content="15 questions. Instant results. Find out exactly where your MSP books are bleeding money — and what to fix first. Free from Muse Bookkeeping.">
+<meta name="description" content="15 questions. Instant results. Find out exactly where your MSP books are bleeding money - and what to fix first. Free from Muse Bookkeeping.">
 <link rel="canonical" href="https://musebizsolutions.com/scorecard">
 <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
 <meta name="robots" content="index, follow">
@@ -167,7 +167,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
   <div class="container">
     <span class="eyebrow">Free Assessment · MSP Owners</span>
     <h1 class="page-title">MSP Financial Health <em>Scorecard</em></h1>
-    <p class="page-sub">15 questions. Instant results. Find out where your books are bleeding — and what to fix first.</p>
+    <p class="page-sub">15 questions. Instant results. Find out where your books are bleeding - and what to fix first.</p>
   </div>
 </div>
 
@@ -207,7 +207,7 @@ footer{background:var(--deep);border-top:0.5px solid var(--border);padding:3rem 
 
     <div class="result-cta">
       <h3>Ready to fix what's <em style="color:var(--purple-mid)">actually broken?</em></h3>
-      <p>Your score shows exactly where to focus. Book a free consultation and we'll walk through your biggest leaks — no pitch, just answers.</p>
+      <p>Your score shows exactly where to focus. Book a free consultation and we'll walk through your biggest leaks - no pitch, just answers.</p>
       <a href="/contact.html" class="btn-primary">Book a Free Consultation</a>
       <button class="btn-retake" onclick="retakeQuiz()">Retake the scorecard</button>
     </div>
@@ -233,7 +233,7 @@ const questions = [
   {
     category: 'Bank Reconciliation',
     text: 'Are your bank and credit card accounts reconciled every month?',
-    answers: ['Yes, every month without fail', 'Sometimes — we get behind', 'No, rarely or never']
+    answers: ['Yes, every month without fail', 'Sometimes - we get behind', 'No, rarely or never']
   },
   {
     category: 'Account Structure',
@@ -242,13 +242,13 @@ const questions = [
   },
   {
     category: 'Revenue Tracking',
-    text: 'Do you track revenue by type — RMR, project, T&M, hardware resale — separately?',
-    answers: ['Yes, all tracked separately', 'Partially — some categories', 'No, it all goes to one income account']
+    text: 'Do you track revenue by type - RMR, project, T&M, hardware resale - separately?',
+    answers: ['Yes, all tracked separately', 'Partially - some categories', 'No, it all goes to one income account']
   },
   {
     category: 'Profit & Loss',
     text: 'Do you review a P&L statement every month?',
-    answers: ['Yes, every month', 'Occasionally — a few times a year', 'No, I rarely or never look at it']
+    answers: ['Yes, every month', 'Occasionally - a few times a year', 'No, I rarely or never look at it']
   },
   {
     category: 'Cash Flow',
@@ -258,7 +258,7 @@ const questions = [
   {
     category: 'Cash Reserves',
     text: 'Do you have at least 3 months of operating expenses in cash reserves?',
-    answers: ['Yes, 3+ months covered', 'Roughly 1–2 months', 'No reserves — we run lean']
+    answers: ['Yes, 3+ months covered', 'Roughly 1–2 months', 'No reserves - we run lean']
   },
   {
     category: 'Accounts Receivable',
@@ -278,7 +278,7 @@ const questions = [
   {
     category: 'Sales Tax',
     text: 'Are your sales tax obligations tracked and filed correctly across all states you operate in?',
-    answers: ['Yes, fully compliant', 'Partially — handling some states', 'No, this is a gap for us']
+    answers: ['Yes, fully compliant', 'Partially - handling some states', 'No, this is a gap for us']
   },
   {
     category: 'Client Profitability',
@@ -292,13 +292,13 @@ const questions = [
   },
   {
     category: 'Books Currency',
-    text: 'Are your books current — reconciled and up to date within the last 30 days?',
+    text: 'Are your books current - reconciled and up to date within the last 30 days?',
     answers: ['Yes, always current', '1–3 months behind', 'More than 3 months behind']
   },
   {
     category: 'Pricing Strategy',
     text: 'Do you know your target gross margin per service line and price accordingly?',
-    answers: ['Yes, margin-based pricing in place', 'Roughly — we estimate', 'No, pricing is mostly gut feel']
+    answers: ['Yes, margin-based pricing in place', 'Roughly - we estimate', 'No, pricing is mostly gut feel']
   },
   {
     category: 'Financial Advisor',
@@ -386,17 +386,17 @@ function showResults() {
 
   let gradeClass, grade, summary;
   if (total <= 10) {
-    gradeClass = 'grade-critical'; grade = 'Critical — Needs Immediate Attention';
+    gradeClass = 'grade-critical'; grade = 'Critical - Needs Immediate Attention';
     summary = 'Your books have significant gaps that are likely costing you money right now. The good news: these are fixable. Start with reconciliation and a proper chart of accounts.';
   } else if (total <= 18) {
-    gradeClass = 'grade-needs'; grade = 'Needs Work — Several Key Gaps';
+    gradeClass = 'grade-needs'; grade = 'Needs Work - Several Key Gaps';
     summary = 'You have a foundation, but gaps in tracking and reporting are leaving money on the table. Tightening up COGS, cash flow, and AR aging will make the biggest difference.';
   } else if (total <= 24) {
-    gradeClass = 'grade-fair'; grade = 'Getting There — Solid But Room to Grow';
+    gradeClass = 'grade-fair'; grade = 'Getting There - Solid But Room to Grow';
     summary = 'Your financials are in decent shape, but there are a few areas holding back profitability and clarity. Focus on the weak spots to take your numbers to the next level.';
   } else {
-    gradeClass = 'grade-strong'; grade = 'Financially Strong — Keep It Up';
-    summary = 'Your MSP is running tight books. The opportunity now is optimization — margins, pricing strategy, and exit readiness. Consider whether you have the right financial partner scaling with you.';
+    gradeClass = 'grade-strong'; grade = 'Financially Strong - Keep It Up';
+    summary = 'Your MSP is running tight books. The opportunity now is optimization - margins, pricing strategy, and exit readiness. Consider whether you have the right financial partner scaling with you.';
   }
 
   const display = document.getElementById('score-display');
