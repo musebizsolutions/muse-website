@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muse Bookkeeping | MSP CFO Dashboard — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0a12;--surface:#130e1e;--surface2:#1a1228;--border:#2e1f4a;
+    --gold:#e8d87a;--gold-dim:#a89a3a;--silver:#b8b4c8;--muted:#6b6480;--white:#f0eeff;
+    --red:#ff6b6b;--green:#4ade80;--yellow:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;--teal:#2dd4bf;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--white);font-family:"DM Sans",sans-serif;min-height:100vh;}
+  .header{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+  .header-left{display:flex;align-items:center;gap:20px;}
+  .logo{font-family:"Bebas Neue",sans-serif;font-size:20px;color:var(--gold);letter-spacing:2px;}
+  .divider-v{width:1px;height:28px;background:var(--border);}
+  .header-right{display:flex;align-items:center;gap:12px;}
+  .badge{font-size:10px;padding:4px 12px;border-radius:20px;font-family:"DM Mono",monospace;letter-spacing:1px;}
+  .badge-gold{background:rgba(232,216,122,0.1);border:1px solid var(--gold-dim);color:var(--gold);}
+  .badge-green{background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);color:var(--green);}
+  .badge-blue{background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);color:var(--blue);}
+  .tabs{background:var(--surface);border-bottom:1px solid var(--border);padding:0 40px;display:flex;overflow-x:auto;}
+  .tab{padding:14px 22px;font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+  .tab:hover{color:var(--silver);}
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .main{padding:32px 40px;max-width:1400px;margin:0 auto;}
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
+  .section-title{font-family:"Bebas Neue",sans-serif;font-size:26px;letter-spacing:3px;color:var(--white);margin-bottom:4px;}
+  .section-sub{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:28px;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;position:relative;overflow:hidden;transition:border-color 0.2s;}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity 0.2s;}
+  .card:hover{border-color:var(--muted);}
+  .card:hover::before{opacity:1;}
+  .card.alert{border-color:rgba(255,107,107,0.35);}
+  .card.alert::before{background:linear-gradient(90deg,var(--red),transparent);opacity:1;}
+  .card.warn{border-color:rgba(251,191,36,0.3);}
+  .card.warn::before{background:linear-gradient(90deg,var(--yellow),transparent);opacity:1;}
+  .card.good{border-color:rgba(74,222,128,0.3);}
+  .card.good::before{background:linear-gradient(90deg,var(--green),transparent);opacity:1;}
+  .card.wide{grid-column:span 2;}
+  .card.full{grid-column:span 4;}
+  .card-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:500;}
+  .card-value{font-family:"DM Mono",monospace;font-size:26px;font-weight:500;color:var(--white);margin-bottom:4px;line-height:1;}
+  .cv-gold{color:var(--gold);}.cv-red{color:var(--red);}.cv-green{color:var(--green);}
+  .cv-yellow{color:var(--yellow);}.cv-blue{color:var(--blue);}.cv-purple{color:var(--purple);}.cv-teal{color:var(--teal);}
+  .card-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+  .card-note{font-size:10px;color:var(--yellow);margin-top:6px;font-style:italic;}
+  .card-note.good{color:var(--green);}.card-note.red{color:var(--red);}
+  .prog-wrap{margin-top:12px;}
+  .prog-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:5px;}
+  .prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+  .prog-fill{height:100%;border-radius:2px;transition:width 1.2s ease;}
+  .pf-gold{background:var(--gold);}.pf-green{background:var(--green);}.pf-red{background:var(--red);}
+  .pf-blue{background:var(--blue);}.pf-yellow{background:var(--yellow);}.pf-teal{background:var(--teal);}.pf-purple{background:var(--purple);}
+  .dtable{width:100%;border-collapse:collapse;}
+  .dtable th{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;}
+  .dtable td{padding:11px 14px;font-size:12px;border-bottom:1px solid rgba(46,31,74,0.5);color:var(--silver);font-family:"DM Mono",monospace;}
+  .dtable tr:last-child td{border-bottom:none;}
+  .dtable tr:hover td{background:rgba(255,255,255,0.02);}
+  .td-label{font-family:"DM Sans",sans-serif;color:var(--white);font-size:12px;}
+  .td-r{text-align:right;}.td-red{color:var(--red);}.td-green{color:var(--green);}
+  .td-yellow{color:var(--yellow);}.td-gold{color:var(--gold);}.td-blue{color:var(--blue);}.td-silver{color:var(--silver);}
+  .ebitda-hero{background:linear-gradient(135deg,#130e1e 0%,#1a1228 100%);border:1px solid var(--gold-dim);border-radius:16px;padding:32px;margin-bottom:20px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:28px;align-items:center;}
+  .ebitda-label{font-family:"Bebas Neue",sans-serif;font-size:12px;letter-spacing:3px;color:var(--gold-dim);margin-bottom:8px;}
+  .ebitda-value{font-family:"DM Mono",monospace;font-size:44px;line-height:1;margin-bottom:6px;}
+  .ebitda-note{font-size:11px;color:var(--muted);}
+  .val-multiple{font-family:"Bebas Neue",sans-serif;font-size:13px;letter-spacing:2px;color:var(--muted);margin-bottom:6px;text-align:center;}
+  .val-amount{font-family:"DM Mono",monospace;font-size:20px;color:var(--silver);text-align:center;}
+  .val-amount.hl{color:var(--gold);font-size:24px;}
+  .abox{background:rgba(255,107,107,0.05);border:1px solid rgba(255,107,107,0.25);border-radius:10px;padding:14px 18px;margin-bottom:12px;display:flex;align-items:flex-start;gap:12px;}
+  .abox.warn{background:rgba(251,191,36,0.05);border-color:rgba(251,191,36,0.25);}
+  .abox.good{background:rgba(74,222,128,0.05);border-color:rgba(74,222,128,0.25);}
+  .abox.blue{background:rgba(96,165,250,0.05);border-color:rgba(96,165,250,0.25);}
+  .abox.purple{background:rgba(167,139,250,0.05);border-color:rgba(167,139,250,0.25);}
+  .adot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+  .adot.red{background:var(--red);}.adot.yellow{background:var(--yellow);}.adot.green{background:var(--green);}
+  .adot.blue{background:var(--blue);}.adot.purple{background:var(--purple);}
+  .atext{font-size:12px;color:var(--silver);line-height:1.6;}
+  .atitle{font-weight:600;color:var(--white);display:block;margin-bottom:2px;font-size:12px;}
+  .divider{height:1px;background:var(--border);margin:24px 0;}
+  .bench-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(46,31,74,0.5);}
+  .bench-row:last-child{border-bottom:none;}
+  .bench-label{font-size:12px;color:var(--silver);width:200px;flex-shrink:0;}
+  .bench-bar-wrap{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .bench-bar{height:100%;border-radius:3px;}
+  .bench-val{font-family:"DM Mono",monospace;font-size:12px;color:var(--white);width:60px;text-align:right;flex-shrink:0;}
+  .bench-target{font-size:10px;color:var(--muted);width:80px;text-align:right;flex-shrink:0;}
+  .footnote{font-size:10px;color:var(--muted);font-style:italic;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);}
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;padding:8px 0;}
+  .kpi-item{text-align:center;}
+  .kpi-num{font-family:"DM Mono",monospace;font-size:28px;line-height:1;}
+  .kpi-lbl{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+  .status-badge{border-radius:4px;padding:2px 8px;font-size:10px;letter-spacing:1px;font-family:"DM Mono",monospace;}
+  .sb-yellow{background:rgba(251,191,36,0.15);color:var(--yellow);border:1px solid rgba(251,191,36,0.3);}
+  .sb-green{background:rgba(74,222,128,0.15);color:var(--green);border:1px solid rgba(74,222,128,0.3);}
+  .sb-blue{background:rgba(96,165,250,0.15);color:var(--blue);border:1px solid rgba(96,165,250,0.3);}
+  .sb-red{background:rgba(255,107,107,0.15);color:var(--red);border:1px solid rgba(255,107,107,0.3);}
+  .sb-purple{background:rgba(167,139,250,0.15);color:var(--purple);border:1px solid rgba(167,139,250,0.3);}
+  .powered-by{text-align:center;padding:20px;font-size:11px;color:var(--muted);letter-spacing:1px;border-top:1px solid var(--border);margin-top:40px;}
+  .powered-by span{color:var(--gold);}
+
+  /* WATERMARK */
+  .watermark-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 9999; overflow: hidden;
+  }
+  .watermark-overlay::before {
+    content: "";
+    position: absolute; top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 80px,
+      rgba(232,216,122,0.028) 80px,
+      rgba(232,216,122,0.028) 81px
+    );
+  }
+  .wm-text-wrap {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-wrap: wrap; align-content: flex-start;
+    gap: 0;
+  }
+  .wm-text {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 13px; letter-spacing: 3px;
+    color: rgba(232,216,122,0.055);
+    transform: rotate(-35deg);
+    white-space: nowrap;
+    user-select: none;
+    padding: 38px 32px;
+  }
+
+  @media(max-width:1100px){.grid-4{grid-template-columns:repeat(2,1fr);}.ebitda-hero{grid-template-columns:1fr 1fr;}.card.full{grid-column:span 2;}}
+  @media(max-width:700px){.main{padding:20px;}.header{padding:14px 20px;}.tabs{padding:0 20px;}.grid-4,.grid-3,.grid-2{grid-template-columns:1fr;}.ebitda-hero{grid-template-columns:1fr;}.card.wide,.card.full{grid-column:span 1;}}
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<div class="watermark-overlay" aria-hidden="true">
+  <div class="wm-text-wrap" id="wmWrap"></div>
+</div>
+
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">MUSE BOOKKEEPING</div>
+    <div class="divider-v"></div>
+    <div>
+      <div style="font-size:13px;font-weight:600;color:var(--white);">Demo MSP &mdash; Healthy $3M ARR</div>
+      <div style="font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Fractional CFO Dashboard &mdash; Full Year 2025</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-gold">DATA: FULL YEAR 2025</span>
+    <span class="badge badge-blue">&#9679; ACCRUAL BASIS</span>
+    <span class="badge badge-green">&#9650; EBITDA POSITIVE</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('valuation',this)">Valuation</div>
+  <div class="tab" onclick="switchTab('revenue',this)">Revenue &amp; Margins</div>
+  <div class="tab" onclick="switchTab('service',this)">Service Delivery</div>
+  <div class="tab" onclick="switchTab('client',this)">Client Health</div>
+  <div class="tab" onclick="switchTab('security',this)">Security &amp; Compliance</div>
+  <div class="tab" onclick="switchTab('cashflow',this)">Cash Flow</div>
+  <div class="tab" onclick="switchTab('upsell',this)">Upsell Opportunities</div>
+  <div class="tab" onclick="switchTab('referrals',this)">Referral Program</div>
+</div>
+
+<div class="main">
+
+<!-- ══ TAB 1: VALUATION ══ -->
+<div class="tab-content active" id="tab-valuation">
+  <div class="section-title">VALUATION</div>
+  <div class="section-sub">EBITDA north star &mdash; exit positioning &mdash; full year 2025</div>
+  <div class="ebitda-hero">
+    <div>
+      <div class="ebitda-label">EBITDA (ANNUAL)</div>
+      <div class="ebitda-value cv-green">$487,400</div>
+      <div class="ebitda-note">Net Income + Interest + Depreciation + Amortization</div>
+      <div class="ebitda-note" style="margin-top:6px;color:var(--green);">&#9650; 16.2% EBITDA margin &mdash; sweet spot for best buyer multiplier</div>
+    </div>
+    <div>
+      <div class="val-multiple">6x MULTIPLE</div>
+      <div class="val-amount hl">$2,924,400</div>
+      <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:4px;">Conservative exit floor</div>
+    </div>
+    <div>
+      <div class="val-multiple">8.5x MULTIPLE</div>
+      <div class="val-amount hl" style="font-size:28px;">$4,142,900</div>
+      <div style="font-size:10px;color:var(--green);text-align:center;margin-top:4px;">Best-in-class &mdash; achievable with strong metrics</div>
+    </div>
+    <div>
+      <div class="val-multiple">RECURRING REVENUE %</div>
+      <div class="val-amount hl">65.0%</div>
+      <div style="font-size:10px;color:var(--green);text-align:center;margin-top:4px;">Above 60% threshold for best multiplier</div>
+    </div>
+  </div>
+  <div class="grid-4">
+    <div class="card good">
+      <div class="card-label">Net Income (Annual)</div>
+      <div class="card-value cv-green">$412,800</div>
+      <div class="card-sub">Full Year 2025</div>
+      <div class="card-note good">13.8% net margin</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Gross Profit (Annual)</div>
+      <div class="card-value cv-teal">$2,100,000</div>
+      <div class="card-sub">70.0% gross margin</div>
+      <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill pf-teal" style="width:70%"></div></div></div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Total Debt</div>
+      <div class="card-value cv-green">$42,000</div>
+      <div class="card-sub">Equipment financing only</div>
+      <div class="card-note good">Low leverage &mdash; clean balance sheet</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">MRR Budget Attainment</div>
+      <div class="card-value cv-green">104.8%</div>
+      <div class="card-sub">Actual vs monthly target</div>
+      <div class="card-note good">Beating budget consistently</div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">Valuation Drivers</div>
+      <div style="margin-top:8px;">
+        <div class="bench-row"><div class="bench-label">EBITDA %</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:81%;background:var(--green)"></div></div><div class="bench-val cv-green">16.2%</div><div class="bench-target">10-20% target</div></div>
+        <div class="bench-row"><div class="bench-label">Recurring Revenue %</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:65%;background:var(--green)"></div></div><div class="bench-val cv-green">65.0%</div><div class="bench-target">60%+ for best mult.</div></div>
+        <div class="bench-row"><div class="bench-label">Monthly Churn Rate</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:50%;background:var(--green)"></div></div><div class="bench-val cv-green">0.5%</div><div class="bench-target">&lt;1% target</div></div>
+        <div class="bench-row"><div class="bench-label">Contract Renewal Rate</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:94%;background:var(--green)"></div></div><div class="bench-val cv-green">94%</div><div class="bench-target">90%+ target</div></div>
+        <div class="bench-row"><div class="bench-label">ARR Growth YoY</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:25%;background:var(--gold)"></div></div><div class="bench-val cv-gold">25%</div><div class="bench-target">15-25% target</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Contract Renewal Pipeline</div>
+      <table class="dtable">
+        <thead><tr><th>Client</th><th>MRR</th><th>Renews</th><th class="td-r">Status</th></tr></thead>
+        <tbody>
+          <tr><td class="td-label">Blackthorn &amp; Ashveil Legal</td><td class="td-gold">$28,400</td><td>Feb 2027</td><td class="td-r"><span class="status-badge sb-green">ON TRACK</span></td></tr>
+          <tr><td class="td-label">Coppergate Realty Co.</td><td class="td-gold">$18,400</td><td>Mar 2027</td><td class="td-r"><span class="status-badge sb-green">ON TRACK</span></td></tr>
+          <tr><td class="td-label">Irongate Capital Group</td><td class="td-gold">$12,600</td><td>Sep 2026</td><td class="td-r"><span class="status-badge sb-yellow">MONITOR</span></td></tr>
+          <tr><td class="td-label">Grimshaw &amp; Sons Builders</td><td class="td-gold">$9,800</td><td>Aug 2026</td><td class="td-r"><span class="status-badge sb-yellow">IN PROGRESS</span></td></tr>
+          <tr><td class="td-label">Thornwick Dental</td><td class="td-gold">$8,400</td><td>Oct 2026</td><td class="td-r"><span class="status-badge sb-green">ON TRACK</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footnote">Data: Accrual basis, Full Year 2025. EBITDA = Net Income ($412,800) + Interest ($3,200) + Depreciation ($62,400) + Amortization ($9,000) = $487,400. Valuation multiples are illustrative. Powered by Muse Bookkeeping &amp; Biz Solutions.</div>
+</div>
+
+<!-- ══ TAB 2: REVENUE ══ -->
+<div class="tab-content" id="tab-revenue">
+  <div class="section-title">REVENUE &amp; PROFITABILITY</div>
+  <div class="section-sub">SLI service line breakdown &mdash; margin analysis &mdash; full year 2025</div>
+  <div class="grid-4">
+    <div class="card good">
+      <div class="card-label">Total Revenue (Annual)</div>
+      <div class="card-value cv-green">$3,000,000</div>
+      <div class="card-sub">$250,000/month avg</div>
+      <div class="card-note good">Dec 2025: $274,000 &mdash; best month</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Managed Services MRR</div>
+      <div class="card-value cv-blue">$162,500</div>
+      <div class="card-sub">65.0% of total revenue</div>
+      <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill pf-blue" style="width:65%"></div></div></div>
+    </div>
+    <div class="card good">
+      <div class="card-label">MRR per Seat</div>
+      <div class="card-value cv-gold">$181</div>
+      <div class="card-sub">900 seats under management</div>
+      <div class="card-note good">Above $150 SLI benchmark</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">ARR Growth YoY</div>
+      <div class="card-value cv-green">+25.0%</div>
+      <div class="card-sub">Prior year ARR: $1,560,000</div>
+      <div class="card-note good">Top quartile SLI growth</div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">SLI Revenue Mix</div>
+      <table class="dtable">
+        <thead><tr><th>Service Line</th><th class="td-r">Annual</th><th class="td-r">% Rev</th></tr></thead>
+        <tbody>
+          <tr><td class="td-label">RMM / Monitoring</td><td class="td-r td-green">$780,000</td><td class="td-r td-blue">26.0%</td></tr>
+          <tr><td class="td-label">Security Stack</td><td class="td-r td-green">$540,000</td><td class="td-r td-teal">18.0%</td></tr>
+          <tr><td class="td-label">Backup / DR</td><td class="td-r">$330,000</td><td class="td-r">11.0%</td></tr>
+          <tr><td class="td-label">NOC / Helpdesk</td><td class="td-r">$300,000</td><td class="td-r">10.0%</td></tr>
+          <tr><td class="td-label">Professional Services</td><td class="td-r">$750,000</td><td class="td-r">25.0%</td></tr>
+          <tr><td class="td-label">Hardware / Software</td><td class="td-r td-yellow">$300,000</td><td class="td-r td-yellow">10.0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card good">
+      <div class="card-label">SLI Gross Margin by Service Line</div>
+      <div style="margin-top:8px;">
+        <div class="bench-row"><div class="bench-label">RMM / Monitoring</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:72%;background:var(--green)"></div></div><div class="bench-val cv-green">72.0%</div><div class="bench-target">55-70% target</div></div>
+        <div class="bench-row"><div class="bench-label">Security Stack</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:68%;background:var(--teal)"></div></div><div class="bench-val cv-teal">68.0%</div><div class="bench-target">60-75% target</div></div>
+        <div class="bench-row"><div class="bench-label">Backup / DR</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:65%;background:var(--blue)"></div></div><div class="bench-val cv-blue">65.0%</div><div class="bench-target">55-65% target</div></div>
+        <div class="bench-row"><div class="bench-label">Professional Services</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:52%;background:var(--purple)"></div></div><div class="bench-val cv-purple">52.0%</div><div class="bench-target">35-55% target</div></div>
+        <div class="bench-row"><div class="bench-label">Hardware / Software</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:14%;background:var(--yellow)"></div></div><div class="bench-val cv-yellow">14.0%</div><div class="bench-target">8-18% target</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card good">
+      <div class="card-label">P&amp;L Summary &mdash; Full Year 2025</div>
+      <table class="dtable">
+        <thead><tr><th>Metric</th><th class="td-r">Annual</th><th class="td-r">% Rev</th></tr></thead>
+        <tbody>
+          <tr><td class="td-label">Total Revenue</td><td class="td-r td-green">$3,000,000</td><td class="td-r">100%</td></tr>
+          <tr><td class="td-label">Total COGS</td><td class="td-r td-yellow">($900,000)</td><td class="td-r td-yellow">30.0%</td></tr>
+          <tr><td class="td-label">Gross Profit</td><td class="td-r td-green">$2,100,000</td><td class="td-r td-green">70.0%</td></tr>
+          <tr><td class="td-label">Total OpEx</td><td class="td-r td-yellow">($1,687,200)</td><td class="td-r td-yellow">56.2%</td></tr>
+          <tr><td class="td-label">Net Operating Income</td><td class="td-r td-green">$412,800</td><td class="td-r td-green">13.8%</td></tr>
+          <tr><td class="td-label">Net Income</td><td class="td-r td-green">$412,800</td><td class="td-r td-green">13.8%</td></tr>
+          <tr><td class="td-label">EBITDA</td><td class="td-r td-green">$487,400</td><td class="td-r td-green">16.2%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card good">
+      <div class="card-label">Labor &amp; Overhead Analysis</div>
+      <table class="dtable">
+        <thead><tr><th>Category</th><th class="td-r">Annual</th><th class="td-r">% Rev</th></tr></thead>
+        <tbody>
+          <tr><td class="td-label">Employee Wages (W2)</td><td class="td-r td-green">$720,000</td><td class="td-r td-green">24.0%</td></tr>
+          <tr><td class="td-label">Contractors (1099)</td><td class="td-r">$135,000</td><td class="td-r">4.5%</td></tr>
+          <tr><td class="td-label">NOC / Helpdesk (outsourced)</td><td class="td-r">$96,000</td><td class="td-r">3.2%</td></tr>
+          <tr><td class="td-label">Payroll Taxes &amp; Benefits</td><td class="td-r">$104,400</td><td class="td-r">3.5%</td></tr>
+          <tr><td class="td-label" style="font-weight:700;color:var(--white)">TOTAL LABOR</td><td class="td-r td-green"><strong>$1,055,400</strong></td><td class="td-r td-green"><strong>35.2%</strong></td></tr>
+          <tr><td class="td-label">Tools &amp; Software Stack</td><td class="td-r">$186,000</td><td class="td-r">6.2%</td></tr>
+          <tr><td class="td-label">Sales &amp; Marketing</td><td class="td-r">$90,000</td><td class="td-r">3.0%</td></tr>
+          <tr><td class="td-label">G&amp;A / Overhead</td><td class="td-r">$355,800</td><td class="td-r">11.9%</td></tr>
+        </tbody>
+      </table>
+      <div class="card-note good">Labor at 35.2% of revenue &mdash; within SLI benchmark of 35-45%.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 3: SERVICE DELIVERY ══ -->
+<div class="tab-content" id="tab-service">
+  <div class="section-title">SERVICE DELIVERY</div>
+  <div class="section-sub">SLI benchmarks &mdash; technician economics &mdash; ticket performance &mdash; full year 2025</div>
+  <div class="grid-4">
+    <div class="card good"><div class="card-label">SLA Compliance Rate</div><div class="card-value cv-green">97.2%</div><div class="card-sub">SLI benchmark: 95%+</div><div class="card-note good">Consistently above benchmark</div></div>
+    <div class="card good"><div class="card-label">First Call Resolution</div><div class="card-value cv-green">74.1%</div><div class="card-sub">SLI benchmark: 70%+</div><div class="card-note good">Above benchmark</div></div>
+    <div class="card good"><div class="card-label">Tech Utilization Rate</div><div class="card-value cv-green">78.4%</div><div class="card-sub">SLI benchmark: 70-85%</div><div class="card-note good">In the sweet spot</div></div>
+    <div class="card good"><div class="card-label">Mean Time to Resolve</div><div class="card-value cv-green">2.8 hrs</div><div class="card-sub">SLI benchmark: &le;4 hours</div><div class="card-note good">30% better than benchmark</div></div>
+  </div>
+  <div class="card full">
+    <div class="card-label">Technician Performance &mdash; Full Year 2025</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px;padding:8px 0;">
+      <div style="text-align:center;"><div class="kpi-num cv-green">12</div><div class="kpi-lbl">Billable Techs</div></div>
+      <div style="text-align:center;"><div class="kpi-num cv-gold">125</div><div class="kpi-lbl">Endpoints / Tech</div></div>
+      <div style="text-align:center;"><div class="kpi-num cv-green">680</div><div class="kpi-lbl">Tickets / Month</div></div>
+      <div style="text-align:center;"><div class="kpi-num cv-green">$22</div><div class="kpi-lbl">Cost / Ticket</div></div>
+      <div style="text-align:center;"><div class="kpi-num cv-green">65%</div><div class="kpi-lbl">Proactive %</div></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card good">
+      <div class="card-label">Per-Unit Economics</div>
+      <div style="margin-top:8px;">
+        <div class="bench-row"><div class="bench-label">MRR per Seat</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:85%;background:var(--green)"></div></div><div class="bench-val cv-green">$181</div><div class="bench-target">$100-150 target</div></div>
+        <div class="bench-row"><div class="bench-label">MRR per Endpoint</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:72%;background:var(--green)"></div></div><div class="bench-val cv-green">$108</div><div class="bench-target">$30-60 target</div></div>
+        <div class="bench-row"><div class="bench-label">Revenue / Tech / Year</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:84%;background:var(--green)"></div></div><div class="bench-val cv-green">$250K</div><div class="bench-target">$150K+ target</div></div>
+        <div class="bench-row"><div class="bench-label">Cost Per Ticket</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:88%;background:var(--green)"></div></div><div class="bench-val cv-green">$22</div><div class="bench-target">&lt;$25 target</div></div>
+      </div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Ticket Performance &mdash; Annual Avg</div>
+      <div style="margin-top:8px;">
+        <div class="bench-row"><div class="bench-label">Monthly Ticket Volume</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:68%;background:var(--blue)"></div></div><div class="bench-val cv-blue">680</div><div class="bench-target">volume indicator</div></div>
+        <div class="bench-row"><div class="bench-label">SLA Compliance</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:97%;background:var(--green)"></div></div><div class="bench-val cv-green">97.2%</div><div class="bench-target">95%+ target</div></div>
+        <div class="bench-row"><div class="bench-label">MTTR</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:70%;background:var(--green)"></div></div><div class="bench-val cv-green">2.8 hrs</div><div class="bench-target">&le;4 hrs target</div></div>
+        <div class="bench-row"><div class="bench-label">Proactive Ticket %</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:65%;background:var(--green)"></div></div><div class="bench-val cv-green">65%</div><div class="bench-target">60%+ target</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 4: CLIENT HEALTH ══ -->
+<div class="tab-content" id="tab-client">
+  <div class="section-title">CLIENT HEALTH</div>
+  <div class="section-sub">AR aging &mdash; churn &mdash; NPS &mdash; MRR movement &mdash; full year 2025</div>
+  <div class="grid-4">
+    <div class="card good"><div class="card-label">Total AR Outstanding</div><div class="card-value cv-green">$153,000</div><div class="card-sub">As of Dec 31, 2025</div></div>
+    <div class="card good"><div class="card-label">Current (0-30 days)</div><div class="card-value cv-green">$126,400</div><div class="card-sub">82.6% of total AR</div></div>
+    <div class="card good"><div class="card-label">1-30 Days Past Due</div><div class="card-value cv-green">$21,400</div><div class="card-sub">14.0% of total AR</div></div>
+    <div class="card good"><div class="card-label">31+ Days Past Due</div><div class="card-value cv-green">$5,200</div><div class="card-sub">3.4% &mdash; one client</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card good">
+      <div class="card-label">Days Sales Outstanding (DSO)</div>
+      <div class="card-value cv-green" style="font-size:44px;">18</div>
+      <div class="card-sub">Days avg collection time</div>
+      <div class="prog-wrap" style="margin-top:16px;">
+        <div class="prog-label"><span>0 days</span><span>Benchmark: 30-45</span></div>
+        <div class="prog-bar"><div class="prog-fill pf-green" style="width:40%"></div></div>
+      </div>
+      <div class="card-note good">Well below benchmark &mdash; excellent collection discipline</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Client Health KPIs</div>
+      <div style="margin-top:8px;">
+        <div class="bench-row"><div class="bench-label">Monthly Churn Rate</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:50%;background:var(--green)"></div></div><div class="bench-val cv-green">0.5%</div><div class="bench-target">&lt;1% target</div></div>
+        <div class="bench-row"><div class="bench-label">Net Promoter Score</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:62%;background:var(--green)"></div></div><div class="bench-val cv-green">62</div><div class="bench-target">50+ target</div></div>
+        <div class="bench-row"><div class="bench-label">Contract Renewal Rate</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:94%;background:var(--green)"></div></div><div class="bench-val cv-green">94%</div><div class="bench-target">90%+ target</div></div>
+        <div class="bench-row"><div class="bench-label">Upsell / Cross-sell Rate</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:28%;background:var(--green)"></div></div><div class="bench-val cv-green">28%</div><div class="bench-target">20%+ target</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card good">
+      <div class="card-label">MRR by Client &mdash; Top 10</div>
+      <table class="dtable">
+        <thead><tr><th>Client</th><th>Industry</th><th class="td-r">MRR</th><th class="td-r">% MRR</th></tr></thead>
+        <tbody>
+          <tr><td class="td-label">Blackthorn &amp; Ashveil Legal</td><td style="font-size:12px;color:var(--muted);">Legal</td><td class="td-r td-gold">$28,400</td><td class="td-r td-green">17.5%</td></tr>
+          <tr><td class="td-label">Coppergate Realty Co.</td><td style="font-size:12px;color:var(--muted);">Real Estate</td><td class="td-r td-gold">$18,400</td><td class="td-r td-green">11.3%</td></tr>
+          <tr><td class="td-label">Ravenswood &amp; Moor Law</td><td style="font-size:12px;color:var(--muted);">Legal</td><td class="td-r td-gold">$14,800</td><td class="td-r td-green">9.1%</td></tr>
+          <tr><td class="td-label">Irongate Capital Group</td><td style="font-size:12px;color:var(--muted);">Finance</td><td class="td-r td-gold">$12,600</td><td class="td-r td-green">7.8%</td></tr>
+          <tr><td class="td-label">Grimshaw &amp; Sons Builders</td><td style="font-size:12px;color:var(--muted);">Construction</td><td class="td-r td-gold">$9,800</td><td class="td-r td-green">6.0%</td></tr>
+          <tr><td class="td-label">Thornwick Dental</td><td style="font-size:12px;color:var(--muted);">Healthcare</td><td class="td-r td-gold">$8,400</td><td class="td-r td-green">5.2%</td></tr>
+          <tr><td class="td-label">Clockwork Motors</td><td style="font-size:12px;color:var(--muted);">Automotive</td><td class="td-r td-gold">$6,200</td><td class="td-r">3.8%</td></tr>
+          <tr><td class="td-label">Emberveil Hospitality</td><td style="font-size:12px;color:var(--muted);">Hospitality</td><td class="td-r td-gold">$4,800</td><td class="td-r">3.0%</td></tr>
+          <tr><td class="td-label">Aetherstone Insurance</td><td style="font-size:12px;color:var(--muted);">Insurance</td><td class="td-r td-gold">$3,600</td><td class="td-r">2.2%</td></tr>
+          <tr><td class="td-label">All Other Clients (47)</td><td style="font-size:12px;color:var(--muted);">Various</td><td class="td-r td-gold">$55,500</td><td class="td-r">34.2%</td></tr>
+        </tbody>
+      </table>
+      <div class="footnote">No single client exceeds 20% of MRR. Strong concentration health &mdash; no buyer risk flags.</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">MRR Movement &mdash; December 2025</div>
+      <div class="grid-2" style="margin-bottom:16px;margin-top:8px;gap:12px;">
+        <div style="background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:14px;text-align:center;">
+          <div style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">New MRR Added</div>
+          <div style="font-family:'DM Mono',monospace;font-size:24px;color:var(--green);">+$18,500</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px;">New clients + upsells</div>
+        </div>
+        <div style="background:rgba(255,107,107,0.05);border:1px solid rgba(255,107,107,0.2);border-radius:8px;padding:14px;text-align:center;">
+          <div style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Churned MRR</div>
+          <div style="font-family:'DM Mono',monospace;font-size:24px;color:var(--red);">-$3,200</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px;">One non-renewal</div>
+        </div>
+      </div>
+      <div style="background:rgba(232,216,122,0.05);border:1px solid rgba(232,216,122,0.2);border-radius:8px;padding:14px;text-align:center;">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Net New MRR</div>
+        <div style="font-family:'DM Mono',monospace;font-size:32px;color:var(--gold);">+$15,300</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">9.4% monthly growth rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 5: SECURITY ══ -->
+<div class="tab-content" id="tab-security">
+  <div class="section-title">SECURITY &amp; COMPLIANCE</div>
+  <div class="section-sub">Patch compliance &mdash; incident response &mdash; vulnerability management &mdash; full year 2025</div>
+  <div class="grid-3">
+    <div class="card good"><div class="card-label">Patch Compliance Rate</div><div class="card-value cv-green">97.4%</div><div class="card-sub">Benchmark: 95%+</div><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill pf-green" style="width:97%"></div></div></div><div class="card-note good">Automated patching via RMM</div></div>
+    <div class="card good"><div class="card-label">Incident Response Time</div><div class="card-value cv-green">0.8 hrs</div><div class="card-sub">Benchmark: &le;1 hour</div><div class="card-note good">Alert-to-ticket automation active</div></div>
+    <div class="card good"><div class="card-label">Vuln. Remediation Time</div><div class="card-value cv-green">5.2 days</div><div class="card-sub">Benchmark: &le;7 days</div><div class="card-note good">Critical vulns closed avg 1.8 days</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card good">
+      <div class="card-label">Security Stack Coverage</div>
+      <div style="margin-top:8px;">
+        <div class="bench-row"><div class="bench-label">EDR Coverage</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:99%;background:var(--green)"></div></div><div class="bench-val cv-green">99%</div><div class="bench-target">100% target</div></div>
+        <div class="bench-row"><div class="bench-label">Email Security</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:100%;background:var(--green)"></div></div><div class="bench-val cv-green">100%</div><div class="bench-target">100% target</div></div>
+        <div class="bench-row"><div class="bench-label">MFA Enforcement</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:96%;background:var(--green)"></div></div><div class="bench-val cv-green">96%</div><div class="bench-target">95%+ target</div></div>
+        <div class="bench-row"><div class="bench-label">Backup Success Rate</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:99%;background:var(--green)"></div></div><div class="bench-val cv-green">99.2%</div><div class="bench-target">99%+ target</div></div>
+        <div class="bench-row"><div class="bench-label">Security Awareness Training</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:88%;background:var(--teal)"></div></div><div class="bench-val cv-teal">88%</div><div class="bench-target">90%+ target</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Compliance Status</div>
+      <div class="abox good" style="margin-top:8px;"><div class="adot green"></div><div class="atext"><span class="atitle">Patch Management &mdash; Automated</span>RMM-driven patching across all managed endpoints. Critical patches deployed within 24 hours.</div></div>
+      <div class="abox good"><div class="adot green"></div><div class="atext"><span class="atitle">Incident Response Playbooks &mdash; Active</span>Documented runbooks for ransomware, data breach, and phishing. Tested quarterly.</div></div>
+      <div class="abox good"><div class="adot green"></div><div class="atext"><span class="atitle">Vulnerability Scanning &mdash; Weekly</span>Automated scans every 7 days. No open critical vulns greater than 30 days.</div></div>
+      <div class="abox warn"><div class="adot yellow"></div><div class="atext"><span class="atitle">Security Awareness Training &mdash; 88%</span>12% of client users not yet completed annual training. Q1 push campaign planned. Target 95% by March.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 6: CASH FLOW ══ -->
+<div class="tab-content" id="tab-cashflow">
+  <div class="section-title">CASH FLOW</div>
+  <div class="section-sub">Operating cash &mdash; runway &mdash; working capital &mdash; full year 2025</div>
+  <div class="grid-4">
+    <div class="card good"><div class="card-label">Cash on Hand</div><div class="card-value cv-green">$387,400</div><div class="card-sub">As of Dec 31, 2025</div><div class="card-note good">Fully funded operations</div></div>
+    <div class="card good"><div class="card-label">Monthly Burn Rate</div><div class="card-value cv-green">$206,000</div><div class="card-sub">OpEx excl. owner distributions</div><div class="card-note good">Covered by MRR alone</div></div>
+    <div class="card good"><div class="card-label">Cash Runway</div><div class="card-value cv-green">18.8 mo</div><div class="card-sub">Cash / monthly burn</div><div class="card-note good">Above 12-month comfort threshold</div></div>
+    <div class="card good"><div class="card-label">Operating Cash Flow</div><div class="card-value cv-green">$468,000</div><div class="card-sub">Full Year 2025</div><div class="card-note good">Strong EBITDA conversion</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card good">
+      <div class="card-label">Cash Flow Summary &mdash; Full Year 2025</div>
+      <table class="dtable">
+        <thead><tr><th>Category</th><th class="td-r">Annual</th></tr></thead>
+        <tbody>
+          <tr><td class="td-label">Cash from Operations</td><td class="td-r td-green">$468,000</td></tr>
+          <tr><td class="td-label">Capital Expenditures</td><td class="td-r td-yellow">($42,000)</td></tr>
+          <tr><td class="td-label">Debt Service</td><td class="td-r td-yellow">($18,000)</td></tr>
+          <tr><td class="td-label">Owner Distributions</td><td class="td-r td-yellow">($120,000)</td></tr>
+          <tr><td class="td-label" style="font-weight:700;color:var(--white)">Net Cash Change</td><td class="td-r td-green"><strong>+$288,000</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card good">
+      <div class="card-label">Working Capital Health</div>
+      <div style="margin-top:8px;">
+        <div class="bench-row"><div class="bench-label">Current Ratio</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:80%;background:var(--green)"></div></div><div class="bench-val cv-green">3.2x</div><div class="bench-target">1.5x+ target</div></div>
+        <div class="bench-row"><div class="bench-label">Quick Ratio</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:75%;background:var(--green)"></div></div><div class="bench-val cv-green">2.8x</div><div class="bench-target">1.0x+ target</div></div>
+        <div class="bench-row"><div class="bench-label">Debt / EBITDA</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:20%;background:var(--green)"></div></div><div class="bench-val cv-green">0.09x</div><div class="bench-target">&lt;2.0x target</div></div>
+        <div class="bench-row"><div class="bench-label">MRR Coverage of Fixed Costs</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:100%;background:var(--green)"></div></div><div class="bench-val cv-green">178%</div><div class="bench-target">100%+ target</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 7: UPSELL ══ -->
+<div class="tab-content" id="tab-upsell">
+  <div class="section-title">UPSELL OPPORTUNITIES</div>
+  <div class="section-sub">Revenue expansion &mdash; service gap analysis &mdash; growth roadmap</div>
+  <div class="grid-4">
+    <div class="card good"><div class="card-label">Current Upsell Rate</div><div class="card-value cv-green">28%</div><div class="card-sub">Clients with added services</div><div class="card-note good">Above 20% SLI benchmark</div></div>
+    <div class="card"><div class="card-label">Identified Upsell Pipeline</div><div class="card-value cv-gold">$24,800</div><div class="card-sub">Potential monthly MRR increase</div><div class="card-note">15.3% MRR growth if all close</div></div>
+    <div class="card warn"><div class="card-label">Clients at Security Gap</div><div class="card-value cv-yellow">14</div><div class="card-sub">Missing EDR, SIEM, or SAT</div><div class="card-note">Highest margin expansion</div></div>
+    <div class="card"><div class="card-label">Backup Upgrade Candidates</div><div class="card-value cv-purple">9</div><div class="card-sub">On legacy or low-tier backup</div><div class="card-note">Immutable backup opportunity</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">Top Upsell Opportunities by MRR Impact</div>
+      <div style="margin-top:8px;">
+        <div class="abox blue"><div class="adot blue"></div><div class="atext"><span class="atitle">Security Stack Upsell &mdash; +$9,800/mo potential</span>14 clients missing full EDR + MDR + security awareness training. High-margin recurring add-on at 68%+ margin. Prioritize top-5 clients first.</div></div>
+        <div class="abox purple"><div class="adot purple"></div><div class="atext"><span class="atitle">Backup / DR Upgrade &mdash; +$6,300/mo potential</span>9 clients on legacy backup solutions. Immutable cloud backup upsell at $400-800/mo per client.</div></div>
+        <div class="abox warn"><div class="adot yellow"></div><div class="atext"><span class="atitle">Microsoft 365 License Optimization &mdash; +$4,200/mo potential</span>Review current M365 license tiers. Many on Business Basic who need Business Premium for Defender.</div></div>
+        <div class="abox good"><div class="adot green"></div><div class="atext"><span class="atitle">vCISO / Compliance Service &mdash; +$4,500/mo potential</span>Healthcare and legal clients have compliance requirements. Package a vCISO advisory service at $500-1,500/mo. Zero tool cost, pure labor margin.</div></div>
+      </div>
+    </div>
+    <div class="card warn">
+      <div class="card-label">Windows 10 End-of-Life Refresh Opportunity</div>
+      <div style="padding:16px 0;">
+        <div class="bench-row"><div class="bench-label">W10 Devices Identified</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:60%;background:var(--yellow)"></div></div><div class="bench-val cv-yellow">186</div><div class="bench-target">EOL Oct 2025</div></div>
+        <div class="bench-row"><div class="bench-label">Avg Device Refresh Value</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:50%;background:var(--gold)"></div></div><div class="bench-val cv-gold">$1,400</div><div class="bench-target">HW + labor</div></div>
+        <div class="bench-row"><div class="bench-label">Total Refresh Opportunity</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:80%;background:var(--purple)"></div></div><div class="bench-val cv-purple">$260K</div><div class="bench-target">project rev.</div></div>
+      </div>
+      <div class="card-note">Proactive outreach campaign recommended Q1. Positions MSP as strategic partner, not reactive vendor.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB 8: REFERRAL PROGRAM ══ -->
+<div class="tab-content" id="tab-referrals">
+  <div class="section-title">REFERRAL PROGRAM</div>
+  <div class="section-sub">Client referral tracking &mdash; revenue from referrals &mdash; NPS-to-referral pipeline &mdash; full year 2025</div>
+
+  <div class="grid-4">
+    <div class="card good">
+      <div class="card-label">Total MSP Clients</div>
+      <div class="card-value cv-green">57</div>
+      <div class="card-sub">Active managed service contracts</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Confirmed Monthly MRR</div>
+      <div class="card-value cv-gold">$162,500/mo</div>
+      <div class="card-sub">Confirmed recurring base</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Referrals Received YTD</div>
+      <div class="card-value cv-green">11</div>
+      <div class="card-sub">8 converted to signed clients</div>
+    </div>
+    <div class="card good">
+      <div class="card-label">Valuation Impact per New Client</div>
+      <div class="card-value cv-teal">+$88K+</div>
+      <div class="card-sub">At avg MRR &times; 8.5x EBITDA multiple</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">MRR Growth Snapshot</div>
+      <div style="margin-top:16px;">
+        <div class="card-label" style="margin-bottom:4px;">Confirmed monthly recurring base</div>
+        <div class="card-value cv-gold" style="font-size:28px;">$162,500/mo</div>
+        <div class="divider" style="margin:14px 0;"></div>
+        <div class="card-label" style="margin-bottom:4px;">New MRR added in December 2025</div>
+        <div class="card-value cv-green" style="font-size:22px;">+$18,500</div>
+        <div class="card-sub">Ravenswood &amp; Moor + Thornwick Dental + Aetherstone</div>
+        <div class="divider" style="margin:14px 0;"></div>
+        <div class="card-label" style="margin-bottom:4px;">Annualized MSP revenue run rate</div>
+        <div class="card-value cv-teal" style="font-size:22px;">$1,950,000/yr</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Program Framework &amp; Watch Items</div>
+      <div style="margin-top:12px;">
+        <div class="abox good"><div class="adot green"></div><div class="atext"><span class="atitle">Strong Growth Momentum</span>3 new MSP clients signed in Q4 2025 alone. Blackthorn &amp; Ashveil billing expanded 40% in Q3. Business is accelerating.</div></div>
+        <div class="abox good"><div class="adot green"></div><div class="atext"><span class="atitle">All Clients on Recurring Contracts</span>100% of active clients on flat monthly agreements. No T&amp;M or project-only relationships in the book.</div></div>
+        <div class="abox blue"><div class="adot blue"></div><div class="atext"><span class="atitle">Referral Incentive Program &mdash; Active</span>$500 invoice credit per new signed MSP client. Focus referral asks on Enterprise and Mid-Market clients first. ROI: 960% return on credits issued.</div></div>
+        <div class="abox warn"><div class="adot yellow"></div><div class="atext"><span class="atitle">Not Yet Asked &mdash; 38 Clients</span>Majority of client base has not yet been formally asked for a referral. QBR agenda updated to include referral conversation for all clients with NPS &ge;50.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Client Roster &mdash; MRR &amp; Referral Status</div>
+    <div style="margin-top:4px;font-size:10px;color:var(--muted);margin-bottom:14px;">MRR confirmed via invoice history and contract analysis. Referral status updated monthly by Muse Bookkeeping. Tier: Enterprise = $5K+ MRR &nbsp;|&nbsp; Mid-Market = $1K-$5K &nbsp;|&nbsp; SMB = $200-$1K &nbsp;|&nbsp; Micro = under $200</div>
+    <table class="dtable">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Industry</th>
+          <th class="td-r">Confirmed MRR</th>
+          <th>Tier</th>
+          <th>Referral Potential</th>
+          <th>Referral Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Blackthorn &amp; Ashveil Legal</td>
+          <td style="font-size:12px;color:var(--muted);">Legal</td>
+          <td class="td-r td-gold">$28,400</td>
+          <td style="color:var(--gold);font-size:11px;font-weight:600;">&#11088; ENTERPRISE</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; long tenure, 3 referrals given</td>
+          <td><span class="status-badge sb-green">REFERRED &times;3</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Coppergate Realty Co.</td>
+          <td style="font-size:12px;color:var(--muted);">Real Estate</td>
+          <td class="td-r td-gold">$18,400</td>
+          <td style="color:var(--gold);font-size:11px;font-weight:600;">&#11088; ENTERPRISE</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; 2 referrals given</td>
+          <td><span class="status-badge sb-green">REFERRED &times;2</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Ravenswood &amp; Moor Law</td>
+          <td style="font-size:12px;color:var(--muted);">Legal</td>
+          <td class="td-r td-gold">$14,800</td>
+          <td style="color:var(--gold);font-size:11px;font-weight:600;">&#11088; ENTERPRISE</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; active referral ask at next QBR</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Irongate Capital Group</td>
+          <td style="font-size:12px;color:var(--muted);">Finance</td>
+          <td class="td-r td-gold">$12,600</td>
+          <td style="color:var(--gold);font-size:11px;font-weight:600;">&#11088; ENTERPRISE</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; network of finance firms</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Grimshaw &amp; Sons Builders</td>
+          <td style="font-size:12px;color:var(--muted);">Construction</td>
+          <td class="td-r td-gold">$9,800</td>
+          <td style="color:var(--gold);font-size:11px;font-weight:600;">&#11088; ENTERPRISE</td>
+          <td style="font-size:12px;color:var(--silver);">Medium &mdash; renewal in progress</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Thornwick Dental</td>
+          <td style="font-size:12px;color:var(--muted);">Healthcare / Dental</td>
+          <td class="td-r td-gold">$8,400</td>
+          <td style="color:var(--gold);font-size:11px;font-weight:600;">&#11088; ENTERPRISE</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; referral to 2 dental practices pending</td>
+          <td><span class="status-badge sb-purple">REFERRAL PENDING</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Clockwork Motors</td>
+          <td style="font-size:12px;color:var(--muted);">Automotive</td>
+          <td class="td-r td-green">$6,200</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--silver);">Medium &mdash; ask at 90-day mark</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Emberveil Hospitality</td>
+          <td style="font-size:12px;color:var(--muted);">Hospitality</td>
+          <td class="td-r td-green">$4,800</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; connected in hospitality network</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Aetherstone Insurance</td>
+          <td style="font-size:12px;color:var(--muted);">Insurance</td>
+          <td class="td-r td-green">$3,600</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--silver);">Medium &mdash; new client, wait 90 days</td>
+          <td><span class="status-badge sb-blue">TOO NEW</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Duskmore Engineering</td>
+          <td style="font-size:12px;color:var(--muted);">Engineering</td>
+          <td class="td-r td-green">$2,900</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--silver);">Medium</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Wrenwhistle Creative</td>
+          <td style="font-size:12px;color:var(--muted);">Marketing / Creative</td>
+          <td class="td-r td-green">$2,400</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; their clients need IT</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Ashveil Accounting Co.</td>
+          <td style="font-size:12px;color:var(--muted);">Accounting / Finance</td>
+          <td class="td-r td-green">$1,800</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; refer their SMB clients</td>
+          <td><span class="status-badge sb-green">REFERRED &times;2</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">The Hollow &amp; Reed Clinic</td>
+          <td style="font-size:12px;color:var(--muted);">Healthcare</td>
+          <td class="td-r td-green">$1,600</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--silver);">Medium</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Greymantle Properties</td>
+          <td style="font-size:12px;color:var(--muted);">Real Estate</td>
+          <td class="td-r td-green">$1,400</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--silver);">Medium</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Foxglove &amp; Partners</td>
+          <td style="font-size:12px;color:var(--muted);">Consulting</td>
+          <td class="td-r td-green">$1,200</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; consulting network referral machine</td>
+          <td><span class="status-badge sb-green">REFERRED &times;1</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Ravenscroft Vintners</td>
+          <td style="font-size:12px;color:var(--muted);">Wine / Agriculture</td>
+          <td class="td-r td-green">$1,100</td>
+          <td style="color:var(--green);font-size:11px;font-weight:600;">&#9679; MID-MARKET</td>
+          <td style="font-size:12px;color:var(--silver);">Medium</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Ironveil Security Co.</td>
+          <td style="font-size:12px;color:var(--muted);">Physical Security</td>
+          <td class="td-r td-silver">$950</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--silver);">Medium &mdash; security industry connections</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Stormgate Media</td>
+          <td style="font-size:12px;color:var(--muted);">Media / Publishing</td>
+          <td class="td-r td-silver">$820</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--silver);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Dungiven Pharmacy</td>
+          <td style="font-size:12px;color:var(--muted);">Retail / Healthcare</td>
+          <td class="td-r td-silver">$740</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--silver);">Medium</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Ashford Optometry</td>
+          <td style="font-size:12px;color:var(--muted);">Healthcare / Vision</td>
+          <td class="td-r td-silver">$680</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--silver);">Medium &mdash; new Oct 2025</td>
+          <td><span class="status-badge sb-blue">TOO NEW</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">The Wren &amp; Crow Cafe</td>
+          <td style="font-size:12px;color:var(--muted);">Food / Restaurant</td>
+          <td class="td-r td-silver">$580</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--silver);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Mossgate Antiquities</td>
+          <td style="font-size:12px;color:var(--muted);">Retail / Collectibles</td>
+          <td class="td-r td-silver">$440</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--silver);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Copperbell Tax Services</td>
+          <td style="font-size:12px;color:var(--muted);">Accounting / Tax</td>
+          <td class="td-r td-silver">$380</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--gold);">High &mdash; their clients need IT</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Harrowgate Events Co.</td>
+          <td style="font-size:12px;color:var(--muted);">Events / Hospitality</td>
+          <td class="td-r td-silver">$290</td>
+          <td style="color:var(--silver);font-size:11px;font-weight:600;">SMB</td>
+          <td style="font-size:12px;color:var(--silver);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Ironwood Candleworks</td>
+          <td style="font-size:12px;color:var(--muted);">Retail / Gifts</td>
+          <td class="td-r" style="color:var(--muted);">$148</td>
+          <td style="color:var(--muted);font-size:11px;font-weight:600;">MICRO</td>
+          <td style="font-size:12px;color:var(--muted);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">The Velvet Compass</td>
+          <td style="font-size:12px;color:var(--muted);">Events / Travel</td>
+          <td class="td-r" style="color:var(--muted);">$95</td>
+          <td style="color:var(--muted);font-size:11px;font-weight:600;">MICRO</td>
+          <td style="font-size:12px;color:var(--muted);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr style="background:rgba(74,222,128,0.04);">
+          <td class="td-label">Shadowmere Designs</td>
+          <td style="font-size:12px;color:var(--muted);">Signage / Design</td>
+          <td class="td-r" style="color:var(--muted);">$75</td>
+          <td style="color:var(--muted);font-size:11px;font-weight:600;">MICRO</td>
+          <td style="font-size:12px;color:var(--muted);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">Grimoire Print Shop</td>
+          <td style="font-size:12px;color:var(--muted);">Printing / Retail</td>
+          <td class="td-r" style="color:var(--muted);">$40</td>
+          <td style="color:var(--muted);font-size:11px;font-weight:600;">MICRO</td>
+          <td style="font-size:12px;color:var(--muted);">Low</td>
+          <td><span class="status-badge sb-yellow">NOT YET ASKED</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footnote">MRR based on confirmed contract analysis. Referral status updated monthly by Muse Bookkeeping &amp; Biz Solutions. Tier definitions: Enterprise = $5K+ MRR &nbsp;|&nbsp; Mid-Market = $1K-$5K &nbsp;|&nbsp; SMB = $200-$1K &nbsp;|&nbsp; Micro = under $200.</div>
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<div class="powered-by">
+  Powered by <span>Muse Bookkeeping &amp; Biz Solutions</span> &nbsp;|&nbsp; musebizsolutions.com &nbsp;|&nbsp; megan@musebizsolutions.com &nbsp;|&nbsp; 209.660.3898
+  &nbsp;|&nbsp; Accrual Basis &nbsp;|&nbsp; Full Year 2025 &nbsp;|&nbsp; <span style="color:var(--muted);">DEMO &mdash; Illustrative Healthy MSP at $3M ARR</span>
+  <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+    <a href="https://musebizsolutions.com" style="
+      font-family:'Bebas Neue',sans-serif;
+      font-size:13px;
+      letter-spacing:3px;
+      color:var(--purple);
+      text-decoration:none;
+      background:rgba(167,139,250,0.08);
+      border:1px solid rgba(167,139,250,0.3);
+      border-radius:6px;
+      padding:8px 20px;
+      display:inline-block;
+      transition:all 0.2s;
+    "
+    onmouseover="this.style.background='rgba(167,139,250,0.18)';this.style.color='#c4b5fd';"
+    onmouseout="this.style.background='rgba(167,139,250,0.08)';this.style.color='var(--purple)';"
+    >&#9670; MUSE MONEY PRO &mdash; Personal Financial Dashboard</a>
+    <span style="font-size:10px;color:var(--muted);margin-left:14px;">Budgeting &nbsp;|&nbsp; Cash Flow &nbsp;|&nbsp; Net Worth &nbsp;|&nbsp; P&amp;L &nbsp;&mdash;&nbsp; for individuals, freelancers &amp; small businesses</span>
+  </div>
+</div>
+
+<script>
+function switchTab(id, el) {
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.getElementById("tab-" + id).classList.add("active");
+  el.classList.add("active");
+}
+window.addEventListener("load", () => {
+  document.querySelectorAll(".prog-fill").forEach(b => {
+    const w = b.style.width; b.style.width = "0%";
+    setTimeout(() => { b.style.width = w; }, 150);
+  });
+});
+</script>
+
+<script>
+// Generate watermark tiles
+(function() {
+  const wrap = document.getElementById('wmWrap');
+  if (!wrap) return;
+  const cols = Math.ceil(window.innerWidth / 220) + 4;
+  const rows = Math.ceil(window.innerHeight / 140) + 6;
+  for (let i = 0; i < cols * rows; i++) {
+    const el = document.createElement('div');
+    el.className = 'wm-text';
+    el.textContent = 'MUSE BOOKKEEPING & BIZ SOLUTIONS';
+    wrap.appendChild(el);
+  }
+})();
+</script>
+
+</body>
+</html>
