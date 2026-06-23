@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muse Money Pro - Personal Finance Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d0a12; color: #b8b4c8; font-size: 15px; }
+
+  /* Header */
+  .app-header { background: #0d0a12; border-bottom: 1px solid #2e1f4a; color: #b8b4c8; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .app-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #e8d87a; }
+  .app-header .tagline { font-size: 12px; color: #6b6480; margin-top: 2px; }
+  .header-right { font-size: 13px; color: #6b6480; text-align: right; }
+
+  /* Nav */
+  .nav-tabs { background: #130e1e; border-bottom: 1px solid #2e1f4a; display: flex; overflow-x: auto; gap: 0; }
+  .nav-tab { padding: 12px 18px; font-size: 13px; font-weight: 500; color: #6b6480; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+  .nav-tab:hover { color: #b8b4c8; background: #1a1228; }
+  .nav-tab.active { color: #e8d87a; border-bottom-color: #e8d87a; background: #0d0a12; }
+
+  /* Layout */
+  .content { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  /* Cards */
+  .card { background: #1a1228; border: 1px solid #2e1f4a; border-radius: 12px; padding: 20px; }
+  .card h2 { font-size: 16px; font-weight: 600; color: #e8d87a; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .card h3 { font-size: 14px; font-weight: 600; color: #b8b4c8; margin-bottom: 12px; }
+
+  /* Metric cards */
+  .metric { background: #130e1e; border: 1px solid #2e1f4a; border-radius: 10px; padding: 16px; text-align: center; }
+  .metric .label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #6b6480; margin-bottom: 6px; }
+  .metric .value { font-size: 26px; font-weight: 700; line-height: 1; color: #b8b4c8; }
+  .metric .sub { font-size: 11px; color: #6b6480; margin-top: 4px; }
+  .metric.green .value { color: #6fcf97; }
+  .metric.red .value { color: #fc8181; }
+  .metric.blue .value { color: #90cdf4; }
+  .metric.orange .value { color: #f6ad55; }
+  .metric.purple .value { color: #e8d87a; }
+
+  /* Forms */
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; color: #6b6480; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.3px; }
+  input[type=text], input[type=number], input[type=date], input[type=month], select, textarea {
+    width: 100%; padding: 9px 12px; border: 1px solid #2e1f4a; border-radius: 8px;
+    font-size: 14px; color: #b8b4c8; background: #110c1c; transition: border 0.2s;
+    color-scheme: dark;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #e8d87a; box-shadow: 0 0 0 3px rgba(232,216,122,0.12); }
+  select option { background: #110c1c; color: #b8b4c8; }
+
+  /* Buttons */
+  .btn { padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: all 0.15s; }
+  .btn-primary { background: #e8d87a; color: #0d0a12; }
+  .btn-primary:hover { background: #f0e494; }
+  .btn-success { background: #276749; color: #c6f6d5; border: 1px solid #2d7a56; }
+  .btn-success:hover { background: #2d7a56; }
+  .btn-danger { background: transparent; color: #fc8181; border: 1px solid #4a1f1f; font-size: 12px; padding: 5px 10px; }
+  .btn-danger:hover { background: #4a1f1f; }
+  .btn-outline { background: transparent; border: 1px solid #2e1f4a; color: #6b6480; }
+  .btn-outline:hover { background: #1a1228; color: #b8b4c8; }
+  .btn-sm { padding: 5px 12px; font-size: 12px; }
+  .btn-block { width: 100%; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #130e1e; color: #6b6480; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 1px solid #2e1f4a; }
+  td { padding: 10px 12px; border-bottom: 1px solid #2e1f4a; vertical-align: middle; color: #b8b4c8; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #130e1e; }
+
+  /* Progress bars */
+  .progress-wrap { background: #2e1f4a; border-radius: 999px; height: 10px; overflow: hidden; margin: 6px 0; }
+  .progress-bar { height: 100%; border-radius: 999px; transition: width 0.4s; }
+  .pb-green { background: #6fcf97; }
+  .pb-red { background: #fc8181; }
+  .pb-blue { background: #90cdf4; }
+  .pb-orange { background: #f6ad55; }
+  .pb-purple { background: #e8d87a; }
+  .pb-yellow { background: #e8d87a; }
+
+  /* Badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: #1a3d2b; color: #6fcf97; border: 1px solid #276749; }
+  .badge-red { background: #3d1a1a; color: #fc8181; border: 1px solid #7a2c2c; }
+  .badge-blue { background: #1a2e3d; color: #90cdf4; border: 1px solid #2c5f7a; }
+  .badge-orange { background: #3d2a1a; color: #f6ad55; border: 1px solid #7a4a1e; }
+  .badge-yellow { background: #3d3410; color: #e8d87a; border: 1px solid #7a6a1e; }
+  .badge-purple { background: #2a1f3d; color: #b794f4; border: 1px solid #4a3a7a; }
+  .badge-gray { background: #1a1228; color: #6b6480; border: 1px solid #2e1f4a; }
+
+  /* Score ring */
+  .score-ring { position: relative; display: inline-block; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .score-ring .score-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+  .score-ring .score-num { font-size: 32px; font-weight: 800; color: #e8d87a; }
+  .score-ring .score-lbl { font-size: 11px; color: #6b6480; }
+
+  /* Section titles */
+  .section-title { font-size: 20px; font-weight: 700; color: #e8d87a; margin-bottom: 6px; }
+  .section-sub { font-size: 13px; color: #6b6480; margin-bottom: 20px; }
+
+  /* Alert boxes */
+  .alert { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; }
+  .alert-info { background: #0f1a2e; border-left: 4px solid #90cdf4; color: #90cdf4; }
+  .alert-success { background: #0d2118; border-left: 4px solid #6fcf97; color: #6fcf97; }
+  .alert-warning { background: #2a1e0a; border-left: 4px solid #f6ad55; color: #f6ad55; }
+  .alert-danger { background: #2a0f0f; border-left: 4px solid #fc8181; color: #fc8181; }
+  .alert strong { color: inherit; opacity: 0.9; }
+
+  /* Divider */
+  .divider { border: none; border-top: 1px solid #2e1f4a; margin: 16px 0; }
+
+  /* Checkbook */
+  .txn-positive { color: #6fcf97; font-weight: 600; }
+  .txn-negative { color: #fc8181; font-weight: 600; }
+
+  /* Reminders */
+  .reminder-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #2e1f4a; }
+  .reminder-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .reminder-overdue { background: #fc8181; }
+  .reminder-due-soon { background: #f6ad55; }
+  .reminder-ok { background: #6fcf97; }
+
+  /* Print */
+  @media print { .nav-tabs { display: none; } .tab-panel { display: block !important; page-break-after: always; } }
+
+  /* Welcome banner */
+  .welcome-banner { background: #130e1e; border: 1px solid #2e1f4a; border-left: 4px solid #e8d87a; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  .welcome-banner h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; color: #e8d87a; }
+  .welcome-banner p { font-size: 14px; color: #6b6480; }
+
+  /* Footer branding */
+  .app-footer { text-align: center; padding: 0; font-size: 11px; color: #6b6480; border-top: 1px solid #2e1f4a; margin-top: 40px; background: #130e1e; }
+  .footer-brand { padding: 16px 24px 8px; }
+  .footer-brand .brand-name { font-size: 14px; font-weight: 700; color: #e8d87a; letter-spacing: 0.3px; }
+  .footer-brand .brand-contact { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 6px; font-size: 12px; color: #6b6480; flex-wrap: wrap; }
+  .footer-brand .brand-contact a { color: #6b6480; text-decoration: none; }
+  .footer-brand .brand-contact a:hover { color: #b8b4c8; }
+  .footer-legal { padding: 8px 24px 14px; font-size: 11px; color: #3a2f52; border-top: 1px solid #1f1535; }
+
+  /* Net worth */
+  .nw-positive { color: #6fcf97; font-weight: 700; }
+  .nw-negative { color: #fc8181; font-weight: 700; }
+
+  /* Tooltip */
+  .tooltip-text { font-size: 11px; color: #6b6480; margin-top: 4px; }
+
+  /* Snowball/Avalanche toggle */
+  .method-toggle { display: flex; gap: 0; background: #0d0a12; border: 1px solid #2e1f4a; border-radius: 8px; padding: 3px; margin-bottom: 16px; }
+  .method-btn { flex: 1; padding: 7px; font-size: 12px; font-weight: 600; border: none; background: transparent; border-radius: 6px; cursor: pointer; color: #6b6480; transition: all 0.2s; }
+  .method-btn.active { background: #1a1228; color: #e8d87a; border: 1px solid #2e1f4a; }
+
+  /* Scrollable table container */
+  .table-scroll { overflow-x: auto; }
+
+  /* Footer */
+  .app-footer { text-align: center; padding: 20px; font-size: 11px; color: #6b6480; border-top: 1px solid #2e1f4a; margin-top: 40px; background: #130e1e; }
+
+  /* Client preview watermark - tiled diagonal stamp, repeats on every printed page */
+  .wm-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 99999;
+    background-repeat: repeat;
+    background-position: top left;
+    background-size: 680px 360px;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2ODAiIGhlaWdodD0iMzYwIj4KPGcgdHJhbnNmb3JtPSJyb3RhdGUoLTMwIDM0MCAxODApIj4KPHRleHQgeD0iMzQwIiB5PSIxNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCAnQ29ybW9yYW50IEdhcmFtb25kJywgc2VyaWYiIGZvbnQtc2l6ZT0iMTkiIGZvbnQtd2VpZ2h0PSI3MDAiIGxldHRlci1zcGFjaW5nPSIyIiBmaWxsPSIjZThkODdhIiBmaWxsLW9wYWNpdHk9IjAuMTIiPkNPTkZJREVOVElBTDwvdGV4dD4KPHRleHQgeD0iMzQwIiB5PSIxOTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCAnQ29ybW9yYW50IEdhcmFtb25kJywgc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI3MDAiIGxldHRlci1zcGFjaW5nPSIxLjUiIGZpbGw9IiNlOGQ4N2EiIGZpbGwtb3BhY2l0eT0iMC4xMCI+RE8gTk9UIERJU1RSSUJVVEU8L3RleHQ+CjwvZz4KPC9zdmc+");
+  }
+  @media print {
+    .wm-overlay { position: fixed; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CLIENT PREVIEW WATERMARK (decorative, click-through, repeats on every page) -->
+<div class="wm-overlay" aria-hidden="true"></div>
+
+<!-- HELP STRIP -->
+<div style="background:#e8d87a;padding:7px 24px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:13px;">
+  <span style="color:#0d0a12;font-weight:700;">Feeling overwhelmed? Have questions? We can help!</span>
+  <a href="mailto:megan@musebizsolutions.com" style="color:#0d0a12;font-weight:600;text-decoration:underline;">megan@musebizsolutions.com</a>
+  <span style="color:#0d0a12;opacity:0.5;">|</span>
+  <a href="tel:+12092866615" style="color:#0d0a12;font-weight:600;text-decoration:underline;">(209) 286-6615</a>
+</div>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div>
+    <h1>💰 Muse Money Pro</h1>
+    <div class="tagline">Your Complete Personal Finance Command Center</div>
+  </div>
+  <div class="header-right" style="display:flex;align-items:center;gap:12px;">
+    <div style="text-align:right;">
+      <div id="header-date"></div>
+      <div style="font-size:11px;margin-top:2px;color:#6b6480;">All data stays on your device</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;">
+      <button onclick="saveBackup()" style="background:#e8d87a;color:#0d0a12;border:none;border-radius:7px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">💾 Save Backup</button>
+      <button onclick="document.getElementById('load-backup-input').click()" style="background:transparent;color:#6b6480;border:1px solid #2e1f4a;border-radius:7px;padding:5px 14px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">📂 Load Backup</button>
+      <input type="file" id="load-backup-input" accept=".json" style="display:none;" onchange="loadBackup(this)">
+    </div>
+  </div>
+</div>
+
+<!-- TAGLINE STRIP -->
+<div style="background:#1a1228;border-bottom:1px solid #2e1f4a;padding:10px 24px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
+  <span style="color:#e8d87a;font-size:13px;font-weight:700;letter-spacing:0.2px;">⚡ Import your bank statement in seconds - no manual entry required.</span>
+  <button onclick="document.getElementById('csv-top-input').click()" style="background:#e8d87a;color:#0d0a12;border:none;border-radius:7px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">⬆ Upload Bank Statement</button>
+  <input type="file" id="csv-top-input" accept=".csv" style="display:none;" onchange="importCSV(this)">
+  <span style="color:#6b6480;font-size:11px;">Chase · BofA · Wells Fargo · Capital One · Citi</span>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showTab('dashboard')">📊 Dashboard</div>
+  <div class="nav-tab" onclick="showTab('setup')">🚀 Side Hustle Setup</div>
+  <div class="nav-tab" onclick="showTab('budget')">📋 Monthly Budget</div>
+  <div class="nav-tab" onclick="showTab('debt')">💳 Debt Payoff</div>
+  <div class="nav-tab" onclick="showTab('savings')">🎯 Savings Goals</div>
+  <div class="nav-tab" onclick="showTab('networth')">📈 Net Worth</div>
+  <div class="nav-tab" onclick="showTab('bills')">🗓️ Bills & Reminders</div>
+  <div class="nav-tab" onclick="showTab('checkbook')">📓 Checkbook</div>
+  <div class="nav-tab" onclick="showTab('calculator')">🔢 Calculators</div>
+</div>
+
+<!-- ===================== DASHBOARD ===================== -->
+<div id="tab-dashboard" class="tab-panel active">
+<div class="content">
+  <div class="welcome-banner">
+    <h2>Welcome to Muse Money Pro</h2>
+    <p>Your all-in-one personal finance toolkit. Track your budget, crush debt, build savings, and take control of your financial future - all in one place.</p>
+  </div>
+
+  <div class="grid-4" style="margin-bottom:24px;">
+    <div class="metric blue"><div class="label">Monthly Income</div><div class="value" id="dash-income">$0</div><div class="sub">After tax</div></div>
+    <div class="metric red"><div class="label">Total Debt</div><div class="value" id="dash-debt">$0</div><div class="sub">All accounts</div></div>
+    <div class="metric green"><div class="label">Net Worth</div><div class="value" id="dash-networth">$0</div><div class="sub">Assets - Liabilities</div></div>
+    <div class="metric purple"><div class="label">Savings Rate</div><div class="value" id="dash-savings-rate">0%</div><div class="sub">Of monthly income</div></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px;">
+    <!-- Financial Health Score -->
+    <div class="card" style="text-align:center;">
+      <h2>🏆 Financial Health Score</h2>
+      <div class="score-ring" id="score-ring-container">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="65" fill="none" stroke="#2e1f4a" stroke-width="14"/>
+          <circle id="score-arc" cx="80" cy="80" r="65" fill="none" stroke="#e8d87a" stroke-width="14"
+            stroke-dasharray="408" stroke-dashoffset="408" stroke-linecap="round"/>
+        </svg>
+        <div class="score-text">
+          <div class="score-num" id="score-num">--</div>
+          <div class="score-lbl">out of 100</div>
+        </div>
+      </div>
+      <div id="score-label" style="font-size:18px;font-weight:700;margin-top:8px;color:#e8d87a;">Calculating...</div>
+      <div id="score-tips" style="font-size:13px;color:#6b6480;margin-top:8px;text-align:left;"></div>
+    </div>
+
+    <!-- Budget vs Actual Donut -->
+    <div class="card">
+      <h2>📊 Spending Overview</h2>
+      <div style="position:relative;height:200px;">
+        <canvas id="dash-donut" role="img" aria-label="Spending breakdown by category"></canvas>
+      </div>
+      <div id="dash-donut-legend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;font-size:12px;"></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Upcoming Bills -->
+    <div class="card">
+      <h2>🗓️ Upcoming Bills (Next 7 Days)</h2>
+      <div id="dash-upcoming-bills">
+        <div style="color:#6b6480;font-size:13px;">No bills tracked yet - add them in the Bills tab.</div>
+      </div>
+    </div>
+
+    <!-- Quick Tips -->
+    <div class="card">
+      <h2>💡 Smart Money Tips</h2>
+      <div id="smart-tips" style="font-size:13px;color:#b8b4c8;line-height:1.8;"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== BUDGET ===================== -->
+<div id="tab-budget" class="tab-panel">
+<div class="content">
+  <div class="section-title">Monthly Budget Planner</div>
+  <div class="section-sub">Set your income and budget limits for each category. Track what you actually spend.</div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <h2>💵 Monthly Income</h2>
+      <div class="form-group">
+        <label>Primary Income (take-home)</label>
+        <input type="number" id="income-primary" placeholder="0.00" min="0" step="0.01" onchange="saveBudget()">
+      </div>
+      <div class="form-group">
+        <label>Secondary Income (side hustle, etc.)</label>
+        <input type="number" id="income-secondary" placeholder="0.00" min="0" step="0.01" onchange="saveBudget()">
+      </div>
+      <div class="form-group">
+        <label>Other Income</label>
+        <input type="number" id="income-other" placeholder="0.00" min="0" step="0.01" onchange="saveBudget()">
+      </div>
+      <hr class="divider">
+      <div style="display:flex;justify-content:space-between;font-weight:700;font-size:16px;">
+        <span>Total Monthly Income</span>
+        <span id="total-income" style="color:#e8d87a;">$0.00</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📊 Budget Summary</h2>
+      <div class="grid-2" style="gap:12px;">
+        <div class="metric blue"><div class="label">Total Income</div><div class="value" id="bsum-income">$0</div></div>
+        <div class="metric red"><div class="label">Total Budgeted</div><div class="value" id="bsum-budgeted">$0</div></div>
+        <div class="metric orange"><div class="label">Total Spent</div><div class="value" id="bsum-spent">$0</div></div>
+        <div class="metric green"><div class="label">Remaining</div><div class="value" id="bsum-remaining">$0</div></div>
+      </div>
+      <div style="margin-top:16px;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+          <span>Budget Used</span><span id="bsum-pct">0%</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar pb-blue" id="bsum-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Budget Categories -->
+  <div class="card">
+    <h2>📋 Expense Categories</h2>
+    <div class="method-toggle" style="max-width:440px;">
+      <button class="method-btn active" id="btn-mode-dollars" onclick="setBudgetMode('dollars')">💵 My Own Numbers</button>
+      <button class="method-btn" id="btn-mode-percent" onclick="setBudgetMode('percent')">📊 % of My Income</button>
+    </div>
+    <div id="budget-mode-note" class="alert alert-info" style="display:none;"></div>
+    <div id="budget-categories-list"></div>
+    <hr class="divider">
+    <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
+      <div class="form-group" style="flex:2;margin:0;">
+        <label>Category Name</label>
+        <input type="text" id="new-cat-name" placeholder="e.g. Groceries">
+      </div>
+      <div class="form-group" style="flex:1;margin:0;">
+        <label id="new-cat-budget-label">Budget ($)</label>
+        <input type="number" id="new-cat-budget" placeholder="0">
+      </div>
+      <div class="form-group" style="flex:1;margin:0;">
+        <label>Spent ($)</label>
+        <input type="number" id="new-cat-spent" placeholder="0">
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="addCategory()">+ Add</button>
+    </div>
+  </div>
+
+  <!-- 50/30/20 Rule -->
+  <div class="card" style="margin-top:20px;">
+    <h2>⚖️ 50/30/20 Budget Rule Check</h2>
+    <div class="alert alert-info" style="margin-bottom:16px;">The 50/30/20 rule: 50% Needs, 30% Wants, 20% Savings/Debt. Based on your income of <strong id="rule-income">$0</strong>/month.</div>
+    <div class="grid-3">
+      <div>
+        <div style="font-weight:600;color:#b8b4c8;margin-bottom:4px;">Needs (50%)</div>
+        <div style="font-size:22px;font-weight:700;color:#90cdf4;" id="rule-needs">$0</div>
+        <div style="font-size:12px;color:#6b6480;">Housing, food, utilities, transportation</div>
+      </div>
+      <div>
+        <div style="font-weight:600;color:#b8b4c8;margin-bottom:4px;">Wants (30%)</div>
+        <div style="font-size:22px;font-weight:700;color:#b794f4;" id="rule-wants">$0</div>
+        <div style="font-size:12px;color:#6b6480;">Entertainment, dining out, subscriptions</div>
+      </div>
+      <div>
+        <div style="font-weight:600;color:#b8b4c8;margin-bottom:4px;">Savings / Debt (20%)</div>
+        <div style="font-size:22px;font-weight:700;color:#6fcf97;" id="rule-savings">$0</div>
+        <div style="font-size:12px;color:#6b6480;">Emergency fund, investments, debt payoff</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== DEBT ===================== -->
+<div id="tab-debt" class="tab-panel">
+<div class="content">
+  <div class="section-title">Debt Payoff Planner</div>
+  <div class="section-sub">Track all your debts and use Avalanche or Snowball method to become debt-free faster.</div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <h2>➕ Add a Debt</h2>
+      <div class="form-group"><label>Creditor / Account Name</label><input type="text" id="debt-name" placeholder="e.g. Chase Visa"></div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Balance ($)</label><input type="number" id="debt-balance" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="form-group"><label>Interest Rate (APR %)</label><input type="number" id="debt-apr" placeholder="0.00" min="0" max="100" step="0.01"></div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Minimum Payment ($)</label><input type="number" id="debt-minpay" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="form-group">
+          <label>Account Type</label>
+          <select id="debt-type">
+            <option>Credit Card</option>
+            <option>Personal Loan</option>
+            <option>Auto Loan</option>
+            <option>Student Loan</option>
+            <option>Medical Bill</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="addDebt()">Add Debt</button>
+    </div>
+
+    <div class="card">
+      <h2>📊 Debt Overview</h2>
+      <div class="grid-2" style="gap:12px;margin-bottom:16px;">
+        <div class="metric red"><div class="label">Total Debt</div><div class="value" id="debt-total">$0</div></div>
+        <div class="metric orange"><div class="label">Min. Payments</div><div class="value" id="debt-minpay-total">$0/mo</div></div>
+        <div class="metric blue"><div class="label">Avg. Interest</div><div class="value" id="debt-avg-apr">0%</div></div>
+        <div class="metric purple"><div class="label"># of Debts</div><div class="value" id="debt-count">0</div></div>
+      </div>
+      <div class="form-group">
+        <label>Extra Monthly Payment (beyond minimums)</label>
+        <input type="number" id="extra-payment" placeholder="0.00" min="0" step="0.01" oninput="calculatePayoff()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategy Selector -->
+  <div class="card" style="margin-bottom:20px;">
+    <h2>⚡ Payoff Strategy</h2>
+    <div class="method-toggle">
+      <button class="method-btn active" id="btn-avalanche" onclick="setMethod('avalanche')">🏔️ Avalanche (Highest Interest First)</button>
+      <button class="method-btn" id="btn-snowball" onclick="setMethod('snowball')">❄️ Snowball (Lowest Balance First)</button>
+    </div>
+    <div id="strategy-description" class="alert alert-info">
+      <strong>Avalanche Method:</strong> Pay minimums on all debts, then throw all extra money at the highest interest rate debt. This saves the most money in interest over time.
+    </div>
+  </div>
+
+  <!-- Debt List -->
+  <div class="card" style="margin-bottom:20px;">
+    <h2>💳 Your Debts</h2>
+    <div class="table-scroll">
+      <table id="debt-table">
+        <thead><tr>
+          <th>Account</th><th>Type</th><th>Balance</th><th>APR</th><th>Min Pay</th><th>Status</th><th>Actions</th>
+        </tr></thead>
+        <tbody id="debt-table-body">
+          <tr><td colspan="7" style="text-align:center;color:#6b6480;padding:20px;">No debts added yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Payoff Timeline -->
+  <div class="card">
+    <h2>📅 Payoff Timeline & Projections</h2>
+    <div id="payoff-results" style="font-size:13px;color:#6b6480;">Add your debts and an extra payment amount above to see your payoff plan.</div>
+    <div id="payoff-chart-wrap" style="position:relative;height:280px;margin-top:16px;display:none;">
+      <canvas id="debt-chart" role="img" aria-label="Debt payoff timeline by month"></canvas>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== SAVINGS ===================== -->
+<div id="tab-savings" class="tab-panel">
+<div class="content">
+  <div class="section-title">Savings Goals Tracker</div>
+  <div class="section-sub">Define what you're saving for, set a target, and watch your progress grow.</div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <h2>➕ Add a Savings Goal</h2>
+      <div class="form-group"><label>Goal Name</label><input type="text" id="goal-name" placeholder="e.g. Emergency Fund"></div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Target Amount ($)</label><input type="number" id="goal-target" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="form-group"><label>Current Saved ($)</label><input type="number" id="goal-current" placeholder="0.00" min="0" step="0.01"></div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Monthly Contribution ($)</label><input type="number" id="goal-monthly" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="form-group"><label>Target Date (optional)</label><input type="date" id="goal-date"></div>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="goal-category">
+          <option>Emergency Fund</option>
+          <option>Vacation / Travel</option>
+          <option>Down Payment</option>
+          <option>Car</option>
+          <option>Education</option>
+          <option>Wedding</option>
+          <option>Home Improvement</option>
+          <option>Retirement</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button class="btn btn-success btn-block" onclick="addGoal()">Add Goal</button>
+    </div>
+
+    <div class="card">
+      <h2>📊 Savings Summary</h2>
+      <div class="grid-2" style="gap:12px;">
+        <div class="metric green"><div class="label">Total Saved</div><div class="value" id="sav-total-saved">$0</div></div>
+        <div class="metric blue"><div class="label">Total Targets</div><div class="value" id="sav-total-target">$0</div></div>
+        <div class="metric orange"><div class="label">Still Needed</div><div class="value" id="sav-still-needed">$0</div></div>
+        <div class="metric purple"><div class="label">Goals</div><div class="value" id="sav-count">0</div></div>
+      </div>
+      <div style="margin-top:16px;">
+        <div style="font-size:12px;font-weight:600;margin-bottom:4px;">Overall Savings Progress</div>
+        <div class="progress-wrap" style="height:14px;">
+          <div class="progress-bar pb-green" id="sav-overall-bar" style="width:0%;"></div>
+        </div>
+        <div style="font-size:12px;color:#6b6480;margin-top:4px;" id="sav-overall-pct">0% of all goals completed</div>
+      </div>
+      <div style="margin-top:16px;" id="emergency-fund-check"></div>
+    </div>
+  </div>
+
+  <!-- Goals Grid -->
+  <div id="goals-grid" class="grid-2"></div>
+</div>
+</div>
+
+<!-- ===================== NET WORTH ===================== -->
+<div id="tab-networth" class="tab-panel">
+<div class="content">
+  <div class="section-title">Net Worth Tracker</div>
+  <div class="section-sub">Your net worth = what you own (assets) minus what you owe (liabilities). The single most important financial number.</div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <!-- Assets -->
+    <div class="card">
+      <h2 style="color:#6fcf97;">✅ Assets - What You Own</h2>
+      <div id="asset-list"></div>
+      <hr class="divider">
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <div class="form-group" style="flex:2;margin:0;"><label>Asset Name</label><input type="text" id="asset-name" placeholder="e.g. Checking Account"></div>
+        <div class="form-group" style="flex:1;margin:0;"><label>Value ($)</label><input type="number" id="asset-value" placeholder="0" min="0"></div>
+        <button class="btn btn-success btn-sm" onclick="addAsset()">Add</button>
+      </div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid #2e1f4a;display:flex;justify-content:space-between;font-weight:700;">
+        <span>Total Assets</span><span id="total-assets" style="color:#6fcf97;">$0</span>
+      </div>
+    </div>
+
+    <!-- Liabilities -->
+    <div class="card">
+      <h2 style="color:#fc8181;">🔴 Liabilities - What You Owe</h2>
+      <div id="liability-list"></div>
+      <hr class="divider">
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <div class="form-group" style="flex:2;margin:0;"><label>Liability Name</label><input type="text" id="liab-name" placeholder="e.g. Mortgage"></div>
+        <div class="form-group" style="flex:1;margin:0;"><label>Amount ($)</label><input type="number" id="liab-value" placeholder="0" min="0"></div>
+        <button class="btn btn-danger btn-sm" onclick="addLiability()">Add</button>
+      </div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid #2e1f4a;display:flex;justify-content:space-between;font-weight:700;">
+        <span>Total Liabilities</span><span id="total-liabilities" style="color:#fc8181;">$0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Net Worth Summary -->
+  <div class="card" style="text-align:center;margin-bottom:20px;">
+    <h2>💎 Your Net Worth</h2>
+    <div id="net-worth-display" style="font-size:48px;font-weight:800;margin:16px 0;">$0</div>
+    <div id="net-worth-sub" style="font-size:14px;color:#6b6480;"></div>
+    <div style="position:relative;height:220px;margin-top:20px;">
+      <canvas id="nw-chart" role="img" aria-label="Net worth breakdown: assets vs liabilities"></canvas>
+    </div>
+  </div>
+
+  <!-- Monthly History -->
+  <div class="card">
+    <h2>📈 Monthly Net Worth History</h2>
+    <div class="alert alert-info">Log your net worth snapshot each month to track your progress over time.</div>
+    <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:16px;">
+      <div class="form-group" style="flex:1;margin:0;"><label>Month</label><input type="month" id="nw-history-month"></div>
+      <div class="form-group" style="flex:1;margin:0;"><label>Net Worth ($)</label><input type="number" id="nw-history-value" placeholder="0"></div>
+      <button class="btn btn-primary btn-sm" onclick="addNWHistory()">Log</button>
+    </div>
+    <div style="position:relative;height:200px;">
+      <canvas id="nw-history-chart" role="img" aria-label="Net worth history over time"></canvas>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== BILLS ===================== -->
+<div id="tab-bills" class="tab-panel">
+<div class="content">
+  <div class="section-title">Bills & Payment Reminders</div>
+  <div class="section-sub">Never miss a payment again. Track all your bills and get organized with due dates.</div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <h2>➕ Add a Bill</h2>
+      <div class="form-group"><label>Bill Name</label><input type="text" id="bill-name" placeholder="e.g. Electric Bill"></div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Amount ($)</label><input type="number" id="bill-amount" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="form-group"><label>Due Day of Month</label><input type="number" id="bill-due-day" placeholder="1-31" min="1" max="31"></div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="bill-category">
+            <option>Housing</option><option>Utilities</option><option>Insurance</option>
+            <option>Subscriptions</option><option>Transportation</option><option>Loan Payment</option>
+            <option>Phone / Internet</option><option>Medical</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Frequency</label>
+          <select id="bill-frequency">
+            <option>Monthly</option><option>Weekly</option><option>Bi-Weekly</option><option>Quarterly</option><option>Annually</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Auto-Pay?</label>
+        <select id="bill-autopay">
+          <option value="no">No - I pay manually</option>
+          <option value="yes">Yes - Auto-Pay enabled</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="addBill()">Add Bill</button>
+    </div>
+
+    <div class="card">
+      <h2>📊 Bills Summary</h2>
+      <div class="grid-2" style="gap:12px;margin-bottom:16px;">
+        <div class="metric red"><div class="label">Monthly Bills</div><div class="value" id="bills-monthly-total">$0</div></div>
+        <div class="metric orange"><div class="label">Annual Bills</div><div class="value" id="bills-annual-total">$0</div></div>
+        <div class="metric blue"><div class="label">Due This Week</div><div class="value" id="bills-due-week">0</div></div>
+        <div class="metric green"><div class="label">Auto-Pay Bills</div><div class="value" id="bills-autopay-count">0</div></div>
+      </div>
+
+      <!-- Weekly Checkbook Reminder -->
+      <div class="alert alert-warning" style="margin-top:8px;">
+        <strong>📓 Weekly Reminder:</strong> Set aside 10 minutes every Sunday to reconcile your accounts. Go to the <strong>Checkbook</strong> tab to balance your accounts.
+      </div>
+    </div>
+  </div>
+
+  <!-- Bill Calendar -->
+  <div class="card" style="margin-bottom:20px;">
+    <h2>📅 Monthly Bill Calendar</h2>
+    <div id="bill-calendar" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;"></div>
+    <div style="display:flex;gap:12px;margin-top:12px;font-size:12px;flex-wrap:wrap;">
+      <span><span class="badge badge-red">●</span> Due Today / Overdue</span>
+      <span><span class="badge badge-orange">●</span> Due This Week</span>
+      <span><span class="badge badge-blue">●</span> Upcoming</span>
+      <span><span class="badge badge-green">●</span> Auto-Pay</span>
+    </div>
+  </div>
+
+  <!-- Bills Table -->
+  <div class="card">
+    <h2>📋 All Bills</h2>
+    <div class="table-scroll">
+      <table id="bills-table">
+        <thead><tr>
+          <th>Bill</th><th>Category</th><th>Amount</th><th>Due Day</th><th>Frequency</th><th>Auto-Pay</th><th>Status</th><th></th>
+        </tr></thead>
+        <tbody id="bills-table-body">
+          <tr><td colspan="8" style="text-align:center;color:#6b6480;padding:20px;">No bills added yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== CHECKBOOK ===================== -->
+<div id="tab-checkbook" class="tab-panel">
+<div class="content">
+  <div class="section-title">Checkbook & Account Reconciler</div>
+  <div class="section-sub">Log transactions, track your running balance, and reconcile your account monthly.</div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <h2>➕ Add Transaction</h2>
+      <div class="form-group"><label>Date</label><input type="date" id="txn-date"></div>
+      <div class="form-group"><label>Description</label><input type="text" id="txn-desc" placeholder="e.g. Grocery Store"></div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group">
+          <label>Type</label>
+          <select id="txn-type">
+            <option value="debit">Debit / Expense</option>
+            <option value="credit">Credit / Deposit</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Amount ($)</label><input type="number" id="txn-amount" placeholder="0.00" min="0" step="0.01"></div>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="txn-category">
+          <option>Groceries</option><option>Dining Out</option><option>Gas / Transport</option>
+          <option>Utilities</option><option>Entertainment</option><option>Shopping</option>
+          <option>Medical</option><option>Income / Paycheck</option><option>Transfer</option><option>Other</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="addTransaction()">Log Transaction</button>
+    </div>
+
+    <div class="card">
+      <h2>⚖️ Account Balance</h2>
+      <div class="form-group">
+        <label>Starting / Opening Balance ($)</label>
+        <input type="number" id="opening-balance" placeholder="0.00" step="0.01" oninput="updateCheckbook()">
+      </div>
+      <div class="grid-2" style="gap:12px;margin-top:8px;">
+        <div class="metric green"><div class="label">Current Balance</div><div class="value" id="cb-balance">$0.00</div></div>
+        <div class="metric blue"><div class="label">Total Credits</div><div class="value" id="cb-credits">$0.00</div></div>
+        <div class="metric red"><div class="label">Total Debits</div><div class="value" id="cb-debits">$0.00</div></div>
+        <div class="metric purple"><div class="label">Transactions</div><div class="value" id="cb-count">0</div></div>
+      </div>
+
+      <!-- Reconcile Section -->
+      <hr class="divider">
+      <h3>🔍 Reconcile Account</h3>
+      <div class="form-group"><label>Bank Statement Balance ($)</label><input type="number" id="reconcile-amount" placeholder="0.00" step="0.01"></div>
+      <button class="btn btn-outline btn-block" onclick="reconcile()">Check Reconciliation</button>
+      <div id="reconcile-result" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- Transaction Log -->
+  <div class="card">
+    <h2>📓 Transaction Log</h2>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+      <input type="text" id="txn-search" placeholder="Search transactions..." style="flex:1;min-width:150px;" oninput="renderTransactions()">
+      <select id="txn-filter-cat" style="width:160px;" onchange="renderTransactions()">
+        <option value="">All Categories</option>
+        <option>Groceries</option><option>Dining Out</option><option>Gas / Transport</option>
+        <option>Utilities</option><option>Entertainment</option><option>Shopping</option>
+        <option>Medical</option><option>Income / Paycheck</option><option>Transfer</option><option>Other</option>
+      </select>
+      <button class="btn btn-outline btn-sm" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('csv-file-input').click()">⬆ Import Bank CSV</button>
+      <input type="file" id="csv-file-input" accept=".csv" style="display:none;" onchange="importCSV(this)">
+    </div>
+    <div id="csv-import-result" style="margin-bottom:10px;display:none;"></div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Debit</th><th>Credit</th><th>Balance</th><th></th></tr></thead>
+        <tbody id="txn-table-body">
+          <tr><td colspan="7" style="text-align:center;color:#6b6480;padding:20px;">No transactions logged yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== CALCULATORS ===================== -->
+<div id="tab-setup" class="tab-panel">
+<div class="content">
+  <div class="section-title">Side Hustle Setup Checklist</div>
+  <div class="section-sub">Thinking about starting a business, or already earning on the side? Here's everything to do - and everything the IRS and your state expect - step by step, no guesswork.</div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <h2 style="margin-bottom:0;">📋 Your Progress</h2>
+      <span id="cl-progress-label" class="badge badge-yellow">0 of 0 complete</span>
+    </div>
+    <div class="progress-wrap" style="height:14px;">
+      <div class="progress-bar pb-purple" id="cl-progress-bar" style="width:0%"></div>
+    </div>
+    <div id="cl-progress-msg" style="font-size:13px;color:#6b6480;margin-top:8px;"></div>
+  </div>
+
+  <div id="checklist-sections"></div>
+
+  <div class="card" style="margin-top:20px;border-left:4px solid #e8d87a;border-radius:0 12px 12px 0;">
+    <h2>🤝 Feeling overwhelmed? That's normal.</h2>
+    <p style="font-size:14px;color:#b8b4c8;line-height:1.7;margin-bottom:12px;">
+      This is literally what we do all day. Muse Bookkeeping handles the books, and our CPA partner handles the taxes  - 
+      so you can get back to the work you actually started your hustle for.
+    </p>
+    <a href="mailto:megan@musebizsolutions.com?subject=Help%20with%20my%20side%20hustle%20setup" style="display:inline-block;background:#e8d87a;color:#0d0a12;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;text-decoration:none;">📧 Email Megan - Free 15-Minute Chat</a>
+    <span style="font-size:12px;color:#6b6480;margin-left:12px;">or call (209) 286-6615</span>
+  </div>
+</div>
+</div>
+
+<div id="tab-calculator" class="tab-panel">
+<div class="content">
+  <div class="section-title">Financial Calculators</div>
+  <div class="section-sub">Quick tools to help you make smarter money decisions.</div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <!-- Compound Interest -->
+    <div class="card">
+      <h2>📈 Compound Interest Calculator</h2>
+      <div class="form-group"><label>Initial Amount ($)</label><input type="number" id="ci-principal" value="1000" min="0" oninput="calcCompound()"></div>
+      <div class="form-group"><label>Annual Interest Rate (%)</label><input type="number" id="ci-rate" value="7" min="0" max="50" step="0.1" oninput="calcCompound()"></div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Years</label><input type="number" id="ci-years" value="10" min="1" max="50" oninput="calcCompound()"></div>
+        <div class="form-group"><label>Monthly Contribution ($)</label><input type="number" id="ci-monthly" value="100" min="0" oninput="calcCompound()"></div>
+      </div>
+      <div style="background:#0d2118;border:1px solid #2e1f4a;border-radius:8px;padding:16px;margin-top:8px;">
+        <div style="font-size:13px;color:#6fcf97;margin-bottom:8px;font-weight:600;">Results:</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span>Starting amount:</span><span id="ci-start-out" style="font-weight:600;">$1,000</span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span>Total contributed:</span><span id="ci-contrib-out" style="font-weight:600;">$12,000</span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span>Interest earned:</span><span id="ci-interest-out" style="font-weight:600;color:#6fcf97;">$0</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;border-top:1px solid #276749;padding-top:8px;"><span>Final Balance:</span><span id="ci-total-out" style="color:#6fcf97;">$0</span></div>
+      </div>
+    </div>
+
+    <!-- Loan Payoff -->
+    <div class="card">
+      <h2>🏠 Loan Payment Calculator</h2>
+      <div class="form-group"><label>Loan Amount ($)</label><input type="number" id="loan-amount" value="20000" min="0" oninput="calcLoan()"></div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Annual Interest Rate (%)</label><input type="number" id="loan-rate" value="6.5" min="0" max="50" step="0.1" oninput="calcLoan()"></div>
+        <div class="form-group"><label>Loan Term (years)</label><input type="number" id="loan-years" value="5" min="1" max="30" oninput="calcLoan()"></div>
+      </div>
+      <div style="background:#2a0f0f;border:1px solid #2e1f4a;border-radius:8px;padding:16px;margin-top:8px;">
+        <div style="font-size:13px;color:#fc8181;margin-bottom:8px;font-weight:600;">Results:</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span>Monthly payment:</span><span id="loan-monthly-out" style="font-weight:700;font-size:18px;color:#fc8181;">$0</span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span>Total paid:</span><span id="loan-total-out" style="font-weight:600;">$0</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Total interest:</span><span id="loan-interest-out" style="font-weight:600;color:#fc8181;">$0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Savings Goal Calculator -->
+    <div class="card">
+      <h2>🎯 How Long to Reach My Goal?</h2>
+      <div class="form-group"><label>Savings Goal ($)</label><input type="number" id="sg-target" value="10000" oninput="calcSavingsGoal()"></div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Current Savings ($)</label><input type="number" id="sg-current" value="500" oninput="calcSavingsGoal()"></div>
+        <div class="form-group"><label>Monthly Contribution ($)</label><input type="number" id="sg-monthly" value="200" oninput="calcSavingsGoal()"></div>
+      </div>
+      <div class="form-group"><label>Interest Rate (% APY)</label><input type="number" id="sg-rate" value="4.5" step="0.1" oninput="calcSavingsGoal()"></div>
+      <div style="background:#0f1a2e;border:1px solid #2e1f4a;border-radius:8px;padding:16px;margin-top:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:6px;"><span>Time to Goal:</span><span id="sg-months-out" style="color:#90cdf4;">-- months</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Target Date:</span><span id="sg-date-out" style="font-weight:600;">--</span></div>
+      </div>
+    </div>
+
+    <!-- Emergency Fund -->
+    <div class="card">
+      <h2>🚨 Emergency Fund Calculator</h2>
+      <div class="form-group"><label>Monthly Essential Expenses ($)</label><input type="number" id="ef-monthly" value="3000" oninput="calcEmergencyFund()"></div>
+      <div class="form-group">
+        <label>Recommended Coverage</label>
+        <select id="ef-months" onchange="calcEmergencyFund()">
+          <option value="3">3 months (minimum)</option>
+          <option value="6" selected>6 months (recommended)</option>
+          <option value="9">9 months</option>
+          <option value="12">12 months (very safe)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Currently Saved ($)</label><input type="number" id="ef-saved" value="1000" oninput="calcEmergencyFund()"></div>
+      <div style="background:#2a1e0a;border:1px solid #2e1f4a;border-radius:8px;padding:16px;margin-top:8px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span>Target emergency fund:</span><span id="ef-target-out" style="font-weight:700;font-size:16px;color:#f6ad55;">$0</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Still need to save:</span><span id="ef-need-out" style="font-weight:600;">$0</span></div>
+        <div class="progress-wrap" style="margin-top:8px;">
+          <div class="progress-bar pb-orange" id="ef-bar" style="width:0%"></div>
+        </div>
+        <div style="font-size:12px;color:#6b6480;margin-top:4px;" id="ef-pct-out">0% funded</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quarterly Tax Estimator -->
+  <div class="card" style="margin-top:20px;border:1px solid #e8d87a;">
+    <h2>🧾 Quarterly Estimated Tax Calculator (Self-Employed)</h2>
+    <div class="alert alert-warning">Side hustle and freelance income has NO taxes withheld. If you'll owe $1,000+, the IRS expects payments four times a year. Estimate yours here.</div>
+    <div class="grid-2" style="gap:16px;">
+      <div>
+        <div class="form-group"><label>Expected Side Hustle Profit This Year ($)</label><input type="number" id="qt-profit" placeholder="e.g. 20000" min="0" oninput="calcQuarterly()"></div>
+        <div class="form-group"><label>W-2 Day Job Wages, If Any ($/year)</label><input type="number" id="qt-wages" placeholder="0" min="0" oninput="calcQuarterly()"></div>
+        <div class="grid-2" style="gap:10px;">
+          <div class="form-group">
+            <label>Filing Status</label>
+            <select id="qt-status" onchange="calcQuarterly()">
+              <option value="single">Single</option>
+              <option value="married">Married Filing Jointly</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Your State</label>
+            <select id="qt-state-sel" onchange="qtStateChange()"></select>
+            <input type="number" id="qt-state" placeholder="Your rate %" min="0" max="15" step="0.1" oninput="calcQuarterly()" style="display:none;margin-top:6px;">
+            <div id="qt-state-note" style="font-size:11px;color:#6b6480;margin-top:5px;"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div id="qt-results" style="background:#130e1e;border:1px solid #2e1f4a;border-radius:8px;padding:16px;">
+          <div style="font-size:13px;color:#6b6480;">Enter your expected profit to see your estimate.</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid #2e1f4a;">
+      <span style="font-size:11px;color:#6b6480;">This is a planning estimate only, not tax advice. Your real number depends on deductions, credits, and your full situation.</span>
+      <a href="mailto:megan@musebizsolutions.com?subject=Quarterly%20tax%20help" style="background:#e8d87a;color:#0d0a12;border-radius:7px;padding:7px 14px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">Get my real number →</a>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;">
+    <a href="#" onclick="resetAllData(); return false;" style="font-size:11px;color:#3a2f52;text-decoration:underline;">Clear all data and start over</a>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="app-footer">
+  <div class="footer-brand">
+    <div class="brand-name">Muse Bookkeeping &amp; Muse Biz Solutions</div>
+    <div class="brand-contact">
+      <a href="mailto:megan@musebizsolutions.com">megan@musebizsolutions.com</a>
+      <span style="color:#2e1f4a;">|</span>
+      <a href="tel:+12092866615">(209) 286-6615</a>
+    </div>
+  </div>
+  <div class="footer-legal">Muse Money Pro &nbsp;·&nbsp; Your data is saved locally in your browser and never leaves your device &nbsp;·&nbsp; © 2026</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ============================================================
+// DATA STORE
+// ============================================================
+const DB = {
+  budget: { income: {primary:0,secondary:0,other:0}, categories: [] },
+  debts: [],
+  goals: [],
+  assets: [],
+  liabilities: [],
+  bills: [],
+  transactions: [],
+  nwHistory: [],
+  debtMethod: 'avalanche',
+  checklist: {}
+};
+
+function save() { try { localStorage.setItem('musemoney_pro', JSON.stringify(DB)); } catch(e){} }
+function load() {
+  try {
+    const d = localStorage.getItem('musemoney_pro') || localStorage.getItem('smartmoney_pro');
+    if(d) { const p = JSON.parse(d); Object.assign(DB, p); }
+  } catch(e){}
+}
+
+// ============================================================
+// AFFILIATE PARTNERS
+// Paste your affiliate/referral links between the quotes below.
+// If a link is left empty, the button falls back to emailing Megan.
+// ============================================================
+const AFFILIATES = {
+  corpnet:    { name: 'CorpNet',    url: '', label: 'Form your LLC with CorpNet (our partner)' },
+  vms:        { name: 'VMS',        url: '', label: 'Get payment processing with VMS (our partner)' },
+  vmsloans:   { name: 'VMS',        url: '', label: 'Explore business funding with VMS (our partner)' },
+  gusto:      { name: 'Gusto',      url: '', label: 'Set up payroll with Gusto (our partner)' },
+  quickbooks: { name: 'QuickBooks', url: '', label: 'Get QuickBooks through us (our partner)' },
+  banking:    { name: 'Business Banking', url: '', label: 'Ask us which business bank fits you best' },
+  insurance:  { name: 'Business Insurance', url: '', label: 'Ask us about business insurance options' },
+  bizcredit:  { name: 'Business Credit', url: '', label: 'Ask us how to start building business credit' },
+  contracts:  { name: 'Contracts & Invoicing', url: '', label: 'Ask us about contract and invoicing tools' },
+  website:    { name: 'Website', url: '', label: 'Ask us about getting your website set up' },
+  retirement: { name: 'Retirement', url: '', label: 'Ask us about SEP IRA and Solo 401(k) options' },
+  mileage:    { name: 'Mileage Tracking', url: '', label: 'Ask us about automatic mileage tracking apps' },
+  bizphone:   { name: 'Business Phone', url: '', label: 'Ask us about business phone number options' }
+};
+
+function affLink(key) {
+  const a = AFFILIATES[key];
+  return a.url ? a.url : 'mailto:megan@musebizsolutions.com?subject=' + encodeURIComponent(a.name + ' - send me your referral link');
+}
+
+// ============================================================
+// SIDE HUSTLE SETUP CHECKLIST
+// ============================================================
+const CHECKLIST = [
+  { phase: '💡 Phase 0 - Before You Start', color: '#f6ad55', items: [
+    { id: 'validate', title: 'Validate the idea with one real, paying customer', desc: 'Before you spend a dollar on logos, websites, or LLCs, prove someone will pay you. One paying customer beats a hundred compliments.' },
+    { id: 'startupcosts', title: 'Add up your startup costs and runway', desc: 'List everything you need to launch and what it costs. Use the Budget tab here to see what your personal finances can absorb. Bonus: up to $5,000 of startup costs are deductible in your first year, so keep every receipt from day zero.' },
+    { id: 'moonlight', title: 'Have a day job? Check your employment agreement', desc: 'Some employers have moonlighting, conflict-of-interest, or intellectual property clauses. Know the rules before you build something on the side, especially in the same industry.' },
+    { id: 'namecheck', title: 'Pick a name and make sure it\'s available', desc: 'Check your state\'s business registry, the domain name, and social handles all at once. Nothing hurts like building a brand on a name you can\'t legally use.', cta: 'corpnet' },
+    { id: 'quitmath', title: 'Know your "quit math"', desc: 'What monthly profit would your hustle need to hit, for how many months in a row, before you could go full-time? Write the number down. It turns a daydream into a target.' },
+    { id: 'funding', title: 'Figure out how you\'ll fund it', desc: 'Savings, keep the day job, or a small business loan. Borrowing isn\'t bad if the math works, but never fund a business on personal credit cards at 25% APR.', cta: 'vmsloans' }
+  ]},
+  { phase: '🏛️ Phase 1 - Make It Official', color: '#e8d87a', items: [
+    { id: 'structure', title: 'Decide your business structure', desc: 'If you do nothing, you\'re automatically a sole proprietor - that\'s fine for most side hustles. An LLC adds liability protection (state filing fee usually $50-$500). Not sure which? This is a great question for a tax pro.', cta: 'corpnet' },
+    { id: 'dba', title: 'Register your business name (DBA)', desc: 'Operating under any name other than your own legal name? Most counties/states require a "Doing Business As" filing. Usually $10-$100.' },
+    { id: 'ein', title: 'Get your EIN (Employer Identification Number)', desc: 'Free at irs.gov - takes 10 minutes. NEVER pay a third-party site for this. You need it to open a business bank account, and it keeps your SSN off W-9 forms.' },
+    { id: 'license', title: 'Check if your city/county requires a business license', desc: 'Many cities require one even for home-based businesses - often $25-$100/year. Search "[your city] business license."' },
+    { id: 'sellerpermit', title: 'Register for a seller\'s permit (if you sell products)', desc: 'Selling physical goods? Most states require you to collect and remit sales tax. Usually free to register with your state.' },
+    { id: 'homebiz', title: 'Working from home? Check home occupation rules', desc: 'Some cities and HOAs have rules about running a business from home, especially if clients visit. Usually a quick phone call to confirm.' },
+    { id: 'website', title: 'Claim your online home base', desc: 'At minimum: a Google Business Profile (free) and your social handles. Selling products or booking clients? A simple one-page site builds more trust than any social profile, and the cost is deductible.', cta: 'website' }
+  ]},
+  { phase: '🏦 Phase 2 - Separate Your Money', color: '#6fcf97', items: [
+    { id: 'bizchecking', title: 'Open a dedicated business checking account', desc: 'THE most important habit. All business income in, all business expenses out - nothing else. Makes taxes 10x easier and protects your LLC status if you have one. Some business banks even have built-in "buckets" that auto-split your tax set-aside.', cta: 'banking' },
+    { id: 'taxsavings', title: 'Open a separate savings account for taxes', desc: 'Every time you get paid, immediately move 25-30% into this account. That money is not yours - it belongs to the IRS. This single habit prevents the #1 side hustle disaster: a surprise tax bill you can\'t pay.' },
+    { id: 'bizcard', title: 'Get a business debit or credit card', desc: 'Never swipe your personal card for business purchases (or vice versa). Clean card statements = pre-organized deductions at tax time.' },
+    { id: 'bizphone', title: 'Get a separate business phone number', desc: 'Stop giving clients your personal cell. A dedicated business line costs $10-25/month, looks professional, lets you silence work after hours, and the cost is deductible.', cta: 'bizphone' },
+    { id: 'nocommingle', title: 'Stop mixing business and personal money', desc: 'Commingling funds is the fastest way to lose deductions in an audit and "pierce the veil" of an LLC. Pay yourself by transferring money from business to personal - that\'s called an owner\'s draw.' },
+    { id: 'payments', title: 'Set up professional payment processing', desc: 'Not personal Venmo. A real merchant account gives you clean records and better rates as you grow, and payment apps now send the IRS a 1099-K for business transactions anyway.', cta: 'vms' }
+  ]},
+  { phase: '🧾 Phase 3 - Get Tax-Ready', color: '#90cdf4', items: [
+    { id: 'setax', title: 'Understand self-employment tax (the big surprise)', desc: 'Side hustle profit gets hit with 15.3% self-employment tax ON TOP of regular income tax. If you also have a W-2 job, your hustle income stacks on top of your salary - possibly in a higher bracket. This is why the 25-30% set-aside matters.' },
+    { id: 'quarterly', title: 'Mark the quarterly tax deadlines', desc: 'April 15, June 15, September 15, and January 15. If you expect to owe $1,000+ for the year, the IRS wants payments quarterly - not one lump in April. Miss them and you owe penalties.' },
+    { id: 'w4adjust', title: 'Have a W-2 job? Consider adjusting your W-4 withholding', desc: 'A simpler alternative to quarterly payments: have your day-job employer withhold extra tax from each paycheck to cover your side hustle. One form, no deadlines to remember.' },
+    { id: 'mileage', title: 'Start a mileage log TODAY', desc: 'Every business mile is worth roughly 70¢ as a deduction (current IRS rate). Drive 2,000 business miles a year and that\'s a ~$1,400 deduction most people just throw away. Apps can auto-track every drive from your phone.', cta: 'mileage' },
+    { id: 'expenses', title: 'Track every business expense', desc: 'Software, supplies, phone (business %), internet (business %), advertising, fees, education, equipment. Use the Checkbook tab here - import your business account\'s CSV and it auto-categorizes.' },
+    { id: 'receipts', title: 'Save receipts digitally', desc: 'Snap a photo of every receipt and dump it in one folder (Google Drive/Dropbox). The IRS requires receipts for expenses over $75 - and faded paper receipts are worthless.' },
+    { id: 'homeoffice', title: 'Check if you qualify for the home office deduction', desc: 'A space used regularly and EXCLUSIVELY for business can be deducted - the simplified method is $5/sq ft up to 300 sq ft ($1,500 max). The kitchen table doesn\'t count; a dedicated desk corner can.' },
+    { id: 'w9contractors', title: 'Paying anyone $600+ per year? Collect a W-9', desc: 'If you pay a contractor, editor, assistant, or anyone $600+ in a year, you must collect a W-9 from them up front and file a 1099-NEC each January. Get the W-9 BEFORE you pay them - it\'s awkward to chase later.' },
+    { id: 'hobby', title: 'Know the hobby-vs-business rule', desc: 'The IRS expects a profit motive. If you report losses year after year, you risk being reclassified as a hobby - which means income is taxable but expenses are NOT deductible. Generally: profit in 3 of 5 years keeps you safe.' }
+  ]},
+  { phase: '🛡️ Phase 4 - Protect & Grow', color: '#b794f4', items: [
+    { id: 'insurance', title: 'Check whether you need business insurance', desc: 'General liability runs $20-$50/month and matters if clients visit you, you work on others\' property, or you could be sued over your work. Some clients require proof of insurance before hiring you.', cta: 'insurance' },
+    { id: 'bizcredit', title: 'Start building business credit', desc: 'Business credit is a separate score from your personal credit, and most owners don\'t know it exists. Build it early (EIN + business bank account + a vendor account or business card that reports) and you can eventually get funding WITHOUT personally guaranteeing everything you own.', cta: 'bizcredit' },
+    { id: 'contracts', title: 'Use written contracts and real invoices', desc: 'Even a one-page agreement beats a handshake. Free templates abound. Numbered invoices also create the paper trail that proves your income if the IRS ever asks. All-in-one tools can handle contracts, invoicing, and client booking together.', cta: 'contracts' },
+    { id: 'retirement', title: 'Open a SEP IRA or Solo 401(k)', desc: 'Side hustlers get retirement superpowers: a SEP IRA lets you stash up to ~25% of net self-employment income, tax-deferred. It\'s also one of the few deductions you can still make AFTER December 31.', cta: 'retirement' },
+    { id: 'bookkeeping', title: 'Set a monthly bookkeeping routine', desc: '30 minutes, first Sunday of the month: import transactions, categorize expenses, update your mileage log, move your tax set-aside. When you outgrow this tool, QuickBooks is the standard - or skip all of it and have us do it for you.', cta: 'quickbooks' },
+    { id: 'firsthire', title: 'Hiring help? Set up real payroll', desc: 'The moment you hire an employee (or pay yourself a salary from an S-corp), you need actual payroll with tax withholding - not just Venmo transfers. Payroll mistakes are some of the most expensive IRS penalties out there.', cta: 'gusto' },
+    { id: 'taxpro', title: 'Connect with a tax pro BEFORE January', desc: 'The best tax savings happen before December 31, not at filing time. A 30-minute year-end conversation routinely saves side hustlers more than the cost of the return itself.' },
+    { id: 'buffer', title: 'Build a small business cash buffer', desc: 'One to three months of business expenses in reserve means a slow month never touches your personal rent money. Start with even $500.' }
+  ]}
+];
+
+function toggleChecklistItem(id) {
+  DB.checklist[id] = !DB.checklist[id];
+  save();
+  renderChecklist();
+}
+
+function renderChecklist() {
+  const container = document.getElementById('checklist-sections');
+  if(!container) return;
+  const allItems = CHECKLIST.flatMap(p => p.items);
+  const done = allItems.filter(i => DB.checklist[i.id]).length;
+  const total = allItems.length;
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+
+  setText('cl-progress-label', done + ' of ' + total + ' complete');
+  const bar = document.getElementById('cl-progress-bar');
+  bar.style.width = pct + '%';
+  bar.className = 'progress-bar ' + (pct === 100 ? 'pb-green' : 'pb-purple');
+
+  let msg;
+  if(done === 0) msg = 'Check off items as you complete them - your progress saves automatically.';
+  else if(pct < 25) msg = '🌱 Great start! The first few steps are the biggest ones.';
+  else if(pct < 50) msg = '🔨 Solid progress - you\'re ahead of most side hustlers already.';
+  else if(pct < 75) msg = '🚀 More than halfway! Your future self at tax time is going to thank you.';
+  else if(pct < 100) msg = '🔥 Almost there - just a few items left to be fully legit.';
+  else msg = '🏆 100% complete! You\'re more organized than 95% of small business owners. Seriously.';
+  setText('cl-progress-msg', msg);
+
+  container.innerHTML = CHECKLIST.map(section => {
+    const sDone = section.items.filter(i => DB.checklist[i.id]).length;
+    return `<div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <h2 style="margin-bottom:0;color:${section.color};">${section.phase}</h2>
+        <span class="badge ${sDone === section.items.length ? 'badge-green' : 'badge-gray'}">${sDone}/${section.items.length}</span>
+      </div>
+      ${section.items.map(item => {
+        const checked = !!DB.checklist[item.id];
+        return `<div onclick="toggleChecklistItem('${item.id}')" style="display:flex;gap:12px;padding:12px;margin-bottom:8px;border:1px solid ${checked ? '#276749' : '#2e1f4a'};border-radius:10px;cursor:pointer;background:${checked ? '#0d2118' : '#130e1e'};transition:all 0.2s;">
+          <div style="flex-shrink:0;width:22px;height:22px;border-radius:6px;border:2px solid ${checked ? '#6fcf97' : '#2e1f4a'};background:${checked ? '#6fcf97' : 'transparent'};display:flex;align-items:center;justify-content:center;color:#0d0a12;font-weight:800;font-size:14px;margin-top:1px;">${checked ? '✓' : ''}</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:${checked ? '#6fcf97' : '#b8b4c8'};${checked ? 'text-decoration:line-through;opacity:0.8;' : ''}">${item.title}</div>
+            <div style="font-size:12px;color:#6b6480;line-height:1.6;margin-top:3px;">${item.desc}</div>
+            ${item.cta ? `<a href="${affLink(item.cta)}" target="_blank" onclick="event.stopPropagation()" style="display:inline-block;margin-top:8px;background:transparent;border:1px solid #e8d87a;color:#e8d87a;border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;text-decoration:none;">→ ${AFFILIATES[item.cta].label}</a>` : ''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+
+function resetAllData() {
+  if(!confirm('This will permanently erase ALL your data: budget, debts, goals, bills, transactions, checklist progress, everything.\n\nTip: click Save Backup first if you might want it later.\n\nAre you sure?')) return;
+  if(!confirm('Last chance - this cannot be undone. Erase everything?')) return;
+  localStorage.removeItem('musemoney_pro');
+  localStorage.removeItem('smartmoney_pro');
+  location.reload();
+}
+
+function saveBackup() {
+  const date = new Date().toISOString().split('T')[0];
+  const blob = new Blob([JSON.stringify(DB, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'MuseMoneyPro_backup_' + date + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function loadBackup(input) {
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      Object.assign(DB, data);
+      save();
+      renderDashboard(); renderBudget(); renderDebt();
+      renderSavings(); renderNetWorth(); renderBills(); renderTransactions(); renderChecklist();
+      showSaveToast('✅ Backup loaded successfully!', 'success');
+    } catch(err) {
+      showSaveToast('❌ Could not read backup file. Make sure it\'s a valid Muse Money Pro backup.', 'danger');
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function showSaveToast(msg, type) {
+  let toast = document.getElementById('save-toast');
+  if(!toast) {
+    toast = document.createElement('div');
+    toast.id = 'save-toast';
+    toast.style.cssText = 'position:fixed;top:70px;right:20px;z-index:9999;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;max-width:320px;box-shadow:0 4px 20px rgba(0,0,0,0.4);transition:opacity 0.4s;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.background = type === 'success' ? '#0d2118' : '#2a0f0f';
+  toast.style.color = type === 'success' ? '#6fcf97' : '#fc8181';
+  toast.style.border = '1px solid ' + (type === 'success' ? '#276749' : '#7a2c2c');
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 3500);
+}
+
+// ============================================================
+// NAV
+// ============================================================
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => { if(t.textContent.toLowerCase().includes(name.replace('-',' ').split(' ')[0])) t.classList.add('active'); });
+  if(name==='dashboard') renderDashboard();
+  if(name==='setup') renderChecklist();
+  if(name==='budget') renderBudget();
+  if(name==='debt') renderDebt();
+  if(name==='savings') renderSavings();
+  if(name==='networth') renderNetWorth();
+  if(name==='bills') renderBills();
+  if(name==='checkbook') renderTransactions();
+  if(name==='calculator') { calcCompound(); calcLoan(); calcSavingsGoal(); calcEmergencyFund(); calcQuarterly(); }
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+let dashDonutChart = null;
+function renderDashboard() {
+  const totalIncome = DB.budget.income.primary + DB.budget.income.secondary + DB.budget.income.other;
+  const totalDebt = DB.debts.reduce((s,d) => s + parseFloat(d.balance||0), 0);
+  const totalAssets = DB.assets.reduce((s,a) => s + parseFloat(a.value||0), 0);
+  const totalLiab = DB.liabilities.reduce((s,l) => s + parseFloat(l.value||0), 0);
+  const netWorth = totalAssets - totalLiab;
+  const totalSaved = DB.goals.reduce((s,g) => s + parseFloat(g.current||0), 0);
+  const savingsRate = totalIncome > 0 ? Math.round((totalSaved / totalIncome) * 100) : 0;
+
+  setText('dash-income', '$' + fmt(totalIncome));
+  setText('dash-debt', '$' + fmt(totalDebt));
+  setText('dash-networth', (netWorth >= 0 ? '+$' : '-$') + fmt(Math.abs(netWorth)));
+  setText('dash-savings-rate', savingsRate + '%');
+
+  // Health Score
+  let score = 50;
+  const totalBudgeted = DB.budget.categories.reduce((s,c) => s + effBudget(c), 0);
+  const totalSpent = DB.budget.categories.reduce((s,c) => s + parseFloat(c.spent||0), 0);
+  if(totalIncome > 0) score += 10;
+  if(totalDebt === 0) score += 15;
+  else if(totalDebt < totalIncome * 3) score += 8;
+  if(DB.goals.length > 0) score += 8;
+  if(totalSpent <= totalBudgeted && totalBudgeted > 0) score += 10;
+  if(netWorth > 0) score += 7;
+  score = Math.min(100, Math.max(0, score));
+
+  setText('score-num', score);
+  const arc = document.getElementById('score-arc');
+  const circumference = 2 * Math.PI * 65;
+  arc.style.strokeDashoffset = circumference - (circumference * score / 100);
+  arc.style.stroke = score >= 75 ? '#6fcf97' : score >= 50 ? '#f6ad55' : '#fc8181';
+
+  const lbl = document.getElementById('score-label');
+  if(score >= 80) { lbl.textContent = 'Excellent!'; lbl.style.color = '#6fcf97'; }
+  else if(score >= 60) { lbl.textContent = 'Good'; lbl.style.color = '#90cdf4'; }
+  else if(score >= 40) { lbl.textContent = 'Fair'; lbl.style.color = '#f6ad55'; }
+  else { lbl.textContent = 'Needs Work'; lbl.style.color = '#fc8181'; }
+
+  const tips = [];
+  if(DB.debts.length === 0) tips.push('✅ No debts tracked - great start!');
+  else tips.push('💳 Focus extra payments on your highest-interest debt first.');
+  if(DB.goals.length === 0) tips.push('🎯 Set a savings goal to stay motivated.');
+  if(totalIncome === 0) tips.push('💵 Add your income in the Budget tab to get started.');
+  if(DB.bills.length === 0) tips.push('🗓️ Add your bills to never miss a payment.');
+  tips.push('📓 Reconcile your accounts weekly - every Sunday is a great habit!');
+  setText('score-tips', tips.map(t => '<div style="margin-bottom:6px;">' + t + '</div>').join(''));
+
+  // Donut chart
+  const cats = DB.budget.categories.filter(c => parseFloat(c.spent) > 0);
+  const colors = ['#e8d87a','#6fcf97','#90cdf4','#b794f4','#fc8181','#f6ad55','#56cfe1','#f093fb'];
+  if(dashDonutChart) { dashDonutChart.destroy(); dashDonutChart = null; }
+  if(cats.length > 0) {
+    const ctx = document.getElementById('dash-donut').getContext('2d');
+    dashDonutChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels: cats.map(c=>c.name), datasets: [{ data: cats.map(c=>parseFloat(c.spent)), backgroundColor: cats.map((_,i)=>colors[i%colors.length]), borderWidth: 2, borderColor: '#1a1228' }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+    const leg = document.getElementById('dash-donut-legend');
+    leg.innerHTML = cats.map((c,i) => `<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:${colors[i%colors.length]};display:inline-block;"></span>${c.name}: $${fmt(c.spent)}</span>`).join('');
+  } else {
+    setText('dash-donut-legend', '<span style="color:#6b6480;font-size:13px;">Add spending in Budget tab to see chart.</span>');
+  }
+
+  // Upcoming bills
+  const today = new Date();
+  const upcoming = DB.bills.filter(b => {
+    const daysLeft = parseInt(b.dueDay) - today.getDate();
+    return daysLeft >= 0 && daysLeft <= 7;
+  }).sort((a,b) => a.dueDay - b.dueDay);
+  const upDiv = document.getElementById('dash-upcoming-bills');
+  if(upcoming.length === 0) upDiv.innerHTML = '<div style="color:#6b6480;font-size:13px;">No bills due in the next 7 days.</div>';
+  else upDiv.innerHTML = upcoming.map(b => `
+    <div class="reminder-item">
+      <div class="reminder-dot ${parseInt(b.dueDay)===today.getDate()?'reminder-overdue':parseInt(b.dueDay)-today.getDate()<=3?'reminder-due-soon':'reminder-ok'}"></div>
+      <div style="flex:1"><strong>${b.name}</strong> <span style="color:#6b6480;font-size:12px;">${b.category}</span></div>
+      <div style="font-weight:700;color:#fc8181;">$${fmt(b.amount)}</div>
+      <div style="font-size:11px;color:#6b6480;margin-left:8px;">Day ${b.dueDay}</div>
+    </div>`).join('');
+
+  // Smart tips
+  const allTips = [
+    '💡 The average American spends 14% of income on food. Track yours to find savings.',
+    '🏦 Keep 3-6 months of expenses in your emergency fund before investing.',
+    '📊 Automating savings removes willpower from the equation - set it and forget it.',
+    '💳 Paying just the minimum on a $5,000 credit card at 20% APR takes 30+ years to pay off.',
+    '🎯 Small, consistent contributions beat large, sporadic ones every time.',
+    '📉 Refinancing high-interest debt can save thousands in the long run.',
+    '🛒 Budgeting apps show most people spend 2-3x more on dining out than they think.',
+    '📈 Index funds historically return 7-10% annually - time in the market beats timing the market.',
+    '🔄 Review your subscriptions every 3 months - the average household pays for 5+ unused ones.',
+    '💰 Round up your spending mentally - $4.75 coffee becomes $5. Helps budget more conservatively.'
+  ];
+  const tipEl = document.getElementById('smart-tips');
+  const shuffled = allTips.sort(() => 0.5 - Math.random()).slice(0, 4);
+  tipEl.innerHTML = shuffled.map(t => `<div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #2e1f4a;">${t}</div>`).join('');
+}
+
+// ============================================================
+// BUDGET
+// ============================================================
+function saveBudget() {
+  DB.budget.income.primary = parseFloat(document.getElementById('income-primary').value) || 0;
+  DB.budget.income.secondary = parseFloat(document.getElementById('income-secondary').value) || 0;
+  DB.budget.income.other = parseFloat(document.getElementById('income-other').value) || 0;
+  save(); renderBudget();
+}
+
+const DEFAULT_CATEGORIES = [
+  {name:'Housing / Rent',budget:1200,pct:30,spent:0},
+  {name:'Groceries',budget:400,pct:10,spent:0},
+  {name:'Utilities',budget:150,pct:5,spent:0},
+  {name:'Transportation',budget:300,pct:10,spent:0},
+  {name:'Dining Out',budget:200,pct:5,spent:0},
+  {name:'Entertainment',budget:100,pct:3,spent:0},
+  {name:'Health / Medical',budget:100,pct:3,spent:0},
+  {name:'Clothing',budget:80,pct:2,spent:0},
+  {name:'Personal Care',budget:60,pct:2,spent:0},
+  {name:'Savings',budget:300,pct:20,spent:0},
+];
+
+function getTotalIncome() {
+  const inc = DB.budget.income;
+  return (parseFloat(inc.primary)||0) + (parseFloat(inc.secondary)||0) + (parseFloat(inc.other)||0);
+}
+
+function effBudget(c) {
+  if(DB.budget.mode === 'percent') return getTotalIncome() * (parseFloat(c.pct)||0) / 100;
+  return parseFloat(c.budget)||0;
+}
+
+function setBudgetMode(m) {
+  DB.budget.mode = m;
+  save(); renderBudget();
+}
+
+function addCategory() {
+  const name = document.getElementById('new-cat-name').value.trim();
+  const val = parseFloat(document.getElementById('new-cat-budget').value) || 0;
+  const spent = parseFloat(document.getElementById('new-cat-spent').value) || 0;
+  if(!name) return;
+  const isPct = DB.budget.mode === 'percent';
+  DB.budget.categories.push({name, budget: isPct ? 0 : val, pct: isPct ? val : 0, spent, id: Date.now()});
+  document.getElementById('new-cat-name').value = '';
+  document.getElementById('new-cat-budget').value = '';
+  document.getElementById('new-cat-spent').value = '';
+  save(); renderBudget();
+}
+
+function removeCategory(id) {
+  DB.budget.categories = DB.budget.categories.filter(c => c.id !== id);
+  save(); renderBudget();
+}
+
+function updateCategorySpent(id, val) {
+  const c = DB.budget.categories.find(c => c.id === id);
+  if(c) c.spent = parseFloat(val) || 0;
+  save(); renderBudget();
+}
+
+function updateCategoryBudget(id, val) {
+  const c = DB.budget.categories.find(c => c.id === id);
+  if(c) c.budget = parseFloat(val) || 0;
+  save(); renderBudget();
+}
+
+function updateCategoryPct(id, val) {
+  const c = DB.budget.categories.find(c => c.id === id);
+  if(c) c.pct = parseFloat(val) || 0;
+  save(); renderBudget();
+}
+
+function renderBudget() {
+  const inc = DB.budget.income;
+  document.getElementById('income-primary').value = inc.primary || '';
+  document.getElementById('income-secondary').value = inc.secondary || '';
+  document.getElementById('income-other').value = inc.other || '';
+  const totalIncome = inc.primary + inc.secondary + inc.other;
+  setText('total-income', '$' + fmtDec(totalIncome));
+  setText('bsum-income', '$' + fmt(totalIncome));
+  setText('rule-income', '$' + fmt(totalIncome));
+  setText('rule-needs', '$' + fmt(totalIncome * 0.5));
+  setText('rule-wants', '$' + fmt(totalIncome * 0.3));
+  setText('rule-savings', '$' + fmt(totalIncome * 0.2));
+
+  const cats = DB.budget.categories;
+  const isPct = DB.budget.mode === 'percent';
+
+  // Mode toggle UI
+  const bd = document.getElementById('btn-mode-dollars'), bp = document.getElementById('btn-mode-percent');
+  if(bd && bp) { bd.classList.toggle('active', !isPct); bp.classList.toggle('active', isPct); }
+  const note = document.getElementById('budget-mode-note');
+  const lbl = document.getElementById('new-cat-budget-label');
+  if(lbl) lbl.textContent = isPct ? '% of Income' : 'Budget ($)';
+
+  const totalBudgeted = cats.reduce((s,c) => s + effBudget(c), 0);
+  const totalSpent = cats.reduce((s,c) => s + parseFloat(c.spent||0), 0);
+
+  if(note) {
+    if(isPct) {
+      const totalAllocPct = cats.reduce((s,c) => s + (parseFloat(c.pct)||0), 0);
+      note.style.display = 'block';
+      if(totalIncome <= 0) {
+        note.className = 'alert alert-warning';
+        note.innerHTML = '⚠️ Enter your monthly income above first - your category budgets are calculated from it.';
+      } else if(totalAllocPct > 100) {
+        note.className = 'alert alert-danger';
+        note.innerHTML = `⚠️ You've allocated <strong>${Math.round(totalAllocPct)}%</strong> of your income - that's over 100%. Trim some categories.`;
+      } else {
+        note.className = 'alert alert-info';
+        note.innerHTML = `Budgets auto-calculate from your income of <strong>$${fmt(totalIncome)}/mo</strong>. You've allocated <strong>${Math.round(totalAllocPct)}%</strong> (${Math.round(100-totalAllocPct)}% unallocated). Adjust each category's % below.`;
+      }
+    } else {
+      note.style.display = 'none';
+    }
+  }
+
+  setText('bsum-budgeted', '$' + fmt(totalBudgeted));
+  setText('bsum-spent', '$' + fmt(totalSpent));
+  const remaining = totalBudgeted - totalSpent;
+  const remEl = document.getElementById('bsum-remaining');
+  remEl.textContent = '$' + fmt(Math.abs(remaining));
+  remEl.style.color = remaining >= 0 ? '#6fcf97' : '#fc8181';
+  const pct = totalBudgeted > 0 ? Math.min(100, Math.round(totalSpent/totalBudgeted*100)) : 0;
+  setText('bsum-pct', pct + '%');
+  const bar = document.getElementById('bsum-bar');
+  bar.style.width = pct + '%';
+  bar.className = 'progress-bar ' + (pct > 90 ? 'pb-red' : pct > 75 ? 'pb-orange' : 'pb-blue');
+
+  const listEl = document.getElementById('budget-categories-list');
+  if(cats.length === 0) {
+    listEl.innerHTML = '<div class="alert alert-info">No categories yet. Add some below, or they will be pre-filled with defaults on first use.</div>';
+    return;
+  }
+  listEl.innerHTML = cats.map(c => {
+    const spent = parseFloat(c.spent||0), budget = effBudget(c);
+    const pct = budget > 0 ? Math.min(100, Math.round(spent/budget*100)) : 0;
+    const over = spent > budget;
+    const budgetControl = isPct
+      ? `<div style="display:flex;align-items:center;gap:4px;"><input type="number" value="${c.pct||0}" min="0" max="100" step="0.5" style="width:64px;" onchange="updateCategoryPct(${c.id},this.value)" title="% of income"><span style="font-size:12px;color:#6b6480;">% = $${fmt(budget)}</span></div>`
+      : `<div style="display:flex;align-items:center;gap:4px;"><span style="font-size:12px;color:#6b6480;">$</span><input type="number" value="${c.budget||0}" min="0" step="1" style="width:84px;" onchange="updateCategoryBudget(${c.id},this.value)" title="Budget amount"></div>`;
+    return `<div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:13px;font-weight:600;">${c.name}</span>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:12px;color:${over?'#fc8181':'#6b6480'};">$${fmt(spent)} / $${fmt(budget)}</span>
+          <span class="badge ${over?'badge-red':'badge-green'}">${pct}%</span>
+          ${budgetControl}
+          <button class="btn btn-danger" onclick="removeCategory(${c.id})">✕</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="progress-wrap" style="flex:1;margin:0;">
+          <div class="progress-bar ${over?'pb-red':pct>80?'pb-orange':'pb-green'}" style="width:${pct}%"></div>
+        </div>
+        <input type="number" value="${c.spent||0}" min="0" step="0.01" style="width:90px;" onchange="updateCategorySpent(${c.id},this.value)" placeholder="Spent" title="Amount spent">
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// DEBT
+// ============================================================
+function addDebt() {
+  const name = document.getElementById('debt-name').value.trim();
+  const balance = parseFloat(document.getElementById('debt-balance').value) || 0;
+  const apr = parseFloat(document.getElementById('debt-apr').value) || 0;
+  const minpay = parseFloat(document.getElementById('debt-minpay').value) || 0;
+  const type = document.getElementById('debt-type').value;
+  if(!name || balance <= 0) { alert('Please enter a name and balance.'); return; }
+  DB.debts.push({id:Date.now(), name, balance, apr, minpay, type});
+  ['debt-name','debt-balance','debt-apr','debt-minpay'].forEach(id => document.getElementById(id).value = '');
+  save(); renderDebt();
+}
+
+function removeDebt(id) {
+  DB.debts = DB.debts.filter(d => d.id !== id);
+  save(); renderDebt();
+}
+
+function setMethod(m) {
+  DB.debtMethod = m;
+  document.getElementById('btn-avalanche').classList.toggle('active', m==='avalanche');
+  document.getElementById('btn-snowball').classList.toggle('active', m==='snowball');
+  const desc = document.getElementById('strategy-description');
+  if(m==='avalanche') {
+    desc.innerHTML = '<strong>Avalanche Method:</strong> Pay minimums on all debts, then attack the highest interest rate debt. Saves the most money in interest over time.';
+    desc.className = 'alert alert-info';
+  } else {
+    desc.innerHTML = '<strong>Snowball Method:</strong> Pay minimums on all debts, then attack the smallest balance first. Builds momentum with quick wins - great for motivation.';
+    desc.className = 'alert alert-success';
+  }
+  calculatePayoff();
+}
+
+let debtChartInst = null;
+function calculatePayoff() {
+  if(DB.debts.length === 0) return;
+  const extra = parseFloat(document.getElementById('extra-payment').value) || 0;
+  let debts = DB.debts.map(d => ({...d, balance: parseFloat(d.balance), apr: parseFloat(d.apr), minpay: parseFloat(d.minpay)}));
+  if(DB.debtMethod === 'avalanche') debts.sort((a,b) => b.apr - a.apr);
+  else debts.sort((a,b) => a.balance - b.balance);
+
+  let months = 0, totalInterest = 0;
+  const balances = debts.map(d => d.balance);
+  const monthlyData = [balances.reduce((s,b)=>s+b,0)];
+  let maxMonths = 600;
+
+  while(debts.some(d=>d.balance>0) && months < maxMonths) {
+    months++;
+    let leftover = extra;
+    for(let i=0; i<debts.length; i++) {
+      if(debts[i].balance <= 0) continue;
+      const interest = debts[i].balance * (debts[i].apr/100/12);
+      totalInterest += interest;
+      debts[i].balance += interest;
+      let payment = Math.min(debts[i].minpay, debts[i].balance);
+      debts[i].balance -= payment;
+      if(debts[i].balance < 0.01) debts[i].balance = 0;
+    }
+    // Apply extra to first non-zero
+    for(let i=0; i<debts.length; i++) {
+      if(debts[i].balance > 0 && leftover > 0) {
+        const pay = Math.min(leftover, debts[i].balance);
+        debts[i].balance -= pay;
+        leftover -= pay;
+        if(debts[i].balance < 0.01) debts[i].balance = 0;
+      }
+    }
+    const total = debts.reduce((s,d)=>s+d.balance, 0);
+    monthlyData.push(Math.max(0, total));
+  }
+
+  const payoffDate = new Date();
+  payoffDate.setMonth(payoffDate.getMonth() + months);
+  const totalPaid = DB.debts.reduce((s,d)=>s+parseFloat(d.balance),0) + totalInterest;
+
+  const res = document.getElementById('payoff-results');
+  const years = Math.floor(months/12), mos = months%12;
+  if(months >= maxMonths) {
+    res.innerHTML = `<div class="alert alert-danger">⚠️ At current payment levels, this debt won't be paid off within 50 years. Try increasing your monthly extra payment.</div>`;
+  } else {
+    res.innerHTML = `
+      <div class="grid-3" style="gap:12px;margin-bottom:16px;">
+        <div class="metric red"><div class="label">Payoff Time</div><div class="value" style="font-size:20px;">${years>0?years+'y ':''} ${mos}mo</div></div>
+        <div class="metric orange"><div class="label">Total Interest</div><div class="value" style="font-size:20px;">$${fmt(totalInterest)}</div></div>
+        <div class="metric blue"><div class="label">Debt-Free Date</div><div class="value" style="font-size:16px;">${payoffDate.toLocaleDateString('en-US',{month:'short',year:'numeric'})}</div></div>
+      </div>
+      ${extra>0?`<div class="alert alert-success">💪 Your $${fmt(extra)}/mo extra payment saves you significant interest and months off your payoff!</div>`:''}
+    `;
+    // Chart
+    const wrap = document.getElementById('payoff-chart-wrap');
+    wrap.style.display = 'block';
+    if(debtChartInst) { debtChartInst.destroy(); debtChartInst = null; }
+    const step = Math.max(1, Math.floor(monthlyData.length / 24));
+    const labels = [], data = [];
+    for(let i=0; i<monthlyData.length; i+=step) { labels.push('Mo ' + i); data.push(Math.round(monthlyData[i])); }
+    const ctx = document.getElementById('debt-chart').getContext('2d');
+    debtChartInst = new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets: [{ label: 'Balance', data, borderColor: '#fc8181', backgroundColor: 'rgba(252,129,129,0.12)', fill: true, tension: 0.3, pointRadius: 2 }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => '$' + fmt(v) } } } }
+    });
+  }
+}
+
+function renderDebt() {
+  const total = DB.debts.reduce((s,d)=>s+parseFloat(d.balance||0),0);
+  const minTotal = DB.debts.reduce((s,d)=>s+parseFloat(d.minpay||0),0);
+  const avgApr = DB.debts.length > 0 ? DB.debts.reduce((s,d)=>s+parseFloat(d.apr||0),0)/DB.debts.length : 0;
+  setText('debt-total', '$' + fmt(total));
+  setText('debt-minpay-total', '$' + fmt(minTotal) + '/mo');
+  setText('debt-avg-apr', fmtDec(avgApr) + '%');
+  setText('debt-count', DB.debts.length);
+
+  const tbody = document.getElementById('debt-table-body');
+  if(DB.debts.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#6b6480;padding:20px;">No debts added yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = DB.debts.map(d => {
+    const apr = parseFloat(d.apr);
+    const badge = apr >= 20 ? 'badge-red' : apr >= 10 ? 'badge-orange' : 'badge-green';
+    return `<tr>
+      <td><strong>${d.name}</strong></td>
+      <td><span class="badge badge-gray">${d.type}</span></td>
+      <td>$${fmt(d.balance)}</td>
+      <td><span class="badge ${badge}">${fmtDec(d.apr)}%</span></td>
+      <td>$${fmt(d.minpay)}/mo</td>
+      <td>${apr>=20?'<span class="badge badge-red">High Interest!</span>':apr>=10?'<span class="badge badge-orange">Medium</span>':'<span class="badge badge-green">Low</span>'}</td>
+      <td><button class="btn btn-danger" onclick="removeDebt(${d.id})">Remove</button></td>
+    </tr>`;
+  }).join('');
+  calculatePayoff();
+}
+
+// ============================================================
+// SAVINGS GOALS
+// ============================================================
+const goalIcons = {
+  'Emergency Fund':'🚨','Vacation / Travel':'✈️','Down Payment':'🏠','Car':'🚗',
+  'Education':'📚','Wedding':'💍','Home Improvement':'🔨','Retirement':'🏖️','Other':'🎯'
+};
+
+function addGoal() {
+  const name = document.getElementById('goal-name').value.trim();
+  const target = parseFloat(document.getElementById('goal-target').value) || 0;
+  const current = parseFloat(document.getElementById('goal-current').value) || 0;
+  const monthly = parseFloat(document.getElementById('goal-monthly').value) || 0;
+  const date = document.getElementById('goal-date').value;
+  const category = document.getElementById('goal-category').value;
+  if(!name || target <= 0) { alert('Please enter a goal name and target amount.'); return; }
+  DB.goals.push({id:Date.now(), name, target, current, monthly, date, category});
+  ['goal-name','goal-target','goal-current','goal-monthly','goal-date'].forEach(id => document.getElementById(id).value = '');
+  save(); renderSavings();
+}
+
+function removeGoal(id) {
+  DB.goals = DB.goals.filter(g => g.id !== id);
+  save(); renderSavings();
+}
+
+function updateGoalCurrent(id, val) {
+  const g = DB.goals.find(g => g.id === id);
+  if(g) g.current = parseFloat(val) || 0;
+  save(); renderSavings();
+}
+
+function renderSavings() {
+  const totalSaved = DB.goals.reduce((s,g)=>s+parseFloat(g.current||0),0);
+  const totalTarget = DB.goals.reduce((s,g)=>s+parseFloat(g.target||0),0);
+  setText('sav-total-saved', '$' + fmt(totalSaved));
+  setText('sav-total-target', '$' + fmt(totalTarget));
+  setText('sav-still-needed', '$' + fmt(Math.max(0, totalTarget - totalSaved)));
+  setText('sav-count', DB.goals.length);
+  const overallPct = totalTarget > 0 ? Math.min(100, Math.round(totalSaved/totalTarget*100)) : 0;
+  document.getElementById('sav-overall-bar').style.width = overallPct + '%';
+  setText('sav-overall-pct', overallPct + '% of all goals completed');
+
+  // Emergency fund check
+  const efGoal = DB.goals.find(g => g.category === 'Emergency Fund');
+  const efEl = document.getElementById('emergency-fund-check');
+  if(!efGoal) {
+    efEl.innerHTML = '<div class="alert alert-warning">⚠️ You don\'t have an Emergency Fund goal yet! Financial experts recommend 3-6 months of expenses saved.</div>';
+  } else {
+    const pct = Math.min(100, Math.round(parseFloat(efGoal.current)/parseFloat(efGoal.target)*100));
+    efEl.innerHTML = `<div class="alert alert-${pct>=100?'success':pct>=50?'info':'warning'}">🚨 Emergency Fund: ${pct}% funded ($${fmt(efGoal.current)} of $${fmt(efGoal.target)})</div>`;
+  }
+
+  const grid = document.getElementById('goals-grid');
+  if(DB.goals.length === 0) {
+    grid.innerHTML = '<div class="card" style="grid-column:1/-1;text-align:center;color:#6b6480;">No savings goals yet. Add one above!</div>';
+    return;
+  }
+  grid.innerHTML = DB.goals.map(g => {
+    const current = parseFloat(g.current||0), target = parseFloat(g.target||0);
+    const pct = target > 0 ? Math.min(100, Math.round(current/target*100)) : 0;
+    const remaining = Math.max(0, target - current);
+    const monthly = parseFloat(g.monthly||0);
+    const monthsLeft = monthly > 0 ? Math.ceil(remaining/monthly) : null;
+    const icon = goalIcons[g.category] || '🎯';
+    const done = current >= target;
+    return `<div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:20px;margin-bottom:4px;">${icon}</div>
+          <div style="font-weight:700;font-size:15px;">${g.name}</div>
+          <div style="font-size:11px;color:#6b6480;">${g.category}</div>
+        </div>
+        <div style="text-align:right;">
+          ${done ? '<span class="badge badge-green">✅ Complete!</span>' : `<span class="badge badge-blue">${pct}%</span>`}
+          <button class="btn btn-danger" style="display:block;margin-top:4px;" onclick="removeGoal(${g.id})">✕</button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;">
+        <span style="font-weight:600;font-size:18px;">$${fmt(current)}</span>
+        <span style="color:#6b6480;">of $${fmt(target)}</span>
+      </div>
+      <div class="progress-wrap" style="height:12px;margin-bottom:10px;">
+        <div class="progress-bar ${done?'pb-green':pct>=75?'pb-blue':pct>=40?'pb-yellow':'pb-orange'}" style="width:${pct}%"></div>
+      </div>
+      <div style="font-size:12px;color:#6b6480;margin-bottom:8px;">
+        $${fmt(remaining)} remaining${monthly>0?` · ~${monthsLeft} months at $${fmt(monthly)}/mo`:''}
+        ${g.date?` · Target: ${new Date(g.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`:''}
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <label style="font-size:12px;color:#6b6480;white-space:nowrap;">Update saved:</label>
+        <input type="number" value="${g.current||0}" min="0" step="0.01" style="flex:1;" onchange="updateGoalCurrent(${g.id},this.value)">
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// NET WORTH
+// ============================================================
+let nwChartInst = null, nwHistoryChartInst = null;
+const assetCategories = ['Checking Account','Savings Account','Investment / Brokerage','Retirement (401k/IRA)','Home Value','Vehicle','Other Asset'];
+const liabCategories = ['Mortgage','Car Loan','Student Loan','Credit Card','Personal Loan','Medical Debt','Other Liability'];
+
+function addAsset() {
+  const name = document.getElementById('asset-name').value.trim();
+  const value = parseFloat(document.getElementById('asset-value').value) || 0;
+  if(!name) return;
+  DB.assets.push({id:Date.now(), name, value});
+  document.getElementById('asset-name').value = ''; document.getElementById('asset-value').value = '';
+  save(); renderNetWorth();
+}
+function removeAsset(id) { DB.assets = DB.assets.filter(a=>a.id!==id); save(); renderNetWorth(); }
+function addLiability() {
+  const name = document.getElementById('liab-name').value.trim();
+  const value = parseFloat(document.getElementById('liab-value').value) || 0;
+  if(!name) return;
+  DB.liabilities.push({id:Date.now(), name, value});
+  document.getElementById('liab-name').value = ''; document.getElementById('liab-value').value = '';
+  save(); renderNetWorth();
+}
+function removeLiability(id) { DB.liabilities = DB.liabilities.filter(l=>l.id!==id); save(); renderNetWorth(); }
+
+function addNWHistory() {
+  const month = document.getElementById('nw-history-month').value;
+  const value = parseFloat(document.getElementById('nw-history-value').value) || 0;
+  if(!month) return;
+  const existing = DB.nwHistory.findIndex(h=>h.month===month);
+  if(existing >= 0) DB.nwHistory[existing].value = value;
+  else DB.nwHistory.push({month, value});
+  DB.nwHistory.sort((a,b)=>a.month.localeCompare(b.month));
+  save(); renderNetWorth();
+}
+
+function renderNetWorth() {
+  const totalA = DB.assets.reduce((s,a)=>s+parseFloat(a.value||0),0);
+  const totalL = DB.liabilities.reduce((s,l)=>s+parseFloat(l.value||0),0);
+  const nw = totalA - totalL;
+  setText('total-assets', '$' + fmt(totalA));
+  setText('total-liabilities', '$' + fmt(totalL));
+  const nwEl = document.getElementById('net-worth-display');
+  nwEl.textContent = (nw>=0?'$':'-$') + fmt(Math.abs(nw));
+  nwEl.className = nw >= 0 ? 'nw-positive' : 'nw-negative';
+  nwEl.style.fontSize = '48px';
+  setText('net-worth-sub', nw >= 0 ? '🎉 Your assets exceed your debts!' : '⚠️ Your liabilities exceed your assets. Focus on debt reduction.');
+
+  // Asset list
+  const aEl = document.getElementById('asset-list');
+  aEl.innerHTML = DB.assets.length === 0 ? '<p style="color:#6b6480;font-size:13px;">No assets added.</p>' :
+    DB.assets.map(a => `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2e1f4a;">
+      <span style="font-size:13px;">${a.name}</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span style="font-weight:600;color:#6fcf97;">$${fmt(a.value)}</span>
+        <button class="btn btn-danger" onclick="removeAsset(${a.id})">✕</button>
+      </div>
+    </div>`).join('');
+
+  // Liability list
+  const lEl = document.getElementById('liability-list');
+  lEl.innerHTML = DB.liabilities.length === 0 ? '<p style="color:#6b6480;font-size:13px;">No liabilities added.</p>' :
+    DB.liabilities.map(l => `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2e1f4a;">
+      <span style="font-size:13px;">${l.name}</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span style="font-weight:600;color:#fc8181;">$${fmt(l.value)}</span>
+        <button class="btn btn-danger" onclick="removeLiability(${l.id})">✕</button>
+      </div>
+    </div>`).join('');
+
+  // Bar chart
+  if(nwChartInst) { nwChartInst.destroy(); nwChartInst = null; }
+  const ctx = document.getElementById('nw-chart').getContext('2d');
+  nwChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: ['Assets','Liabilities','Net Worth'], datasets: [{
+      data: [totalA, totalL, Math.abs(nw)],
+      backgroundColor: ['rgba(111,207,151,0.35)','rgba(252,129,129,0.35)', nw>=0?'rgba(144,205,244,0.35)':'rgba(246,173,85,0.35)'],
+      borderColor: ['#6fcf97','#fc8181', nw>=0?'#90cdf4':'#f6ad55'],
+      borderWidth: 2
+    }] },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+      scales:{ y:{ ticks:{ callback: v=>'$'+fmt(v) } } } }
+  });
+
+  // History chart
+  if(nwHistoryChartInst) { nwHistoryChartInst.destroy(); nwHistoryChartInst = null; }
+  if(DB.nwHistory.length > 1) {
+    const ctx2 = document.getElementById('nw-history-chart').getContext('2d');
+    nwHistoryChartInst = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: DB.nwHistory.map(h=>h.month),
+        datasets: [{ label:'Net Worth', data: DB.nwHistory.map(h=>h.value), borderColor:'#e8d87a', backgroundColor:'rgba(232,216,122,0.1)', fill:true, tension:0.3, pointRadius:4 }]
+      },
+      options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+        scales:{ y:{ ticks:{ callback: v=>'$'+fmt(v) } } } }
+    });
+  } else {
+    const ctx2 = document.getElementById('nw-history-chart').getContext('2d');
+    ctx2.clearRect(0,0,ctx2.canvas.width,ctx2.canvas.height);
+    ctx2.fillStyle = '#6b6480'; ctx2.font = '14px sans-serif'; ctx2.textAlign = 'center';
+    ctx2.fillText('Log at least 2 months to see your trend.', ctx2.canvas.width/2, 80);
+  }
+}
+
+// ============================================================
+// BILLS
+// ============================================================
+function addBill() {
+  const name = document.getElementById('bill-name').value.trim();
+  const amount = parseFloat(document.getElementById('bill-amount').value) || 0;
+  const dueDay = parseInt(document.getElementById('bill-due-day').value) || 1;
+  const category = document.getElementById('bill-category').value;
+  const frequency = document.getElementById('bill-frequency').value;
+  const autopay = document.getElementById('bill-autopay').value;
+  if(!name || amount <= 0) { alert('Please enter a bill name and amount.'); return; }
+  DB.bills.push({id:Date.now(), name, amount, dueDay, category, frequency, autopay});
+  ['bill-name','bill-amount','bill-due-day'].forEach(id=>document.getElementById(id).value='');
+  save(); renderBills();
+}
+function removeBill(id) { DB.bills = DB.bills.filter(b=>b.id!==id); save(); renderBills(); }
+
+function renderBills() {
+  const today = new Date();
+  const monthlyTotal = DB.bills.reduce((s,b) => {
+    const a = parseFloat(b.amount);
+    if(b.frequency==='Monthly') return s+a;
+    if(b.frequency==='Weekly') return s+a*4.33;
+    if(b.frequency==='Bi-Weekly') return s+a*2.17;
+    if(b.frequency==='Quarterly') return s+a/3;
+    if(b.frequency==='Annually') return s+a/12;
+    return s+a;
+  }, 0);
+  const annualTotal = monthlyTotal * 12;
+  const dueThisWeek = DB.bills.filter(b => { const d = parseInt(b.dueDay)-today.getDate(); return d>=0&&d<=7; }).length;
+  const autopayCount = DB.bills.filter(b=>b.autopay==='yes').length;
+
+  setText('bills-monthly-total', '$' + fmt(monthlyTotal));
+  setText('bills-annual-total', '$' + fmt(annualTotal));
+  setText('bills-due-week', dueThisWeek);
+  setText('bills-autopay-count', autopayCount);
+
+  // Calendar
+  const calEl = document.getElementById('bill-calendar');
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let cal = dayNames.map(d=>`<div style="text-align:center;font-size:11px;font-weight:700;color:#6b6480;padding:4px;">${d}</div>`).join('');
+  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+  for(let i=0;i<firstDay;i++) cal += '<div></div>';
+  for(let day=1;day<=daysInMonth;day++) {
+    const bills = DB.bills.filter(b=>parseInt(b.dueDay)===day);
+    const isToday = day===today.getDate();
+    const hasBill = bills.length > 0;
+    const pastDue = hasBill && day < today.getDate();
+    const dueSoon = hasBill && day >= today.getDate() && day <= today.getDate()+3;
+    const autopay = hasBill && bills.every(b=>b.autopay==='yes');
+    let bg = isToday ? '#2e1f4a' : 'transparent';
+    let color = isToday ? '#e8d87a' : '#b8b4c8';
+    let dot = '';
+    if(hasBill) {
+      dot = `<div style="width:6px;height:6px;border-radius:50%;background:${pastDue?'#fc8181':dueSoon?'#f6ad55':autopay?'#6fcf97':'#90cdf4'};margin:2px auto;"></div>`;
+    }
+    cal += `<div style="text-align:center;padding:4px;border-radius:6px;background:${bg};color:${color};font-size:12px;cursor:default;"
+      title="${hasBill?bills.map(b=>b.name+' $'+fmt(b.amount)).join(', '):''}">
+      ${day}${dot}
+    </div>`;
+  }
+  calEl.innerHTML = cal;
+
+  // Table
+  const tbody = document.getElementById('bills-table-body');
+  if(DB.bills.length===0) {
+    tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#6b6480;padding:20px;">No bills added yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = DB.bills.map(b => {
+    const daysLeft = parseInt(b.dueDay) - today.getDate();
+    let status;
+    if(daysLeft < 0) status = '<span class="badge badge-red">Past Due</span>';
+    else if(daysLeft === 0) status = '<span class="badge badge-red">Due Today!</span>';
+    else if(daysLeft <= 3) status = `<span class="badge badge-orange">Due in ${daysLeft}d</span>`;
+    else status = `<span class="badge badge-blue">Day ${b.dueDay}</span>`;
+    return `<tr>
+      <td><strong>${b.name}</strong></td>
+      <td><span class="badge badge-gray">${b.category}</span></td>
+      <td>$${fmt(b.amount)}</td>
+      <td>${b.dueDay}${b.dueDay===1?'st':b.dueDay===2?'nd':b.dueDay===3?'rd':'th'}</td>
+      <td>${b.frequency}</td>
+      <td>${b.autopay==='yes'?'<span class="badge badge-green">Auto-Pay</span>':'<span class="badge badge-gray">Manual</span>'}</td>
+      <td>${status}</td>
+      <td><button class="btn btn-danger" onclick="removeBill(${b.id})">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// CHECKBOOK
+// ============================================================
+function addTransaction() {
+  const date = document.getElementById('txn-date').value || new Date().toISOString().split('T')[0];
+  const desc = document.getElementById('txn-desc').value.trim();
+  const type = document.getElementById('txn-type').value;
+  const amount = parseFloat(document.getElementById('txn-amount').value) || 0;
+  const category = document.getElementById('txn-category').value;
+  if(!desc || amount <= 0) { alert('Please enter a description and amount.'); return; }
+  DB.transactions.unshift({id:Date.now(), date, desc, type, amount, category, cleared:false});
+  ['txn-desc','txn-amount'].forEach(id=>document.getElementById(id).value='');
+  save(); renderTransactions(); updateCheckbook();
+}
+function removeTransaction(id) { DB.transactions = DB.transactions.filter(t=>t.id!==id); save(); renderTransactions(); updateCheckbook(); }
+function toggleCleared(id) {
+  const t = DB.transactions.find(t=>t.id===id);
+  if(t) t.cleared = !t.cleared;
+  save(); renderTransactions(); updateCheckbook();
+}
+
+function updateCheckbook() {
+  const opening = parseFloat(document.getElementById('opening-balance').value) || 0;
+  const credits = DB.transactions.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amount,0);
+  const debits = DB.transactions.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amount,0);
+  const balance = opening + credits - debits;
+  document.getElementById('cb-balance').textContent = '$' + fmtDec(balance);
+  document.getElementById('cb-balance').style.color = balance >= 0 ? '#6fcf97' : '#fc8181';
+  setText('cb-credits', '$' + fmtDec(credits));
+  setText('cb-debits', '$' + fmtDec(debits));
+  setText('cb-count', DB.transactions.length);
+}
+
+function reconcile() {
+  const statementBal = parseFloat(document.getElementById('reconcile-amount').value);
+  if(isNaN(statementBal)) { alert('Enter your bank statement balance.'); return; }
+  const opening = parseFloat(document.getElementById('opening-balance').value) || 0;
+  const credits = DB.transactions.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amount,0);
+  const debits = DB.transactions.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amount,0);
+  const calcBalance = opening + credits - debits;
+  const diff = Math.abs(calcBalance - statementBal);
+  const resEl = document.getElementById('reconcile-result');
+  if(diff < 0.01) {
+    resEl.innerHTML = '<div class="alert alert-success">✅ Your account is balanced! Your register matches your statement.</div>';
+  } else {
+    resEl.innerHTML = `<div class="alert alert-danger">⚠️ Discrepancy of $${fmtDec(diff)} found. Your register shows $${fmtDec(calcBalance)}, bank shows $${fmtDec(statementBal)}. Check for missing or duplicate transactions.</div>`;
+  }
+}
+
+function renderTransactions() {
+  const search = (document.getElementById('txn-search').value || '').toLowerCase();
+  const filterCat = document.getElementById('txn-filter-cat').value;
+  const opening = parseFloat(document.getElementById('opening-balance').value) || 0;
+
+  let filtered = DB.transactions.filter(t => {
+    const matchSearch = !search || t.desc.toLowerCase().includes(search) || t.category.toLowerCase().includes(search);
+    const matchCat = !filterCat || t.category === filterCat;
+    return matchSearch && matchCat;
+  });
+
+  const tbody = document.getElementById('txn-table-body');
+  if(filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#6b6480;padding:20px;">No transactions found.</td></tr>';
+    return;
+  }
+
+  // Calculate running balance
+  const allSorted = [...DB.transactions].sort((a,b) => new Date(a.date)-new Date(b.date));
+  let running = opening;
+  const balMap = {};
+  allSorted.forEach(t => {
+    running += t.type==='credit' ? t.amount : -t.amount;
+    balMap[t.id] = running;
+  });
+
+  tbody.innerHTML = filtered.map(t => `<tr style="${t.cleared?'opacity:0.6':''}">
+    <td style="white-space:nowrap;">${t.date}</td>
+    <td>${t.desc}${t.cleared?' <span class="badge badge-green" style="font-size:10px;">✓</span>':''}</td>
+    <td><span class="badge badge-gray">${t.category}</span></td>
+    <td class="txn-negative">${t.type==='debit'?'$'+fmtDec(t.amount):''}</td>
+    <td class="txn-positive">${t.type==='credit'?'$'+fmtDec(t.amount):''}</td>
+    <td style="font-weight:600;color:${(balMap[t.id]||0)>=0?'#6fcf97':'#fc8181'};">$${fmtDec(balMap[t.id]||0)}</td>
+    <td style="white-space:nowrap;">
+      <button class="btn btn-outline btn-sm" onclick="toggleCleared(${t.id})">${t.cleared?'Unclear':'Clear'}</button>
+      <button class="btn btn-danger" onclick="removeTransaction(${t.id})">✕</button>
+    </td>
+  </tr>`).join('');
+  updateCheckbook();
+}
+
+function importCSV(input) {
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result;
+    const resultEl = document.getElementById('csv-import-result');
+    resultEl.style.display = 'block';
+    try {
+      const rows = parseCSVText(text);
+      if(rows.length < 2) { showImportMsg('danger', 'File appears empty or unreadable.'); return; }
+
+      const headers = rows[0].map(h => h.toLowerCase().trim().replace(/[^a-z0-9 ]/g,''));
+      const data = rows.slice(1).filter(r => r.some(c => c.trim()));
+
+      // Detect column indices
+      const find = (...terms) => headers.findIndex(h => terms.some(t => h.includes(t)));
+
+      const iDate   = find('transaction date','date','posted','trans date');
+      const iDesc   = find('description','merchant','memo','name','payee','details');
+      const iAmt    = find('amount');
+      const iDebit  = find('debit','withdrawal','charge');
+      const iCredit = find('credit','deposit','payment');
+      const iType   = find('type','transaction type');
+
+      if(iDate === -1 || iDesc === -1) {
+        showImportMsg('danger', 'Could not detect required columns (date, description). Make sure you exported a standard bank CSV.');
+        return;
+      }
+
+      let imported = 0, skipped = 0;
+      const existing = new Set(DB.transactions.map(t => t.date + '|' + t.desc + '|' + t.amount));
+
+      data.forEach(row => {
+        if(row.length <= Math.max(iDate, iDesc)) { skipped++; return; }
+
+        const rawDate = (row[iDate] || '').trim();
+        const desc    = (row[iDesc] || '').trim();
+        if(!rawDate || !desc) { skipped++; return; }
+
+        // Normalize date to YYYY-MM-DD
+        const date = normalizeDate(rawDate);
+        if(!date) { skipped++; return; }
+
+        // Determine amount and type
+        let amount = 0, type = 'debit';
+
+        if(iAmt !== -1 && row[iAmt] !== undefined) {
+          // Single amount column - negative = debit, positive = credit (Chase style)
+          const raw = (row[iAmt] || '').replace(/[$,\s]/g,'');
+          amount = Math.abs(parseFloat(raw) || 0);
+          // Chase uses negative for debits
+          const signed = parseFloat(raw) || 0;
+          type = signed >= 0 ? 'credit' : 'debit';
+        } else if(iDebit !== -1 || iCredit !== -1) {
+          // Separate debit/credit columns (Capital One, Citi style)
+          const dAmt = parseFloat((row[iDebit] || '0').replace(/[$,\s]/g,'')) || 0;
+          const cAmt = parseFloat((row[iCredit] || '0').replace(/[$,\s]/g,'')) || 0;
+          if(dAmt > 0) { amount = dAmt; type = 'debit'; }
+          else if(cAmt > 0) { amount = cAmt; type = 'credit'; }
+          else { skipped++; return; }
+        }
+
+        if(amount <= 0) { skipped++; return; }
+
+        // Override type if explicit type column present
+        if(iType !== -1 && row[iType]) {
+          const t = (row[iType] || '').toLowerCase();
+          if(t.includes('credit') || t.includes('deposit') || t.includes('payment')) type = 'credit';
+          if(t.includes('debit') || t.includes('purchase') || t.includes('withdrawal')) type = 'debit';
+        }
+
+        // Deduplicate
+        const key = date + '|' + desc + '|' + amount;
+        if(existing.has(key)) { skipped++; return; }
+        existing.add(key);
+
+        // Auto-categorize
+        const category = guessCategory(desc);
+
+        DB.transactions.unshift({ id: Date.now() + Math.random(), date, desc, type, amount, category, cleared: false });
+        imported++;
+      });
+
+      save();
+      renderTransactions();
+      updateCheckbook();
+      const msg = `✅ Imported ${imported} transaction${imported!==1?'s':''}` + (skipped > 0 ? ` · ${skipped} skipped (duplicates or blank rows)` : '');
+      showImportMsg('success', msg);
+    } catch(err) {
+      showImportMsg('danger', 'Error reading file: ' + err.message);
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function parseCSVText(text) {
+  const rows = [];
+  const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  for(const line of lines) {
+    if(!line.trim()) continue;
+    const row = [], re = /("([^"]*(?:""[^"]*)*)"|([^,]*))(,|$)/g;
+    let m;
+    while((m = re.exec(line)) !== null) {
+      row.push(m[2] !== undefined ? m[2].replace(/""/g,'"') : (m[3] || ''));
+      if(m[4] === '') break;
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+
+function normalizeDate(raw) {
+  raw = raw.trim().replace(/['"]/g,'');
+  // Already YYYY-MM-DD
+  if(/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+  // MM/DD/YYYY or MM-DD-YYYY
+  const m1 = raw.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+  if(m1) return `${m1[3]}-${m1[1].padStart(2,'0')}-${m1[2].padStart(2,'0')}`;
+  // M/D/YY
+  const m2 = raw.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})$/);
+  if(m2) return `20${m2[3]}-${m2[1].padStart(2,'0')}-${m2[2].padStart(2,'0')}`;
+  return null;
+}
+
+function guessCategory(desc) {
+  const d = desc.toLowerCase();
+  if(/grocery|kroger|safeway|publix|aldi|trader joe|whole food|food lion|sprouts|market|supermarket/.test(d)) return 'Groceries';
+  if(/restaurant|mcdonald|burger|pizza|taco|chick.fil|subway|starbucks|dunkin|doordash|uber eat|grubhub|chipotle|wendy|kfc|panda/.test(d)) return 'Dining Out';
+  if(/gas|shell|chevron|bp |exxon|mobil|arco|speedway|circle k|pilot|love's|fuel/.test(d)) return 'Gas / Transport';
+  if(/uber|lyft|transit|mta |bart |metro |parking|toll/.test(d)) return 'Gas / Transport';
+  if(/electric|water |sewage|pg&e|xcel|duke energy|con ed|atmos|gas company|utility/.test(d)) return 'Utilities';
+  if(/netflix|hulu|spotify|disney|amazon prime|apple music|hbo|peacock|paramount|youtube|subscription/.test(d)) return 'Entertainment';
+  if(/amazon|walmart|target|costco|ebay|etsy|best buy|home depot|lowes|kohls|macys|nordstrom|tj maxx/.test(d)) return 'Shopping';
+  if(/cvs|walgreen|rite aid|pharmacy|medical|doctor|dental|hospital|urgent care|clinic|health/.test(d)) return 'Medical';
+  if(/payroll|direct deposit|salary|paycheck|transfer in|deposit/.test(d)) return 'Income / Paycheck';
+  if(/transfer|zelle|venmo|paypal|cashapp|wire/.test(d)) return 'Transfer';
+  if(/at&t|verizon|t-mobile|sprint|comcast|xfinity|spectrum|cox|internet|phone/.test(d)) return 'Utilities';
+  return 'Other';
+}
+
+function showImportMsg(type, msg) {
+  const el = document.getElementById('csv-import-result');
+  el.style.display = 'block';
+  el.className = 'alert alert-' + type;
+  el.innerHTML = msg;
+  if(type === 'success') setTimeout(() => { el.style.display='none'; }, 6000);
+}
+
+function exportCSV() {
+  const headers = ['Date','Description','Category','Type','Amount'];
+  const rows = DB.transactions.map(t => [t.date, t.desc, t.category, t.type, t.amount].join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'transactions.csv';
+  a.click();
+}
+
+// ============================================================
+// CALCULATORS
+// ============================================================
+function calcCompound() {
+  const P = parseFloat(document.getElementById('ci-principal').value)||0;
+  const r = (parseFloat(document.getElementById('ci-rate').value)||0)/100/12;
+  const n = (parseInt(document.getElementById('ci-years').value)||0)*12;
+  const m = parseFloat(document.getElementById('ci-monthly').value)||0;
+  const contributed = m * n;
+  let total = P * Math.pow(1+r,n);
+  if(r > 0) total += m * ((Math.pow(1+r,n)-1)/r);
+  else total += contributed;
+  const interest = total - P - contributed;
+  setText('ci-start-out', '$'+fmtDec(P));
+  setText('ci-contrib-out', '$'+fmtDec(contributed));
+  setText('ci-interest-out', '$'+fmtDec(Math.max(0,interest)));
+  setText('ci-total-out', '$'+fmtDec(total));
+}
+
+function calcLoan() {
+  const P = parseFloat(document.getElementById('loan-amount').value)||0;
+  const r = (parseFloat(document.getElementById('loan-rate').value)||0)/100/12;
+  const n = (parseInt(document.getElementById('loan-years').value)||0)*12;
+  if(P<=0||n<=0) return;
+  let monthly;
+  if(r===0) monthly = P/n;
+  else monthly = P*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+  const total = monthly*n;
+  const interest = total-P;
+  setText('loan-monthly-out', '$'+fmtDec(monthly));
+  setText('loan-total-out', '$'+fmtDec(total));
+  setText('loan-interest-out', '$'+fmtDec(interest));
+}
+
+function calcSavingsGoal() {
+  const target = parseFloat(document.getElementById('sg-target').value)||0;
+  const current = parseFloat(document.getElementById('sg-current').value)||0;
+  const monthly = parseFloat(document.getElementById('sg-monthly').value)||0;
+  const rate = (parseFloat(document.getElementById('sg-rate').value)||0)/100/12;
+  if(monthly<=0||target<=current) { setText('sg-months-out','N/A'); setText('sg-date-out','N/A'); return; }
+  let bal = current, months = 0;
+  while(bal < target && months < 1200) {
+    bal = bal*(1+rate) + monthly;
+    months++;
+  }
+  const d = new Date(); d.setMonth(d.getMonth()+months);
+  setText('sg-months-out', months + ' months');
+  setText('sg-date-out', d.toLocaleDateString('en-US',{month:'long',year:'numeric'}));
+}
+
+function bracketTax(taxable, status) {
+  const brackets = status === 'married'
+    ? [[0,0.10],[23850,0.12],[96950,0.22],[206700,0.24],[394600,0.32],[501050,0.35],[751600,0.37]]
+    : [[0,0.10],[11925,0.12],[48475,0.22],[103350,0.24],[197300,0.32],[250525,0.35],[626350,0.37]];
+  let tax = 0;
+  for(let i = 0; i < brackets.length; i++) {
+    const upper = brackets[i+1] ? brackets[i+1][0] : Infinity;
+    if(taxable > brackets[i][0]) tax += (Math.min(taxable, upper) - brackets[i][0]) * brackets[i][1];
+  }
+  return tax;
+}
+
+// All 50 states. system: 'none' = no income tax, 'flat' = exact flat rate,
+// 'graduated' = top marginal rate used as a conservative planning estimate.
+// California is calculated with its exact brackets (caBracketTax below).
+const STATE_TAX = [
+  { state: 'Alabama', system: 'graduated', rate: 0.05 },
+  { state: 'Alaska', system: 'none', rate: 0 },
+  { state: 'Arizona', system: 'flat', rate: 0.025 },
+  { state: 'Arkansas', system: 'graduated', rate: 0.039 },
+  { state: 'California', system: 'brackets', rate: 0.133 },
+  { state: 'Colorado', system: 'flat', rate: 0.044 },
+  { state: 'Connecticut', system: 'graduated', rate: 0.0699 },
+  { state: 'Delaware', system: 'graduated', rate: 0.066 },
+  { state: 'Florida', system: 'none', rate: 0 },
+  { state: 'Georgia', system: 'flat', rate: 0.0549 },
+  { state: 'Hawaii', system: 'graduated', rate: 0.11 },
+  { state: 'Idaho', system: 'flat', rate: 0.058 },
+  { state: 'Illinois', system: 'flat', rate: 0.0495 },
+  { state: 'Indiana', system: 'flat', rate: 0.0305, note: 'Local county income taxes also apply.' },
+  { state: 'Iowa', system: 'flat', rate: 0.038 },
+  { state: 'Kansas', system: 'graduated', rate: 0.057 },
+  { state: 'Kentucky', system: 'flat', rate: 0.04 },
+  { state: 'Louisiana', system: 'graduated', rate: 0.0425 },
+  { state: 'Maine', system: 'graduated', rate: 0.0715 },
+  { state: 'Maryland', system: 'graduated', rate: 0.0575, note: 'County income taxes also apply.' },
+  { state: 'Massachusetts', system: 'flat', rate: 0.05, note: 'Extra 4% surtax on income over $1M.' },
+  { state: 'Michigan', system: 'flat', rate: 0.0425, note: 'Some cities levy local income tax.' },
+  { state: 'Minnesota', system: 'graduated', rate: 0.0985 },
+  { state: 'Mississippi', system: 'flat', rate: 0.047 },
+  { state: 'Missouri', system: 'graduated', rate: 0.048 },
+  { state: 'Montana', system: 'graduated', rate: 0.059 },
+  { state: 'Nebraska', system: 'graduated', rate: 0.0584 },
+  { state: 'Nevada', system: 'none', rate: 0 },
+  { state: 'New Hampshire', system: 'none', rate: 0 },
+  { state: 'New Jersey', system: 'graduated', rate: 0.1075 },
+  { state: 'New Mexico', system: 'graduated', rate: 0.059 },
+  { state: 'New York', system: 'graduated', rate: 0.109, note: 'NYC adds its own income tax.' },
+  { state: 'North Carolina', system: 'flat', rate: 0.045 },
+  { state: 'North Dakota', system: 'graduated', rate: 0.025 },
+  { state: 'Ohio', system: 'graduated', rate: 0.035, note: 'Local income taxes are common.' },
+  { state: 'Oklahoma', system: 'graduated', rate: 0.0475 },
+  { state: 'Oregon', system: 'graduated', rate: 0.099 },
+  { state: 'Pennsylvania', system: 'flat', rate: 0.0307, note: 'Many local earned income taxes.' },
+  { state: 'Rhode Island', system: 'graduated', rate: 0.0599 },
+  { state: 'South Carolina', system: 'graduated', rate: 0.064 },
+  { state: 'South Dakota', system: 'none', rate: 0 },
+  { state: 'Tennessee', system: 'none', rate: 0 },
+  { state: 'Texas', system: 'none', rate: 0 },
+  { state: 'Utah', system: 'flat', rate: 0.0465 },
+  { state: 'Vermont', system: 'graduated', rate: 0.0875 },
+  { state: 'Virginia', system: 'graduated', rate: 0.0575 },
+  { state: 'Washington', system: 'none', rate: 0 },
+  { state: 'West Virginia', system: 'graduated', rate: 0.0512 },
+  { state: 'Wisconsin', system: 'graduated', rate: 0.0765 },
+  { state: 'Wyoming', system: 'none', rate: 0 }
+];
+
+function populateStateDropdown() {
+  const sel = document.getElementById('qt-state-sel');
+  if(!sel) return;
+  sel.innerHTML = STATE_TAX.map(s => {
+    let label;
+    if(s.system === 'none') label = s.state + ' (no income tax 🎉)';
+    else if(s.system === 'flat') label = s.state + ' (' + (s.rate*100).toFixed(2).replace(/\.?0+$/,'') + '% flat)';
+    else if(s.system === 'brackets') label = s.state + ' (exact bracket calculation)';
+    else label = s.state + ' (up to ' + (s.rate*100).toFixed(2).replace(/\.?0+$/,'') + '%)';
+    return `<option value="${s.state}"${s.state === 'California' ? ' selected' : ''}>${label}</option>`;
+  }).join('') + '<option value="other">Other / DC (enter rate)</option>';
+}
+
+function caBracketTax(taxable, status) {
+  const brackets = status === 'married'
+    ? [[0,0.01],[20824,0.02],[49368,0.04],[77918,0.06],[108162,0.08],[136700,0.093],[698274,0.103],[837922,0.113],[1396542,0.123]]
+    : [[0,0.01],[10412,0.02],[24684,0.04],[38959,0.06],[54081,0.08],[68350,0.093],[349137,0.103],[418961,0.113],[698271,0.123]];
+  let tax = 0;
+  for(let i = 0; i < brackets.length; i++) {
+    const upper = brackets[i+1] ? brackets[i+1][0] : Infinity;
+    if(taxable > brackets[i][0]) tax += (Math.min(taxable, upper) - brackets[i][0]) * brackets[i][1];
+  }
+  if(taxable > 1000000) tax += (taxable - 1000000) * 0.01;
+  return tax;
+}
+
+function qtStateChange() {
+  const sel = document.getElementById('qt-state-sel');
+  document.getElementById('qt-state').style.display = sel.value === 'other' ? 'block' : 'none';
+  const info = STATE_TAX.find(s => s.state === sel.value);
+  const noteEl = document.getElementById('qt-state-note');
+  if(noteEl) {
+    let note = '';
+    if(info && info.system === 'graduated') note = 'Uses ' + sel.value + '\'s top marginal rate as a safe planning estimate.';
+    if(info && info.note) note += (note ? ' ' : '') + info.note;
+    noteEl.textContent = note;
+  }
+  calcQuarterly();
+}
+
+function calcQuarterly() {
+  const profit = parseFloat(document.getElementById('qt-profit').value) || 0;
+  const wages = parseFloat(document.getElementById('qt-wages').value) || 0;
+  const status = document.getElementById('qt-status').value;
+  const sel = document.getElementById('qt-state-sel');
+  const stInfo = STATE_TAX.find(s => s.state === sel.value);
+  const isCA = sel.value === 'California';
+  let stateRate = 0;
+  if(sel.value === 'other') stateRate = parseFloat(document.getElementById('qt-state').value) || 0;
+  else if(stInfo && !isCA) stateRate = stInfo.rate * 100;
+  const out = document.getElementById('qt-results');
+  if(profit <= 0) {
+    out.innerHTML = '<div style="font-size:13px;color:#6b6480;">Enter your expected profit to see your estimate.</div>';
+    return;
+  }
+  const stdDeduction = status === 'married' ? 30000 : 15000;
+  const seTax = profit * 0.9235 * 0.153;
+  const taxableWithout = Math.max(0, wages - stdDeduction);
+  const taxableWith = Math.max(0, wages + profit - seTax/2 - stdDeduction);
+  const fedTax = Math.max(0, bracketTax(taxableWith, status) - bracketTax(taxableWithout, status));
+  let stateTax;
+  if(isCA) {
+    const caStd = status === 'married' ? 11080 : 5540;
+    const caWithout = Math.max(0, wages - caStd);
+    const caWith = Math.max(0, wages + profit - caStd);
+    stateTax = Math.max(0, caBracketTax(caWith, status) - caBracketTax(caWithout, status));
+  } else {
+    stateTax = profit * stateRate / 100;
+  }
+  const total = seTax + fedTax + stateTax;
+  const pctOfProfit = Math.round(total / profit * 100);
+  const quarterly = total / 4;
+  const monthly = total / 12;
+  out.innerHTML = `
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span style="color:#6b6480;">Self-employment tax (15.3%):</span><span style="font-weight:600;">$${fmt(seTax)}</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span style="color:#6b6480;">Federal income tax on profit:</span><span style="font-weight:600;">$${fmt(fedTax)}</span></div>
+    ${stateTax > 0 ? `<div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span style="color:#6b6480;">State income tax${isCA ? ' (CA brackets)' : ''}:</span><span style="font-weight:600;">$${fmt(stateTax)}</span></div>` : ''}
+    <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700;border-top:1px solid #2e1f4a;padding-top:8px;margin-bottom:10px;"><span>Estimated total for the year:</span><span style="color:#e8d87a;">$${fmt(total)}</span></div>
+    <div style="background:#0d0a12;border-radius:8px;padding:12px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:4px;"><span style="color:#b8b4c8;">Pay each quarter:</span><span style="color:#e8d87a;">$${fmt(quarterly)}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#6b6480;">Or set aside monthly:</span><span style="color:#b8b4c8;font-weight:600;">$${fmt(monthly)}/mo</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#6b6480;">That's about:</span><span style="color:#b8b4c8;font-weight:600;">${pctOfProfit}% of every payment you receive</span></div>
+    </div>
+    <div style="font-size:11px;color:#6b6480;">Deadlines: <strong style="color:#b8b4c8;">Apr 15 · Jun 15 · Sep 15 · Jan 15</strong>. Pay online at irs.gov/payments.</div>
+  `;
+}
+
+function calcEmergencyFund() {
+  const monthly = parseFloat(document.getElementById('ef-monthly').value)||0;
+  const months = parseInt(document.getElementById('ef-months').value)||6;
+  const saved = parseFloat(document.getElementById('ef-saved').value)||0;
+  const target = monthly * months;
+  const need = Math.max(0, target - saved);
+  const pct = target>0?Math.min(100,Math.round(saved/target*100)):0;
+  setText('ef-target-out', '$'+fmtDec(target));
+  setText('ef-need-out', '$'+fmtDec(need));
+  document.getElementById('ef-bar').style.width = pct+'%';
+  setText('ef-pct-out', pct+'% funded');
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function fmt(n) { return Math.round(parseFloat(n)||0).toLocaleString(); }
+function fmtDec(n) { return (parseFloat(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function setText(id, html) { const el=document.getElementById(id); if(el) el.innerHTML=html; }
+
+// ============================================================
+// INIT
+// ============================================================
+load();
+
+// Set today's date in header
+document.getElementById('header-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+
+// Default transaction date to today
+document.getElementById('txn-date').valueAsDate = new Date();
+
+// Load defaults if first time
+if(DB.budget.categories.length === 0) { DB.budget.categories = DEFAULT_CATEGORIES.map(c=>({...c,id:Date.now()+Math.random()})); save(); }
+
+// Initial renders
+renderBudget();
+renderDashboard();
+renderDebt();
+renderSavings();
+renderNetWorth();
+renderBills();
+renderTransactions();
+renderChecklist();
+populateStateDropdown();
+qtStateChange();
+calcCompound();
+calcLoan();
+calcSavingsGoal();
+calcEmergencyFund();
+</script>
+</body>
+</html>
