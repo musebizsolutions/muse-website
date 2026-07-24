@@ -262,14 +262,14 @@ section{padding:6rem 2rem;content-visibility:auto;contain-intrinsic-size:0 600px
 .qb-rating-copy{color:var(--muted);font-size:0.88rem}
 .qb-rating-strip a{color:var(--gold);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:color 0.2s,border-color 0.2s;white-space:nowrap}
 .qb-rating-strip a:hover{color:var(--canary);border-color:var(--canary)}
-.qb-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-.qb-review-card{background:var(--surface);border:0.5px solid var(--border);padding:2.25rem;display:flex;flex-direction:column}
+.qb-review-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem}
+.qb-review-card{background:var(--surface);border:0.5px solid var(--border);padding:2.25rem;display:flex;flex-direction:column;flex:0 1 calc(33.333% - 1.334rem)}
 .qb-review-card .stars{color:#ffc93c;font-size:0.95rem;letter-spacing:0.25em;margin-bottom:1.1rem;display:block}
 .qb-review-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text);line-height:1.35;margin-bottom:0.85rem}
 .qb-review-text{color:var(--muted);font-size:0.9rem;line-height:1.8;margin-bottom:1.5rem;flex-grow:1}
 .qb-review-meta{font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--faint)}
-@media(max-width:900px){.qb-review-grid{grid-template-columns:1fr 1fr;gap:1.5rem}}
-@media(max-width:600px){.qb-review-grid{grid-template-columns:1fr;gap:1.5rem}.qb-rating-strip{gap:0.75rem}.qb-review-card{padding:1.75rem}}
+@media(max-width:900px){.qb-review-grid{gap:1.5rem}.qb-review-card{flex-basis:calc(50% - 0.75rem)}}
+@media(max-width:600px){.qb-review-grid{gap:1.5rem}.qb-review-card{flex-basis:100%;padding:1.75rem}.qb-rating-strip{gap:0.75rem}}
 
 /* CONTACT */
 .contact{background:var(--ink)}
